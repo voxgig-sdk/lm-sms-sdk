@@ -1,0 +1,63 @@
+# BasicScheduleFlow
+
+main: kit: flow: BasicScheduleFlow:
+{
+  entity: "schedule",
+  kind: "basic",
+  name: "BasicScheduleFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "schedule_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "schedule_ref01",
+        srcdatavar: "schedule_ref01_data",
+        suffix: "_up0",
+        textfield: "message_id"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-schedule_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "schedule_ref01",
+        srcdatavar: "schedule_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "schedule01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-schedule_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicScheduleFlow"
+}

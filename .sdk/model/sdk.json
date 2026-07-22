@@ -1,0 +1,911 @@
+{
+  "def": "sms-openapi.json",
+  "main": {
+    "def": {
+      "desc": ""
+    },
+    "kit": {
+      "config": {
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ],
+        "headers": {
+          "content-type": "application/json"
+        }
+      },
+      "entity": {
+        "schedule": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "message_id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "recipient",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "scheduled_at_date",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "send_at_date",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "tag",
+              "req": false,
+              "type": "`$STRING`"
+            }
+          ],
+          "name": "schedule",
+          "op": {
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "end",
+                        "orig": "end",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": 1,
+                        "kind": "query",
+                        "name": "page",
+                        "orig": "page",
+                        "reqd": false,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "example": 25,
+                        "kind": "query",
+                        "name": "size",
+                        "orig": "size",
+                        "reqd": false,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "sort",
+                        "orig": "sort",
+                        "reqd": false,
+                        "type": "`$ARRAY`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "start",
+                        "orig": "start",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "tag",
+                        "orig": "tag",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/sms/v1/schedules",
+                  "parts": [
+                    "sms",
+                    "v1",
+                    "schedules"
+                  ],
+                  "select": {
+                    "exist": [
+                      "end",
+                      "page",
+                      "size",
+                      "sort",
+                      "start",
+                      "tag"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "message_id",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/sms/v1/schedules/{messageId}",
+                  "parts": [
+                    "sms",
+                    "v1",
+                    "schedules",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "messageId": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "remove": {
+              "input": "data",
+              "name": "remove",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "message_id",
+                        "orig": "message_id",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "tag",
+                        "orig": "tag",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "DELETE",
+                  "orig": "/sms/v1/schedules",
+                  "parts": [
+                    "sms",
+                    "v1",
+                    "schedules"
+                  ],
+                  "select": {
+                    "exist": [
+                      "message_id",
+                      "tag"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "update": {
+              "input": "data",
+              "name": "update",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "message_id",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "PATCH",
+                  "orig": "/sms/v1/schedules/{messageId}",
+                  "parts": [
+                    "sms",
+                    "v1",
+                    "schedules",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "messageId": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "send_message": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [],
+          "name": "send_message",
+          "op": {
+            "create": {
+              "input": "data",
+              "name": "create",
+              "points": [
+                {
+                  "active": true,
+                  "args": {},
+                  "method": "POST",
+                  "orig": "/sms/v1",
+                  "parts": [
+                    "sms",
+                    "v1"
+                  ],
+                  "select": {},
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "active": true,
+                  "args": {},
+                  "method": "POST",
+                  "orig": "/sms/v1/messages",
+                  "parts": [
+                    "sms",
+                    "v1",
+                    "messages"
+                  ],
+                  "select": {},
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": []
+          }
+        }
+      },
+      "feature": {
+        "test": {
+          "active": true,
+          "config": {
+            "options": {
+              "active": false
+            }
+          },
+          "hook": {
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": true,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": true,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true,
+              "await": false
+            }
+          },
+          "name": "test",
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "In-memory mock transport for testing without a live server",
+          "version": "0.0.1"
+        }
+      },
+      "flow": {
+        "BasicScheduleFlow": {
+          "active": true,
+          "entity": "schedule",
+          "key$": "BasicScheduleFlow",
+          "kind": "basic",
+          "name": "BasicScheduleFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {},
+              "op": "list",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "schedule_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "schedule_ref01",
+                "srcdatavar": "schedule_ref01_data",
+                "suffix": "_up0",
+                "textfield": "message_id"
+              },
+              "match": {},
+              "op": "update",
+              "spec": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-schedule_ref01"
+                  }
+                }
+              ],
+              "valid": []
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "schedule_ref01",
+                "srcdatavar": "schedule_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "schedule01"
+              },
+              "op": "load",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-schedule_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicSendMessageFlow": {
+          "active": true,
+          "entity": "send_message",
+          "key$": "BasicSendMessageFlow",
+          "kind": "basic",
+          "name": "BasicSendMessageFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "send_message_ref01"
+              },
+              "match": {},
+              "op": "create",
+              "spec": [],
+              "valid": []
+            }
+          ]
+        }
+      },
+      "info": {
+        "description": "<div><h2>Purpose and functionality</h2><p>MyLINK SMS API is a REST API supporting the needs for sending and receiving SMS to the recipients you want to reach, either if it is for time critical SMS or high load purposes. </p><p>MyLINK SMS API is LINK Mobility’s new flagship SMS product, and is a part of our CPaaS offering.</p><h2>Current supported functionality</h2><ul style=\"list-style:disc inside;\">  <li><a href=\"#tag/Send-Messages/paths/~1sms~1v1~1messages/post\">Send SMS (Mobile Terminated)</a><ul style=\"list-style:circle;\"><li>Send single message</li><li>Batch Sending MT Messages</li></ul> </li><li><a href=\"#tag/SmsScheduling\">Scheduling sendings</a></li>  <li><a href=\"#tag/Receive-Messages/operation/MobileOriginated\">Receive SMS (Mobile Originated)</a></li>  <li><a href=\"#tag/Receive-Messages/operation/Delivery%20Report\">Delivery Reports</a></li>  <li>Message Obfuscation</li>  <li>Portal access for statistics and product administration</li></ul><h2>Getting started</h2><ul style=\"list-style:disc inside;\" >  <li>Get in touch with us to get a demo or sign up for the product: <a href=\"https://www.linkmobility.com/contact-us\">Click here</a></li>  <li>Accept your invitation to the MyLINK portal to generate your API secrets  </li>  <li>Revisit the developer portal for how to send an SMS </li></ul><div>",
+        "security": {
+          "in": "header",
+          "name": "Authorization",
+          "prefix": "Bearer",
+          "scheme": "Bearer",
+          "type": "oauth2"
+        },
+        "servers": [
+          {
+            "url": "https://api.linkmobility.com"
+          }
+        ],
+        "summary": "<div><h2>Purpose and functionality</h2><p>MyLINK SMS API is a REST API supporting the needs for sending and receiving SMS to the recipients you want to reach, either if it is for time critical SMS or high load purposes.",
+        "title": "MyLINK SMS API",
+        "version": "v1",
+        "website": "https://linkmobility.com"
+      },
+      "option": {},
+      "target": {
+        "go": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "lm-sms"
+          },
+          "name": "go",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "Golang"
+        },
+        "go-cli": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "lm-sms"
+          },
+          "name": "go-cli",
+          "phase": {
+            "agentguide": {
+              "active": false
+            },
+            "entity": {
+              "active": false
+            },
+            "feature": {
+              "active": false
+            },
+            "readme": {
+              "active": false
+            },
+            "test": {
+              "active": false
+            }
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "root"
+            }
+          },
+          "title": "Go CLI"
+        },
+        "go-mcp": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "lm-sms"
+          },
+          "name": "go-mcp",
+          "phase": {
+            "agentguide": {
+              "active": false
+            },
+            "entity": {
+              "active": false
+            },
+            "feature": {
+              "active": false
+            },
+            "readme": {
+              "active": false
+            },
+            "test": {
+              "active": false
+            }
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "root"
+            }
+          },
+          "title": "Go MCP server"
+        },
+        "lua": {
+          "active": true,
+          "comment": {
+            "line": "--"
+          },
+          "deps": {
+            "dkjson": {
+              "active": true,
+              "kind": "prod",
+              "version": "2.5"
+            }
+          },
+          "ext": "lua",
+          "module": {
+            "name": "lm-sms"
+          },
+          "name": "lua",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "luarocks",
+              "package": "",
+              "state": "pending",
+              "url": "https://luarocks.org",
+              "vault": {
+                "alias": "luarocks",
+                "env": "LUAROCKS_API_KEY",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "Lua"
+        },
+        "php": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "php",
+          "module": {
+            "name": "lm-sms"
+          },
+          "name": "php",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "packagist",
+              "package": "",
+              "state": "pending",
+              "url": "https://packagist.org",
+              "vault": {
+                "alias": "packagist",
+                "env": "PACKAGIST_API_TOKEN",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "PHP"
+        },
+        "py": {
+          "active": true,
+          "comment": {
+            "line": "#"
+          },
+          "deps": {
+            "requests": {
+              "active": true,
+              "kind": "prod",
+              "version": "2.33"
+            }
+          },
+          "ext": "py",
+          "module": {
+            "name": "lm-sms"
+          },
+          "name": "py",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "pypi",
+              "package": "",
+              "state": "pending",
+              "url": "https://pypi.org",
+              "vault": {
+                "alias": "pypi",
+                "env": "",
+                "recipe": "pypi"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "Python"
+        },
+        "rb": {
+          "active": true,
+          "comment": {
+            "line": "#"
+          },
+          "deps": {
+            "json": {
+              "active": true,
+              "kind": "prod",
+              "version": "0"
+            },
+            "voxgig-struct": {
+              "active": true,
+              "kind": "prod",
+              "version": "0.0.10"
+            }
+          },
+          "ext": "rb",
+          "module": {
+            "name": "lm-sms"
+          },
+          "name": "rb",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "rubygems",
+              "package": "",
+              "state": "pending",
+              "url": "https://rubygems.org",
+              "vault": {
+                "alias": "gem",
+                "env": "",
+                "recipe": "gem"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "Ruby"
+        },
+        "ts": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {
+            "@types/node": {
+              "active": true,
+              "kind": "dev",
+              "version": "^25.6.0"
+            },
+            "dotenv": {
+              "active": true,
+              "kind": "dev",
+              "version": "^17.4.2"
+            },
+            "typescript": {
+              "active": true,
+              "kind": "dev",
+              "version": "^5.9.3"
+            }
+          },
+          "ext": "ts",
+          "module": {
+            "name": "lm-sms"
+          },
+          "name": "ts",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "npm",
+              "package": "",
+              "state": "pending",
+              "url": "https://registry.npmjs.org",
+              "vault": {
+                "alias": "npm",
+                "env": "",
+                "recipe": "npm"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "title": "TypeScript"
+        }
+      }
+    }
+  },
+  "name": "lm-sms",
+  "origin": "voxgig-sdk"
+}

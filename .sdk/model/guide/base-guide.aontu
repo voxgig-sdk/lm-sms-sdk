@@ -1,0 +1,29 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 2
+  metrics: count: path: 4
+  metrics: count: method: 6
+
+  entity: schedule: {
+    path: "/sms/v1/schedules": {
+      op: list: method: *GET
+      op: remove: method: *DELETE
+    }
+    path: "/sms/v1/schedules/{messageId}": {
+      rename: param: "messageId": *"id"
+      op: load: method: *GET
+      op: patch: method: *PATCH
+    }
+  }
+
+  entity: send_message: {
+    path: "/sms/v1": {
+      op: create: method: *POST
+    }
+    path: "/sms/v1/messages": {
+      op: create: method: *POST
+    }
+  }
+
+}

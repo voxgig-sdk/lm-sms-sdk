@@ -1,0 +1,2112 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "MyLINK SMS API",
+        "version": "v1",
+        "description": "<div><h2>Purpose and functionality</h2><p>MyLINK SMS API is a REST API supporting the needs for sending and receiving SMS to the recipients you want to reach, either if it is for time critical SMS or high load purposes. </p><p>MyLINK SMS API is LINK Mobility’s new flagship SMS product, and is a part of our CPaaS offering.</p><h2>Current supported functionality</h2><ul style=\"list-style:disc inside;\">  <li><a href=\"#tag/Send-Messages/paths/~1sms~1v1~1messages/post\">Send SMS (Mobile Terminated)</a><ul style=\"list-style:circle;\"><li>Send single message</li><li>Batch Sending MT Messages</li></ul> </li><li><a href=\"#tag/SmsScheduling\">Scheduling sendings</a></li>  <li><a href=\"#tag/Receive-Messages/operation/MobileOriginated\">Receive SMS (Mobile Originated)</a></li>  <li><a href=\"#tag/Receive-Messages/operation/Delivery%20Report\">Delivery Reports</a></li>  <li>Message Obfuscation</li>  <li>Portal access for statistics and product administration</li></ul><h2>Getting started</h2><ul style=\"list-style:disc inside;\" >  <li>Get in touch with us to get a demo or sign up for the product: <a href=\"https://www.linkmobility.com/contact-us\">Click here</a></li>  <li>Accept your invitation to the MyLINK portal to generate your API secrets  </li>  <li>Revisit the developer portal for how to send an SMS </li></ul><div>"
+    },
+    "tags": [
+        {
+            "name": "Send Messages",
+            "description": "All available API endpoints."
+        },
+        {
+            "name": "SmsScheduling"
+        },
+        {
+            "name": "Receive Messages",
+            "description": "<p>To receive Delivery Reports (DLR) and Mobile Originated SMS (MO) successfully to your endpoint you need to open up for the following IPs:<ul style=\"list-style-type:disc\"><li>20.86.255.57</li><li>4.245.97.148</li><li>195.84.162.34</li><li>194.71.165.71</li><li>195.84.162.16</li><li>194.71.165.98</li><li>195.84.162.3</li><li>194.71.165.122</li><li>213.242.87.36</li><li>213.242.87.37</li><li>213.242.87.38</li><li>213.242.87.39</li><li>213.242.87.40</li><li>213.242.87.41</li><li>62.67.62.101</li><li>62.67.62.102</li><li>62.67.62.103</li><li>62.67.62.104</li><li>62.67.62.105</li><li>62.67.62.106</li><li>217.163.95.196</li><li>217.163.95.197</li><li>217.163.95.198</li><li>217.163.95.199</li><li>217.163.95.200</li><li>217.163.95.201</li></ul></p>"
+        }
+    ],
+    "x-tagGroups": [
+        {
+            "name": "MyLINK SMS API",
+            "tags": [
+                "Send Messages",
+                "SmsScheduling",
+                "Receive Messages"
+            ]
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://api.linkmobility.com"
+        }
+    ],
+    "paths": {
+        "/sms/v1/messages": {
+            "post": {
+                "tags": [
+                    "Send Messages"
+                ],
+                "summary": "/sms/v1/messages",
+                "description": "<div><p>The API allows you to batch up to a 1000 messages per request. When using batch sending you list all messages in an array. All parameters must be added per message in the batch sending.</p><p><div class=\"sc-iMTnTL fJRIzN\" onclick=\"showHide()\"><h5 class=\"sc-dAlyuH sc-hwdzOV hNlDMA hjazRA\">Example</h5><svg class=\"sc-cwHptR kNXOKB showHide\" version=\"1.1\" viewBox=\"0 0 24 24\" x=\"0\" xmlns=\"http://www.w3.org/2000/svg\" y=\"0\" aria-hidden=\"true\"><polygon points=\"17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 \"></polygon></svg></div><div class=\"hide\"><pre><code>[\n \t{\n\t\t\"recipient\": \"+4712345678\",\n\t\t\"content\": {\n\t\t\t\"text\": \"Hello world\",\n\t\t\t\"options\":{\n\t\t\t\t\"sms.encoding\":\"AutoDetect\",\n\t\t\t\t\"sms.sender\": \"LINK\",\n\t\t\t\t\"sms.obfuscate\": \"ContentAndRecipient\"\n\t\t\t}\n\t\t},\n\t\t\"callback\": {\n\t\t\t\"mode\": \"URL\",\n\t\t\t\"urls\": [\"URL\"]\n\t\t},\n\t\t\"referenceId\": \"ref1\"\n\t},\n \t{\n\t\t\"recipient\": \"+4787654321\",\n\t\t\"content\": {\n\t\t\t\"text\": \"Hello world 2\",\n\t\t\t\"options\":{\n\t\t\t\t\"sms.encoding\":\"AutoDetect\",\n\t\t\t\t\"sms.sender\": \"LINK\",\n\t\t\t\t\"sms.obfuscate\": \"ContentAndRecipient\"\n\t\t\t}\n\t\t},\n\t\t\"callback\": {\n\t\t\t\"mode\": \"URL\",\n\t\t\t\"urls\": [\"URL\"]\n\t\t},\n\t\t\"referenceId\": \"ref2\"\n\t}\n]</code></pre></div></p></div>",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/SmsMessageRequest"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageValidationErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageUnauthorizedErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "429": {
+                        "description": "Too Many Requests",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "502": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-codeSamples": [
+                    {
+                        "lang": "Python",
+                        "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.linkmobility.com\")\n\npayload = \"[{\\\"recipient\\\":\\\"string\\\",\\\"content\\\":{\\\"text\\\":\\\"string\\\",\\\"options\\\":{\\\"sms.encoding\\\":\\\"AutoDetect\\\",\\\"sms.sender\\\":\\\"string\\\",\\\"sms.obfuscate\\\":\\\"ContentAndRecipient\\\"}},\\\"expiration\\\":{\\\"relative\\\":1,\\\"absolute\\\":\\\"2019-08-24T14:15:22Z\\\"},\\\"callback\\\":{\\\"mode\\\":\\\"Profile\\\",\\\"urls\\\":[\\\"string\\\"],\\\"gateId\\\":\\\"string\\\",\\\"ttl\\\":28800000},\\\"referenceId\\\":\\\"string\\\",\\\"priority\\\":\\\"Normal\\\"}]\"\n\nheaders = {\n    'content-type': \"application/json\",\n    'Authorization': \"Bearer REPLACE_BEARER_TOKEN\"\n    }\n\nconn.request(\"POST\", \"/sms/v1/messages\", payload, headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))"
+                    },
+                    {
+                        "lang": "C#",
+                        "source": "var client = new HttpClient();\nvar request = new HttpRequestMessage\n{\n    Method = HttpMethod.Post,\n    RequestUri = new Uri(\"https://api.linkmobility.com/sms/v1/messages\"),\n    Headers =\n    {\n        { \"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\" },\n    },\n    Content = new StringContent(\"[{\\\"recipient\\\":\\\"string\\\",\\\"content\\\":{\\\"text\\\":\\\"string\\\",\\\"options\\\":{\\\"sms.encoding\\\":\\\"AutoDetect\\\",\\\"sms.sender\\\":\\\"string\\\",\\\"sms.obfuscate\\\":\\\"ContentAndRecipient\\\"}},\\\"expiration\\\":{\\\"relative\\\":1,\\\"absolute\\\":\\\"2019-08-24T14:15:22Z\\\"},\\\"callback\\\":{\\\"mode\\\":\\\"Profile\\\",\\\"urls\\\":[\\\"string\\\"],\\\"gateId\\\":\\\"string\\\",\\\"ttl\\\":28800000},\\\"referenceId\\\":\\\"string\\\",\\\"priority\\\":\\\"Normal\\\"}]\")\n    {\n        Headers =\n        {\n            ContentType = new MediaTypeHeaderValue(\"application/json\")\n        }\n    }\n};\nusing (var response = await client.SendAsync(request))\n{\n    response.EnsureSuccessStatusCode();\n    var body = await response.Content.ReadAsStringAsync();\n    Console.WriteLine(body);\n}"
+                    },
+                    {
+                        "lang": "Java",
+                        "source": "HttpResponse<String>response = Unirest.post(\"https://api.linkmobility.com/sms/v1/messages\")\n  .header(\"content-type\", \"application/json\")\n  .header(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n  .body(\"[{\\\"recipient\\\":\\\"string\\\",\\\"content\\\":{\\\"text\\\":\\\"string\\\",\\\"options\\\":{\\\"sms.encoding\\\":\\\"AutoDetect\\\",\\\"sms.sender\\\":\\\"string\\\",\\\"sms.obfuscate\\\":\\\"ContentAndRecipient\\\"}},\\\"expiration\\\":{\\\"relative\\\":1,\\\"absolute\\\":\\\"2019-08-24T14:15:22Z\\\"},\\\"callback\\\":{\\\"mode\\\":\\\"Profile\\\",\\\"urls\\\":[\\\"string\\\"],\\\"gateId\\\":\\\"string\\\",\\\"ttl\\\":28800000},\\\"referenceId\\\":\\\"string\\\",\\\"priority\\\":\\\"Normal\\\"}]\")\n  .asString();"
+                    },
+                    {
+                        "lang": "Node.js",
+                        "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"POST\",\n  \"hostname\": \"api.linkmobility.com\",\n  \"port\": null,\n  \"path\": \"/sms/v1/messages\",\n  \"headers\": {\n    \"content-type\": \"application/json\",\n    \"Authorization\": \"Bearer REPLACE_BEARER_TOKEN\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(JSON.stringify([\n  {\n    recipient: 'string',\n    content: {\n      text: 'string',\n      options: {\n        'sms.encoding': 'AutoDetect',\n        'sms.sender': 'string',\n        'sms.obfuscate': 'ContentAndRecipient'\n      }\n    },\n    expiration: {relative: 1, absolute: '2019-08-24T14:15:22Z'},\n    callback: {mode: 'Profile', urls: ['string'], gateId: 'string', ttl: 28800000},\n    referenceId: 'string',\n    priority: 'Normal'\n  }\n]));\nreq.end();"
+                    },
+                    {
+                        "lang": "Curl",
+                        "source": "curl --request POST \\\n  --url https://api.linkmobility.com/sms/v1/messages \\\n  --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \\\n  --header 'content-type: application/json' \\\n  --data '[{\"recipient\":\"string\",\"content\":{\"text\":\"string\",\"options\":{\"sms.encoding\":\"AutoDetect\",\"sms.sender\":\"string\",\"sms.obfuscate\":\"ContentAndRecipient\"}},\"expiration\":{\"relative\":1,\"absolute\":\"2019-08-24T14:15:22Z\"},\"callback\":{\"mode\":\"Profile\",\"urls\":[\"string\"],\"gateId\":\"string\",\"ttl\":28800000},\"referenceId\":\"string\",\"priority\":\"Normal\"}]'"
+                    }
+                ]
+            }
+        },
+        "/sms/v1": {
+            "post": {
+                "tags": [
+                    "Send Messages"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/SmsMessageRequest"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageValidationErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageUnauthorizedErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "429": {
+                        "description": "Too Many Requests",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "502": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": true,
+                "x-codeSamples": [
+                    {
+                        "lang": "Python",
+                        "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.linkmobility.com\")\n\npayload = \"[{\\\"recipient\\\":\\\"string\\\",\\\"content\\\":{\\\"text\\\":\\\"string\\\",\\\"options\\\":{\\\"sms.encoding\\\":\\\"AutoDetect\\\",\\\"sms.sender\\\":\\\"string\\\",\\\"sms.obfuscate\\\":\\\"ContentAndRecipient\\\"}},\\\"schedule\\\":{\\\"relative\\\":1,\\\"absolute\\\":\\\"2019-08-24T14:15:22Z\\\",\\\"tag\\\":\\\"string\\\"},\\\"expiration\\\":{\\\"relative\\\":1,\\\"absolute\\\":\\\"2019-08-24T14:15:22Z\\\"},\\\"callback\\\":{\\\"mode\\\":\\\"Profile\\\",\\\"urls\\\":[\\\"string\\\"],\\\"gateId\\\":\\\"string\\\",\\\"ttl\\\":28800000},\\\"referenceId\\\":\\\"string\\\",\\\"priority\\\":\\\"Normal\\\"}]\"\n\nheaders = {\n    'content-type': \"application/json\",\n    'Authorization': \"Bearer REPLACE_BEARER_TOKEN\"\n    }\n\nconn.request(\"POST\", \"/sms/v1\", payload, headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))"
+                    },
+                    {
+                        "lang": "C#",
+                        "source": "var client = new RestClient(\"https://api.linkmobility.com/sms/v1\");\nvar request = new RestRequest(Method.POST);\nrequest.AddHeader(\"content-type\", \"application/json\");\nrequest.AddHeader(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\");\nrequest.AddParameter(\"application/json\", \"[{\\\"recipient\\\":\\\"string\\\",\\\"content\\\":{\\\"text\\\":\\\"string\\\",\\\"options\\\":{\\\"sms.encoding\\\":\\\"AutoDetect\\\",\\\"sms.sender\\\":\\\"string\\\",\\\"sms.obfuscate\\\":\\\"ContentAndRecipient\\\"}},\\\"schedule\\\":{\\\"relative\\\":1,\\\"absolute\\\":\\\"2019-08-24T14:15:22Z\\\",\\\"tag\\\":\\\"string\\\"},\\\"expiration\\\":{\\\"relative\\\":1,\\\"absolute\\\":\\\"2019-08-24T14:15:22Z\\\"},\\\"callback\\\":{\\\"mode\\\":\\\"Profile\\\",\\\"urls\\\":[\\\"string\\\"],\\\"gateId\\\":\\\"string\\\",\\\"ttl\\\":28800000},\\\"referenceId\\\":\\\"string\\\",\\\"priority\\\":\\\"Normal\\\"}]\", ParameterType.RequestBody);\nIRestResponse response = client.Execute(request);"
+                    },
+                    {
+                        "lang": "Java",
+                        "source": "HttpResponse<String> response = Unirest.post(\"https://api.linkmobility.com/sms/v1\")\n  .header(\"content-type\", \"application/json\")\n  .header(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n  .body(\"[{\\\"recipient\\\":\\\"string\\\",\\\"content\\\":{\\\"text\\\":\\\"string\\\",\\\"options\\\":{\\\"sms.encoding\\\":\\\"AutoDetect\\\",\\\"sms.sender\\\":\\\"string\\\",\\\"sms.obfuscate\\\":\\\"ContentAndRecipient\\\"}},\\\"schedule\\\":{\\\"relative\\\":1,\\\"absolute\\\":\\\"2019-08-24T14:15:22Z\\\",\\\"tag\\\":\\\"string\\\"},\\\"expiration\\\":{\\\"relative\\\":1,\\\"absolute\\\":\\\"2019-08-24T14:15:22Z\\\"},\\\"callback\\\":{\\\"mode\\\":\\\"Profile\\\",\\\"urls\\\":[\\\"string\\\"],\\\"gateId\\\":\\\"string\\\",\\\"ttl\\\":28800000},\\\"referenceId\\\":\\\"string\\\",\\\"priority\\\":\\\"Normal\\\"}]\")\n  .asString();"
+                    },
+                    {
+                        "lang": "Node.js",
+                        "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"POST\",\n  \"hostname\": \"api.linkmobility.com\",\n  \"port\": null,\n  \"path\": \"/sms/v1\",\n  \"headers\": {\n    \"content-type\": \"application/json\",\n    \"Authorization\": \"Bearer REPLACE_BEARER_TOKEN\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(JSON.stringify([\n  {\n    recipient: 'string',\n    content: {\n      text: 'string',\n      options: {\n        'sms.encoding': 'AutoDetect',\n        'sms.sender': 'string',\n        'sms.obfuscate': 'ContentAndRecipient'\n      }\n    },\n    schedule: {relative: 1, absolute: '2019-08-24T14:15:22Z', tag: 'string'},\n    expiration: {relative: 1, absolute: '2019-08-24T14:15:22Z'},\n    callback: {mode: 'Profile', urls: ['string'], gateId: 'string', ttl: 28800000},\n    referenceId: 'string',\n    priority: 'Normal'\n  }\n]));\nreq.end();"
+                    },
+                    {
+                        "lang": "Curl",
+                        "source": "curl --request POST \\\n  --url https://api.linkmobility.com/sms/v1 \\\n  --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \\\n  --header 'content-type: application/json' \\\n  --data '[{\"recipient\":\"string\",\"content\":{\"text\":\"string\",\"options\":{\"sms.encoding\":\"AutoDetect\",\"sms.sender\":\"string\",\"sms.obfuscate\":\"ContentAndRecipient\"}},\"schedule\":{\"relative\":1,\"absolute\":\"2019-08-24T14:15:22Z\",\"tag\":\"string\"},\"expiration\":{\"relative\":1,\"absolute\":\"2019-08-24T14:15:22Z\"},\"callback\":{\"mode\":\"Profile\",\"urls\":[\"string\"],\"gateId\":\"string\",\"ttl\":28800000},\"referenceId\":\"string\",\"priority\":\"Normal\"}]'"
+                    }
+                ]
+            }
+        },
+        "/sms/v1/schedules": {
+            "get": {
+                "tags": [
+                    "SmsScheduling"
+                ],
+                "summary": "Get a paginated list of scheduled messages",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "List of fields used to sort results",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Requested page",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "schema": {
+                            "maximum": 100,
+                            "minimum": 0,
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 25
+                        }
+                    },
+                    {
+                        "name": "tag",
+                        "in": "query",
+                        "description": "Return schedule sending related with the same tag",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Return sending with scheduled date after start date",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "end",
+                        "in": "query",
+                        "description": "Return sending with scheduled date before end date",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ScheduledSendingModel"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SmsMessageValidationErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "429": {
+                        "description": "Too Many Requests",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "502": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-codeSamples": [
+                    {
+                        "lang": "Python",
+                        "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.linkmobility.com\")\n\nheaders = { 'Authorization': \"Bearer REPLACE_BEARER_TOKEN\" }\n\nconn.request(\"GET\", \"/sms/v1/schedules?sort=SOME_ARRAY_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&tag=SOME_STRING_VALUE&start=SOME_STRING_VALUE&end=SOME_STRING_VALUE\", headers=headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))"
+                    },
+                    {
+                        "lang": "C#",
+                        "source": "var client = new RestClient(\"https://api.linkmobility.com/sms/v1/schedules?sort=SOME_ARRAY_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&tag=SOME_STRING_VALUE&start=SOME_STRING_VALUE&end=SOME_STRING_VALUE\");\nvar request = new RestRequest(Method.GET);\nrequest.AddHeader(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\");\nIRestResponse response = client.Execute(request);"
+                    },
+                    {
+                        "lang": "Java",
+                        "source": "HttpResponse<String> response = Unirest.get(\"https://api.linkmobility.com/sms/v1/schedules?sort=SOME_ARRAY_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&tag=SOME_STRING_VALUE&start=SOME_STRING_VALUE&end=SOME_STRING_VALUE\")\n  .header(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n  .asString();"
+                    },
+                    {
+                        "lang": "Node.js",
+                        "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"GET\",\n  \"hostname\": \"api.linkmobility.com\",\n  \"port\": null,\n  \"path\": \"/sms/v1/schedules?sort=SOME_ARRAY_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&tag=SOME_STRING_VALUE&start=SOME_STRING_VALUE&end=SOME_STRING_VALUE\",\n  \"headers\": {\n    \"Authorization\": \"Bearer REPLACE_BEARER_TOKEN\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.end();"
+                    },
+                    {
+                        "lang": "Curl",
+                        "source": "curl --request GET \\\n  --url 'https://api.linkmobility.com/sms/v1/schedules?sort=SOME_ARRAY_VALUE&page=SOME_INTEGER_VALUE&size=SOME_INTEGER_VALUE&tag=SOME_STRING_VALUE&start=SOME_STRING_VALUE&end=SOME_STRING_VALUE' \\\n  --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'"
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "SmsScheduling"
+                ],
+                "summary": "Delete a scheduled message by Tag or Message Id",
+                "parameters": [
+                    {
+                        "name": "messageId",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "tag",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "429": {
+                        "description": "Too Many Requests",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "502": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-codeSamples": [
+                    {
+                        "lang": "Python",
+                        "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.linkmobility.com\")\n\nheaders = { 'Authorization': \"Bearer REPLACE_BEARER_TOKEN\" }\n\nconn.request(\"DELETE\", \"/sms/v1/schedules?messageId=SOME_STRING_VALUE&tag=SOME_STRING_VALUE\", headers=headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))"
+                    },
+                    {
+                        "lang": "C#",
+                        "source": "var client = new RestClient(\"https://api.linkmobility.com/sms/v1/schedules?messageId=SOME_STRING_VALUE&tag=SOME_STRING_VALUE\");\nvar request = new RestRequest(Method.DELETE);\nrequest.AddHeader(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\");\nIRestResponse response = client.Execute(request);"
+                    },
+                    {
+                        "lang": "Java",
+                        "source": "HttpResponse<String> response = Unirest.delete(\"https://api.linkmobility.com/sms/v1/schedules?messageId=SOME_STRING_VALUE&tag=SOME_STRING_VALUE\")\n  .header(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n  .asString();"
+                    },
+                    {
+                        "lang": "Node.js",
+                        "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"DELETE\",\n  \"hostname\": \"api.linkmobility.com\",\n  \"port\": null,\n  \"path\": \"/sms/v1/schedules?messageId=SOME_STRING_VALUE&tag=SOME_STRING_VALUE\",\n  \"headers\": {\n    \"Authorization\": \"Bearer REPLACE_BEARER_TOKEN\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.end();"
+                    },
+                    {
+                        "lang": "Curl",
+                        "source": "curl --request DELETE \\\n  --url 'https://api.linkmobility.com/sms/v1/schedules?messageId=SOME_STRING_VALUE&tag=SOME_STRING_VALUE' \\\n  --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'"
+                    }
+                ]
+            }
+        },
+        "/sms/v1/schedules/{messageId}": {
+            "get": {
+                "tags": [
+                    "SmsScheduling"
+                ],
+                "summary": "Get a scheduled message by Message Id",
+                "parameters": [
+                    {
+                        "name": "messageId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "429": {
+                        "description": "Too Many Requests",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "502": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-codeSamples": [
+                    {
+                        "lang": "Python",
+                        "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.linkmobility.com\")\n\nheaders = { 'Authorization': \"Bearer REPLACE_BEARER_TOKEN\" }\n\nconn.request(\"GET\", \"/sms/v1/schedules/%7BmessageId%7D\", headers=headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))"
+                    },
+                    {
+                        "lang": "C#",
+                        "source": "var client = new RestClient(\"https://api.linkmobility.com/sms/v1/schedules/%7BmessageId%7D\");\nvar request = new RestRequest(Method.GET);\nrequest.AddHeader(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\");\nIRestResponse response = client.Execute(request);"
+                    },
+                    {
+                        "lang": "Java",
+                        "source": "HttpResponse<String> response = Unirest.get(\"https://api.linkmobility.com/sms/v1/schedules/%7BmessageId%7D\")\n  .header(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n  .asString();"
+                    },
+                    {
+                        "lang": "Node.js",
+                        "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"GET\",\n  \"hostname\": \"api.linkmobility.com\",\n  \"port\": null,\n  \"path\": \"/sms/v1/schedules/%7BmessageId%7D\",\n  \"headers\": {\n    \"Authorization\": \"Bearer REPLACE_BEARER_TOKEN\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.end();"
+                    },
+                    {
+                        "lang": "Curl",
+                        "source": "curl --request GET \\\n  --url https://api.linkmobility.com/sms/v1/schedules/%7BmessageId%7D \\\n  --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'"
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "SmsScheduling"
+                ],
+                "summary": "Update the scheduled sending date of a message",
+                "parameters": [
+                    {
+                        "name": "messageId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ScheduledSendingPatch"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "429": {
+                        "description": "Too Many Requests",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    },
+                    "502": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScheduledSendingError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-codeSamples": [
+                    {
+                        "lang": "Python",
+                        "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.linkmobility.com\")\n\npayload = \"{\\\"sendAtDate\\\":\\\"2019-08-24T14:15:22Z\\\"}\"\n\nheaders = {\n    'content-type': \"application/json\",\n    'Authorization': \"Bearer REPLACE_BEARER_TOKEN\"\n    }\n\nconn.request(\"PATCH\", \"/sms/v1/schedules/%7BmessageId%7D\", payload, headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))"
+                    },
+                    {
+                        "lang": "C#",
+                        "source": "var client = new RestClient(\"https://api.linkmobility.com/sms/v1/schedules/%7BmessageId%7D\");\nvar request = new RestRequest(Method.PATCH);\nrequest.AddHeader(\"content-type\", \"application/json\");\nrequest.AddHeader(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\");\nrequest.AddParameter(\"application/json\", \"{\\\"sendAtDate\\\":\\\"2019-08-24T14:15:22Z\\\"}\", ParameterType.RequestBody);\nIRestResponse response = client.Execute(request);"
+                    },
+                    {
+                        "lang": "Java",
+                        "source": "HttpResponse<String> response = Unirest.patch(\"https://api.linkmobility.com/sms/v1/schedules/%7BmessageId%7D\")\n  .header(\"content-type\", \"application/json\")\n  .header(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n  .body(\"{\\\"sendAtDate\\\":\\\"2019-08-24T14:15:22Z\\\"}\")\n  .asString();"
+                    },
+                    {
+                        "lang": "Node.js",
+                        "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"PATCH\",\n  \"hostname\": \"api.linkmobility.com\",\n  \"port\": null,\n  \"path\": \"/sms/v1/schedules/%7BmessageId%7D\",\n  \"headers\": {\n    \"content-type\": \"application/json\",\n    \"Authorization\": \"Bearer REPLACE_BEARER_TOKEN\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(JSON.stringify({sendAtDate: '2019-08-24T14:15:22Z'}));\nreq.end();"
+                    },
+                    {
+                        "lang": "Curl",
+                        "source": "curl --request PATCH \\\n  --url https://api.linkmobility.com/sms/v1/schedules/%7BmessageId%7D \\\n  --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \\\n  --header 'content-type: application/json' \\\n  --data '{\"sendAtDate\":\"2019-08-24T14:15:22Z\"}'"
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "DeliveryProvider": {
+                "type": "object",
+                "properties": {
+                    "timestamp": {
+                        "type": "string",
+                        "description": "Timestamp when event occurred in provider infrastructure",
+                        "format": "date-time"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Status code",
+                        "nullable": true
+                    },
+                    "details": {
+                        "type": "string",
+                        "description": "Status details",
+                        "nullable": true
+                    },
+                    "operator": {
+                        "type": "string",
+                        "description": "Operator name",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReply": {
+                "type": "object",
+                "properties": {
+                    "sender": {
+                        "type": "string",
+                        "description": "Message sender",
+                        "nullable": true
+                    },
+                    "routeId": {
+                        "type": "string",
+                        "description": "Identifier of route used for matching message",
+                        "nullable": true
+                    },
+                    "routeKeyword": {
+                        "type": "string",
+                        "description": "Keyword of route used for matching message",
+                        "nullable": true
+                    },
+                    "text": {
+                        "type": "string",
+                        "description": "Message text",
+                        "nullable": true
+                    },
+                    "contact": {
+                        "$ref": "#/components/schemas/DeliveryReplyContact"
+                    },
+                    "reaction": {
+                        "$ref": "#/components/schemas/DeliveryReplyReaction"
+                    },
+                    "unknown": {
+                        "$ref": "#/components/schemas/DeliveryReplyUnknown"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyButton": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "payload": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyContact": {
+                "type": "object",
+                "properties": {
+                    "addresses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DeliveryReplyContactAddress"
+                        },
+                        "nullable": true
+                    },
+                    "birthday": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "emails": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DeliveryReplyContactEmail"
+                        },
+                        "nullable": true
+                    },
+                    "name": {
+                        "$ref": "#/components/schemas/DeliveryReplyContactName"
+                    },
+                    "organization": {
+                        "$ref": "#/components/schemas/DeliveryReplyContactOrganization"
+                    },
+                    "phones": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DeliveryReplyContactPhone"
+                        },
+                        "nullable": true
+                    },
+                    "websites": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DeliveryReplyContactWebsite"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyContactAddress": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DeliveryReplyContactType"
+                    },
+                    "city": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "state": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "street": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "zip": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyContactEmail": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DeliveryReplyContactType"
+                    },
+                    "email": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyContactExternal": {
+                "required": [
+                    "identifier"
+                ],
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DeliveryReplyContactExternalType"
+                    },
+                    "identifier": {
+                        "minLength": 1,
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyContactExternalType": {
+                "enum": [
+                    "WhatsApp"
+                ],
+                "type": "string"
+            },
+            "DeliveryReplyContactName": {
+                "type": "object",
+                "properties": {
+                    "prefix": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "formattedName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyContactOrganization": {
+                "type": "object",
+                "properties": {
+                    "company": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "department": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyContactPhone": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DeliveryReplyContactType"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "externalIdentifiers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DeliveryReplyContactExternal"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyContactType": {
+                "enum": [
+                    "Home",
+                    "Work"
+                ],
+                "type": "string"
+            },
+            "DeliveryReplyContactWebsite": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DeliveryReplyContactType"
+                    },
+                    "url": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyInteractive": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/DeliveryReplyInteractiveType"
+                    },
+                    "id": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "data": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyInteractiveType": {
+                "enum": [
+                    "reply",
+                    "action",
+                    "buttonReply",
+                    "listReply"
+                ],
+                "type": "string"
+            },
+            "DeliveryReplyLocation": {
+                "type": "object",
+                "properties": {
+                    "longitude": {
+                        "type": "number",
+                        "description": "Longitude",
+                        "format": "double"
+                    },
+                    "latitude": {
+                        "type": "number",
+                        "description": "Latitude",
+                        "format": "double"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name",
+                        "nullable": true
+                    },
+                    "address": {
+                        "type": "string",
+                        "description": "Address",
+                        "nullable": true
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "Location url i.e. google maps or similar.",
+                        "nullable": true
+                    },
+                    "radius": {
+                        "type": "integer",
+                        "description": "The radius",
+                        "format": "int32"
+                    },
+                    "expiry": {
+                        "type": "string",
+                        "description": "The expiration",
+                        "format": "date-time"
+                    },
+                    "timeOffset": {
+                        "type": "integer",
+                        "description": "Offset set from UTC in milliseconds",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyMedia": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "description": "Possible values: image/webp, image/jpeg",
+                        "nullable": true
+                    },
+                    "source": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "caption": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "size": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "thumbnail": {
+                        "$ref": "#/components/schemas/DeliveryReplyMedia"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyReaction": {
+                "type": "object",
+                "properties": {
+                    "message_id": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "emoji": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReplyUnknown": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryReportWebHook": {
+                "type": "object",
+                "properties": {
+                    "eventId": {
+                        "type": "string",
+                        "description": "Unique identifier of event",
+                        "format": "uuid"
+                    },
+                    "channel": {
+                        "enum": [
+                            "sms"
+                        ],
+                        "type": "string",
+                        "description": "Channel used for sending: SMS, whatsApp, rcs, email",
+                        "nullable": true
+                    },
+                    "recipient": {
+                        "type": "string",
+                        "description": "Message Recipient",
+                        "nullable": true
+                    },
+                    "timeStamp": {
+                        "type": "string",
+                        "description": "Timestamp when event occurred",
+                        "format": "date-time"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/DeliveryStatus"
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/DeliveryProvider"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DeliveryStatus": {
+                "type": "object",
+                "properties": {
+                    "requestId": {
+                        "type": "string",
+                        "description": "RequestId of message sending",
+                        "format": "uuid"
+                    },
+                    "referenceId": {
+                        "type": "string",
+                        "description": "Reference Id provided during sending",
+                        "nullable": true
+                    },
+                    "messageId": {
+                        "type": "string",
+                        "description": "Message unique identifier",
+                        "format": "uuid"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Status type: accepted, queued, sent, retried, rejected, delivered, failed, read, typing",
+                        "nullable": true
+                    },
+                    "code": {
+                        "type": "integer",
+                        "description": "Status code <table class=\"tablewithborder\"><tbody><tr><th style=\"background-color: rgb(244, 245, 247);\">Code</th><th style=\"background-color: rgb(244, 245, 247);\">Name</th><th style=\"background-color: rgb(244, 245, 247);\">Description</th><th style=\"background-color: rgb(244, 245, 247);\">Status Group</th></tr><tr><td>1</td><td>Accepted</td><td>Initial status indicating message is accepted for processing.</td><td width=\"120px\"><span class=\"dot yellowbg\"></span> Accepted</td></tr><tr><td>2</td><td>Scheduled</td><td>Initial status indicating that a scheduled message is accepted for sending.</td><td width=\"120px\"><span class=\"dot yellowbg\"></span> Scheduled</td></tr><tr><td>1000</td><td>Queued</td><td>Message is currently queued in the SMSC (Short Message Service Centre) and will subsequently be forwarded to the operator. This is a regular process. (In case of premium SMS: message not billed yet).</td><td width=\"120px\"><span class=\"dot yellowbg\"></span> Queued</td></tr><tr><td>1001</td><td>Sent to message gateway </td><td>Message sent to message gateway.</td><td width=\"120px\"><span class=\"dot yellowbg\"></span>  Sent</td></tr><tr><td>2000</td><td>Delivered</td><td>Message has been delivered to the final recipient.</td><td width=\"120px\"><span class=\"dot green\"></span> Delivered</td></tr><tr><td>3000</td><td>Account validation error</td><td>User, account or password could not be validated. Message was not sent.</td><td width=\"120px\"><span class=\"dot red\"></span> Rejected</td></tr><tr><td>3001</td><td>Configuration error</td><td>An error occurred in the provisioning of your account. Please contact Support for help. Message was not sent.</td><td width=\"120px\"><span class=\"dot red\"></span>  Rejected</td></tr><tr><td>3002</td><td>Invalid sender (source)</td><td>The specified source (name or number) is invalid. Possible reasons: the sender you’re using is too long or you are using an unauthorized sender. Message was not sent.</td><td width=\"120px\"><span class=\"dot red\"></span> Rejected</td></tr><tr><td>3003</td><td>Source type not supported </td><td>Either short number, alpha or MSISDN are not allowed as sender (source) TON (type of number). Message was not sent.</td><td width=\"120px\"><span class=\"dot red\"></span> Rejected</td></tr><tr><td>3004</td><td>Invalid recipient</td><td>The supplied recipient number is invalid. Possible reasons: the number is a landline number, the number is not assigned to an operator or the phone number is not formatted correctly. Message was not sent.</td><td width=\"120px\"><span class=\"dot red\"></span> Rejected</td></tr><tr><td>3005</td><td>Destination type not supported</td><td>Either short number, alpha or MSISDN are not allowed as recipient (destination) TON (type of number). Message was not sent.</td><td width=\"120px\"><span class=\"dot red\"></span> Rejected</td></tr><tr><td>3006</td><td>Encoding is not supported</td><td>Operator or country does not support the usage of GSM, UCS2 or binary encoding. Message was not sent.</td><td width=\"120px\"><span class=\"dot red\"></span> Rejected</td></tr><tr><td>3007</td><td>Invalid message content</td><td>Message content invalid or not supported by operator, device or country. Make sure that the message content is neither empty nor too long and that “TEXT” is used as data coding scheme (DCS). Message was not sent.</td><td width=\"120px\"><span class=\"dot red\"></span> Rejected</tr><tr><td>3008</td><td>Invalid user data header</td><td>User data headers are used to concatenate messages. User header might be formatted in a wrong way. Please contact Support for further assistance. Message was not sent.</td><td width=\"120px\"><span class=\"dot red\"></span> Rejected</td></tr><tr><td>3009</td><td>Maximum throttling exceeded</td><td>This may occur if too many messages are being sent per second to the SMSC (Short Message Service Centre) or the operator. Message was not sent.</td><td width=\"120px\"><span class=\"dot red\"></span> Rejected</td></tr><tr><td>3010</td><td>Validation</td><td>One or more validations </td><td width=\"120px\"><span class=\"dot red\"></span> Rejected</td></tr><tr><td>3011</td><td>Quota</td><td>This may occur if the quota for the messaging channel has been exceeded.</td><td width=\"120px\"><span class=\"dot red\"></span> Rejected</td></tr><tr><td>3013</td><td>CountryBlocked</td><td>This may occur if the message is sent to a blocked country.</td><td width=\"120px\"><span class=\"dot red\"></span> Rejected</tr><tr><td>4000</td><td>Generic error</td><td>Unexpected error. Message not delivered to the recipient. Contact Support for further assistance.</td><td width=\"120px\"><span class=\"dot red\"></span> Unable to send</td></tr><tr><td>4001</td><td>Temporary routing error</td><td>This may occur if your account is configured in a wrong way, our service is not ready to handle the message or the operator has reported a temporary error. (In case of premium SMS: message not billed.)</td><td width=\"120px\"><span class=\"dot red\"></span> Unable to send</td></tr><tr><td>4002</td><td>Permanent routing error </td><td>This occurs if no route exists to the specified number. Contact Support for further assistance. (In case of premium SMS: message not billed.)</td><td width=\"120px\"><span class=\"dot red\"></span> Unable to send</td></tr><tr><td>4003</td><td>Phone number blocked</td><td>The recipient is permanently barred by the SMSC (Short Message Service Center) or operator. (In case of premium SMS: message not billed.)</td><td width=\"120px\"><span class=\"dot red\"></span> Failed</td></tr><tr><td>4004</td><td>Recipient temporarily barred</td><td>Recipient barred. (In case of premium SMS: message not billed.)</td><td width=\"120px\"><span class=\"dot red\"></span> Failed</td></tr><tr><td>4005</td><td>Service provider error</td><td>Error on operator side. Message has not been delivered. (In case of premium SMS: billing status unknown.)</td><td width=\"120px\"><span class=\"dot red\"></span> Failed</td></tr><tr><td>4006</td><td>Operation blocked</td><td>The requested operation is not supported for the specified country, operator or recipient. (In case of premium SMS: message not billed.)</td><td width=\"120px\"><span class=\"dot red\"></span> Failed</td></tr><tr><td>4007</td><td>Not delivered</td><td>The message has been sent to the operator but has not been delivered to the recipient. Please check if the phone number is formatted correctly. (In case of premium SMS: message not billed)</td><td width=\"120px\"><span class=\"dot red\"></span> Failed</td></tr><tr><td>4008</td><td>Expired</td><td>Message has been sent to the operator but has not reached the recipient. It has been pending until the validity period (default 48h) has expired. Possible reasons: the phone is outside network coverage or turned off. (In case of premium SMS: message not billed.)</td><td width=\"120px\"><span class=\"dot red\"></span> Failed</td></tr><tr><td>4009</td><td>Timeout</td><td>This may occur if a message is being processed, but the response is taking too long time to wait. Final status unknown. (In case of premium SMS: billing status unknown.)</td><td width=\"120px\"><span class=\"dot red\"></span> Failed</td></tr><tr><td>4010</td><td>Delivery report is not supported</td><td>Operator does not support the usage of delivery reports.</td><td width=\"120px\"><span class=\"dot red\"></span> Failed</td></tr><tr><td>4011</td><td>Deleted by operator</td><td>Message has been deleted at the operator side in the SMSC (Short Message Service Centre). (In case of premium SMS: message not billed.)</td><td width=\"120px\"><span class=\"dot red\"></span> Failed</td></tr></tr><tr><td>5000</td><td>Retried</td><td> to send message to Gateway and will retry sending again</td><td width=\"120px\"><span class=\"dot yellowbg\"></span> Retried</td></tr></tbody></table>",
+                        "format": "int32"
+                    },
+                    "details": {
+                        "type": "string",
+                        "description": "Status details",
+                        "nullable": true
+                    },
+                    "segments": {
+                        "type": "integer",
+                        "description": "Number of segments in message",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MessageCallback": {
+                "type": "object",
+                "properties": {
+                    "mode": {
+                        "$ref": "#/components/schemas/MessageCallbackMode"
+                    },
+                    "urls": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of URLs to receive DLRs on. Mandatory when using mode \"URL\" - not relevant to any other modes.",
+                        "nullable": true
+                    },
+                    "gateId": {
+                        "type": "string",
+                        "description": "The ID of the callback to be used. Can be set up in the Callbacks section of MyLINK portal. Mandatory when using mode \"Gate\" - not relevant to any other modes.",
+                        "nullable": true
+                    },
+                    "ttl": {
+                        "maximum": 28800000,
+                        "minimum": 0,
+                        "type": "integer",
+                        "description": "Time specified in milliseconds of how long the delivery report is supposed to live. Max value: 28800000. Default value: 14400000. Applicable to all callback modes except for \"None\".<p>Example for mode Profile</p><pre><code>[\n \t{\n\t\t\"callback\": {\n\t\t\t\"mode\": \"Profile\" \n\t\t}\n\t}\n]</code></pre><p>Example for mode URL</p><pre><code>[\n \t{\n\t\t\"callback\": {\n\t\t\t\"mode\": \"URL\",\n\t\t\t\"urls\": [\"URL\"], \n\t\t\t\"ttl\": 0 \n\t\t}\n\t}\n]</code></pre><p>Example for mode Gate</p><pre><code>[\n \t{\n\t\t\"callback\": {\n\t\t\t\"mode\": \"Gate\",\n\t\t\t\"gateId\": \"fb8eac56-4311-4f09-94b9-54f4bee0acb6\", \n\t\t\t\"ttl\": 0 \n\t\t}\n\t}\n]</code></pre>",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MessageCallbackMode": {
+                "enum": [
+                    "Profile",
+                    "URL",
+                    "Gate",
+                    "None"
+                ],
+                "type": "string",
+                "description": "Choose how you want to receive your Delivery reports. Mode Profile sends any DLRs towards your default configuration in MyLINK portal), URL sends towards a list of urls provided in the request, Gate sends towards a referenced configuration from MyLINK portal, or None (no DLR is sent anywhere). Each mode requires different request parameters, refer to the fields below."
+            },
+            "MessageExpiration": {
+                "type": "object",
+                "properties": {
+                    "relative": {
+                        "maximum": 172800000,
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "Time specified in milliseconds of how long the message is supposed to live. The maximum value is 48 hours (172800000 milliseconds), which is also the default.",
+                        "format": "int32"
+                    },
+                    "absolute": {
+                        "type": "string",
+                        "description": "Absolute time specified of when this message should expire. ISO8601 formatted string in UTC.",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MessagePriority": {
+                "enum": [
+                    "Normal",
+                    "High",
+                    "Low"
+                ],
+                "type": "string",
+                "description": "Set priority on your own messages. Priority only affects your own queue."
+            },
+            "MessageSchedule": {
+                "type": "object",
+                "oneOf": [
+                    {
+                        "required": [
+                            "relative"
+                        ]
+                    },
+                    {
+                        "required": [
+                            "absolute"
+                        ]
+                    }
+                ],
+                "properties": {
+                    "relative": {
+                        "maximum": 7889232000,
+                        "minimum": 600000,
+                        "type": "integer",
+                        "description": "Time specified in milliseconds of how much we will offset the message in the future. The maximum value is 3 months (7_889_232_000 milliseconds), which is also the default. The minimum value is 600000 ms (10 minutes)",
+                        "format": "int64"
+                    },
+                    "absolute": {
+                        "type": "string",
+                        "description": "Absolute time specified of when this message should be sent. ISO8601 formatted string in UTC.",
+                        "format": "date-time"
+                    },
+                    "tag": {
+                        "maxLength": 100,
+                        "minLength": 0,
+                        "pattern": "[a-zA-Z0-9_-]+",
+                        "type": "string",
+                        "description": "A tag for the message schedule. Can be used to group schedules by tag",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileOriginatedWebHook": {
+                "type": "object",
+                "properties": {
+                    "eventId": {
+                        "type": "string",
+                        "description": "Unique identifier of event",
+                        "format": "uuid"
+                    },
+                    "channel": {
+                        "enum": [
+                            "sms"
+                        ],
+                        "type": "string",
+                        "description": "Channel used for sending: SMS, whatsApp, rcs, email",
+                        "nullable": true
+                    },
+                    "recipient": {
+                        "type": "string",
+                        "description": "Message Recipient",
+                        "nullable": true
+                    },
+                    "timeStamp": {
+                        "type": "string",
+                        "description": "Timestamp when event occurred",
+                        "format": "date-time"
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/MobileProvider"
+                    },
+                    "reply": {
+                        "$ref": "#/components/schemas/MobileReply"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileProvider": {
+                "type": "object",
+                "properties": {
+                    "timestamp": {
+                        "type": "string",
+                        "description": "Timestamp when event occurred in provider infrastructure",
+                        "format": "date-time"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Status code",
+                        "nullable": true
+                    },
+                    "details": {
+                        "type": "string",
+                        "description": "Status details",
+                        "nullable": true
+                    },
+                    "operator": {
+                        "type": "string",
+                        "description": "Operator name",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReply": {
+                "type": "object",
+                "properties": {
+                    "sender": {
+                        "type": "string",
+                        "description": "Message sender",
+                        "nullable": true
+                    },
+                    "routeId": {
+                        "type": "string",
+                        "description": "Identifier of route used for matching message",
+                        "nullable": true
+                    },
+                    "routeKeyword": {
+                        "type": "string",
+                        "description": "Keyword of route used for matching message",
+                        "nullable": true
+                    },
+                    "text": {
+                        "type": "string",
+                        "description": "Message text",
+                        "nullable": true
+                    },
+                    "contact": {
+                        "$ref": "#/components/schemas/MobileReplyContact"
+                    },
+                    "reaction": {
+                        "$ref": "#/components/schemas/MobileReplyReaction"
+                    },
+                    "unknown": {
+                        "$ref": "#/components/schemas/MobileReplyUnknown"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyButton": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "payload": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyContact": {
+                "type": "object",
+                "properties": {
+                    "addresses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MobileReplyContactAddress"
+                        },
+                        "nullable": true
+                    },
+                    "birthday": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "emails": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MobileReplyContactEmail"
+                        },
+                        "nullable": true
+                    },
+                    "name": {
+                        "$ref": "#/components/schemas/MobileReplyContactName"
+                    },
+                    "organization": {
+                        "$ref": "#/components/schemas/MobileReplyContactOrganization"
+                    },
+                    "phones": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MobileReplyContactPhone"
+                        },
+                        "nullable": true
+                    },
+                    "websites": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MobileReplyContactWebsite"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyContactAddress": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/MobileReplyContactType"
+                    },
+                    "city": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "state": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "street": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "zip": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyContactEmail": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/MobileReplyContactType"
+                    },
+                    "email": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyContactExternal": {
+                "required": [
+                    "identifier"
+                ],
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/MobileReplyContactExternalType"
+                    },
+                    "identifier": {
+                        "minLength": 1,
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyContactExternalType": {
+                "enum": [
+                    "WhatsApp"
+                ],
+                "type": "string"
+            },
+            "MobileReplyContactName": {
+                "type": "object",
+                "properties": {
+                    "prefix": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "formattedName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyContactOrganization": {
+                "type": "object",
+                "properties": {
+                    "company": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "department": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyContactPhone": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/MobileReplyContactType"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "externalIdentifiers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MobileReplyContactExternal"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyContactType": {
+                "enum": [
+                    "Home",
+                    "Work"
+                ],
+                "type": "string"
+            },
+            "MobileReplyContactWebsite": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/MobileReplyContactType"
+                    },
+                    "url": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyInteractive": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/MobileReplyInteractiveType"
+                    },
+                    "id": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "data": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyInteractiveType": {
+                "enum": [
+                    "reply",
+                    "action",
+                    "buttonReply",
+                    "listReply"
+                ],
+                "type": "string"
+            },
+            "MobileReplyLocation": {
+                "type": "object",
+                "properties": {
+                    "longitude": {
+                        "type": "number",
+                        "description": "Longitude",
+                        "format": "double"
+                    },
+                    "latitude": {
+                        "type": "number",
+                        "description": "Latitude",
+                        "format": "double"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name",
+                        "nullable": true
+                    },
+                    "address": {
+                        "type": "string",
+                        "description": "Address",
+                        "nullable": true
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "Location url i.e. google maps or similar.",
+                        "nullable": true
+                    },
+                    "radius": {
+                        "type": "integer",
+                        "description": "The radius",
+                        "format": "int32"
+                    },
+                    "expiry": {
+                        "type": "string",
+                        "description": "The expiration",
+                        "format": "date-time"
+                    },
+                    "timeOffset": {
+                        "type": "integer",
+                        "description": "Offset set from UTC in milliseconds",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyMedia": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "description": "Possible values: image/webp, image/jpeg",
+                        "nullable": true
+                    },
+                    "source": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "caption": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "size": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "thumbnail": {
+                        "$ref": "#/components/schemas/MobileReplyMedia"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyReaction": {
+                "type": "object",
+                "properties": {
+                    "message_id": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "emoji": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileReplyUnknown": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MobileStatus": {
+                "type": "object",
+                "properties": {
+                    "requestId": {
+                        "type": "string",
+                        "description": "RequestId of message sending",
+                        "format": "uuid"
+                    },
+                    "referenceId": {
+                        "type": "string",
+                        "description": "Reference Id provided during sending",
+                        "nullable": true
+                    },
+                    "messageId": {
+                        "type": "string",
+                        "description": "Message unique identifier",
+                        "format": "uuid"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Status type: accepted, queued, sent, retried, rejected, delivered, failed, read, typing",
+                        "nullable": true
+                    },
+                    "code": {
+                        "type": "integer",
+                        "description": "Status code",
+                        "format": "int32"
+                    },
+                    "details": {
+                        "type": "string",
+                        "description": "Status details",
+                        "nullable": true
+                    },
+                    "segments": {
+                        "type": "integer",
+                        "description": "Number of segments in message",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ScheduledSendingError": {
+                "required": [
+                    "requestId"
+                ],
+                "type": "object",
+                "properties": {
+                    "requestId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "code": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ScheduledSendingModel": {
+                "type": "object",
+                "properties": {
+                    "messageId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "scheduledAtDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "sendAtDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "tag": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "recipient": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ScheduledSendingPatch": {
+                "type": "object",
+                "properties": {
+                    "sendAtDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SmsMessageContent": {
+                "required": [
+                    "options",
+                    "text"
+                ],
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "maxLength": 38862,
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "A single message can be 160 characters (GSM encoding). If message exceeds 160 characters each message part will be split in to 153 characters. Maximum length of a message is dependent on the operator you are sending towards.UCS2 encoding: 70/67 characters single/multipart."
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/SmsMessageOptions"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SmsMessageEncoding": {
+                "enum": [
+                    "AutoDetect",
+                    "GSM",
+                    "UCS2"
+                ],
+                "type": "string"
+            },
+            "SmsMessageErrorResponse": {
+                "required": [
+                    "requestId"
+                ],
+                "type": "object",
+                "properties": {
+                    "requestId": {
+                        "type": "string",
+                        "description": "Unique Id of the request made towards LINK",
+                        "format": "uuid"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Human-readable summary of the problem.",
+                        "nullable": true
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Error code of the problem.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SmsMessageObfuscateOptions": {
+                "enum": [
+                    "ContentAndRecipient",
+                    "Content"
+                ],
+                "type": "string",
+                "description": "Obfuscation allows you to anonymize content and recipient or content only after the message is processed. Non-retrievable."
+            },
+            "SmsMessageOptions": {
+                "required": [
+                    "sms.sender"
+                ],
+                "type": "object",
+                "properties": {
+                    "sms.encoding": {
+                        "$ref": "#/components/schemas/SmsMessageEncoding"
+                    },
+                    "sms.sender": {
+                        "minLength": 1,
+                        "pattern": "^(\\+?[0-9]{1,15}|[A-Za-z0-9\\s\\+\\-\\/\\'\"!#%&()*.?><;]{1,11})$",
+                        "type": "string",
+                        "description": "SenderID of the message. Can be numeric or alphanumeric. Restrictions may apply in different countries."
+                    },
+                    "sms.obfuscate": {
+                        "$ref": "#/components/schemas/SmsMessageObfuscateOptions"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SmsMessageRequest": {
+                "required": [
+                    "content",
+                    "recipient"
+                ],
+                "type": "object",
+                "properties": {
+                    "recipient": {
+                        "minLength": 1,
+                        "pattern": "^\\+.*$",
+                        "type": "string",
+                        "description": "Recipients must be provided in MSISDN format. Remember that MSISDN must have a leading (+). Example: +4712345678"
+                    },
+                    "content": {
+                        "$ref": "#/components/schemas/SmsMessageContent"
+                    },
+                    "schedule": {
+                        "$ref": "#/components/schemas/MessageSchedule"
+                    },
+                    "expiration": {
+                        "$ref": "#/components/schemas/MessageExpiration"
+                    },
+                    "callback": {
+                        "$ref": "#/components/schemas/MessageCallback"
+                    },
+                    "referenceId": {
+                        "maxLength": 500,
+                        "type": "string",
+                        "description": "Your own internal transaction ID. Not used for anything except as a reference. Optional.",
+                        "nullable": true
+                    },
+                    "priority": {
+                        "$ref": "#/components/schemas/MessagePriority"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SmsMessageResponse": {
+                "type": "object",
+                "properties": {
+                    "requestId": {
+                        "type": "string",
+                        "description": "Unique Id of the request made towards LINK",
+                        "format": "uuid"
+                    },
+                    "messages": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SmsMessageResponseData"
+                        },
+                        "description": "List of message information includes details such as messageId, recipient, referenceId",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SmsMessageResponseData": {
+                "type": "object",
+                "properties": {
+                    "messageId": {
+                        "type": "string",
+                        "description": "Unique message ID generated as part of processing the request.",
+                        "format": "uuid"
+                    },
+                    "referenceId": {
+                        "type": "string",
+                        "description": "Your own internal transaction ID. Not used for anything except as a reference.",
+                        "nullable": true
+                    },
+                    "recipient": {
+                        "type": "string",
+                        "description": "Recipient of the message as submitted in the corresponding Message.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SmsMessageUnauthorizedErrorResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Human-readable summary of the problem.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SmsMessageValidationErrorResponse": {
+                "required": [
+                    "requestId"
+                ],
+                "type": "object",
+                "properties": {
+                    "requestId": {
+                        "type": "string",
+                        "description": "Unique Id of the request made towards LINK",
+                        "format": "uuid"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "Human-readable summary of the problem.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "securitySchemes": {
+            "Bearer": {
+                "type": "oauth2",
+                "description": "Bearer token",
+                "flows": {
+                    "clientCredentials": {
+                        "tokenUrl": "https://sso.linkmobility.com/auth/realms/CPaaS/protocol/openid-connect/token",
+                        "scopes": {}
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "Bearer": []
+        }
+    ],
+    "webhooks": {
+        "Delivery Report": {
+            "post": {
+                "summary": "Delivery Report",
+                "description": "Delivery Report Content",
+                "operationId": "Delivery Report",
+                "security": [],
+                "tags": [
+                    "Receive Messages"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeliveryReportWebHook"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": "Return a 200 status to indicate that the data was received successfully"
+                }
+            }
+        },
+        "Mobile Originated": {
+            "post": {
+                "summary": "Mobile Originated",
+                "description": "<div><h2>Getting started</h2><p>Mobile originated message content</p><p>Mobile originated (MO) SMS can be used to interact with the end-user, and can be done in several ways.</p><p>First of all, you need access to a type of number to receive MO’s on your product. Currently, you can use</p><ul style=\"list-style:disc inside;\"><li><b>Short code</b><ul style=\"list-style:circle;\"><li>User friendly format, easy to remember. Excellent for branding.</li><li>It is possible to have access to a short code, either as <strong>shared</strong> (with other clients) or <strong>dedicated</strong> (you own the usage exclusively)</li><li>Country specific number to receive SMS to your endpoint. Use of short code is limited to the country it is issued in. Example: Only end users with a Swedish MSISDN can send to a Swedish short code</li></ul></li><li><b>Long number</b><ul style=\"list-style:circle;\"><li>Long number is a number in MSISDN format used for receiving messages.</li><li>The long number from each country reflects the actual number length relevant for the country it is issued in.</li><li>Long number may be used internationally (dependent on operator support)</li></ul></li><li><b>Subnumber</b><ul style=\"list-style:circle;\"><li>Certain short codes can be extended with subnumbers. Subnumbers are extra digits added to the end of the original access number.</li><li>Typical usage of subnumbers is to create dialogue-based SMS applications, where the end user does not need to use a specific SMS keyword when replying to a message.</li><li>Subnumbering is currently only supported in Finland and Norway</li></ul></li></ul><p><b>Keyword</b><ul style=\"list-style:disc inside;\"><li>Keyword is often used to determine a specific service. It is used both on shared and dedicated numbers.</li><li>A keyword can be set up using different matching rules:<ul style=\"list-style:circle;\"><li>Exact. Incoming message must contain exactly the keyword string defined</li><li>Starts with. Incoming message must begin with the keyword defined</li><li>First word. Incoming message contains the first word of the keyword defined</li></ul></li></ul></p></div>",
+                "operationId": "MobileOriginated",
+                "security": [],
+                "tags": [
+                    "Receive Messages"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MobileOriginatedWebHook"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": "Return a 200 status to indicate that the data was received successfully"
+                }
+            }
+        }
+    }
+}

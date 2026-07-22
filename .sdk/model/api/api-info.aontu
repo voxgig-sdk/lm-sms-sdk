@@ -1,0 +1,27 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      description: "<div><h2>Purpose and functionality</h2><p>MyLINK SMS API is a REST API supporting the needs for sending and receiving SMS to the recipients you want to reach, either if it is for time critical SMS or high load purposes. </p><p>MyLINK SMS API is LINK Mobility’s new flagship SMS product, and is a part of our CPaaS offering.</p><h2>Current supported functionality</h2><ul style=\"list-style:disc inside;\">  <li><a href=\"#tag/Send-Messages/paths/~1sms~1v1~1messages/post\">Send SMS (Mobile Terminated)</a><ul style=\"list-style:circle;\"><li>Send single message</li><li>Batch Sending MT Messages</li></ul> </li><li><a href=\"#tag/SmsScheduling\">Scheduling sendings</a></li>  <li><a href=\"#tag/Receive-Messages/operation/MobileOriginated\">Receive SMS (Mobile Originated)</a></li>  <li><a href=\"#tag/Receive-Messages/operation/Delivery%20Report\">Delivery Reports</a></li>  <li>Message Obfuscation</li>  <li>Portal access for statistics and product administration</li></ul><h2>Getting started</h2><ul style=\"list-style:disc inside;\" >  <li>Get in touch with us to get a demo or sign up for the product: <a href=\"https://www.linkmobility.com/contact-us\">Click here</a></li>  <li>Accept your invitation to the MyLINK portal to generate your API secrets  </li>  <li>Revisit the developer portal for how to send an SMS </li></ul><div>"
+      security: {
+        in: "header"
+        name: "Authorization"
+        prefix: "Bearer"
+        scheme: "Bearer"
+        type: "oauth2"
+      }
+      servers: [
+        {
+          url: "https://api.linkmobility.com"
+        }
+      ]
+      summary: "<div><h2>Purpose and functionality</h2><p>MyLINK SMS API is a REST API supporting the needs for sending and receiving SMS to the recipients you want to reach, either if it is for time critical SMS or high load purposes."
+      title: "MyLINK SMS API"
+      version: "v1"
+      website: "https://linkmobility.com"
+    }
+  }
+}
+

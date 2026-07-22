@@ -1,0 +1,239 @@
+# Entity: schedule
+
+main: kit: entity: schedule: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "message_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "recipient"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "scheduled_at_date"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "send_at_date"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "tag"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "schedule"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "end"
+                orig: "end"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 1
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 25
+                kind: "query"
+                name: "size"
+                orig: "size"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "sort"
+                orig: "sort"
+                reqd: false
+                type: "`$ARRAY`"
+              }
+              {
+                kind: "query"
+                name: "start"
+                orig: "start"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "tag"
+                orig: "tag"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/sms/v1/schedules"
+          parts: [
+            "sms"
+            "v1"
+            "schedules"
+          ]
+          select: {
+            exist: [
+              "end"
+              "page"
+              "size"
+              "sort"
+              "start"
+              "tag"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "message_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/sms/v1/schedules/{messageId}"
+          parts: [
+            "sms"
+            "v1"
+            "schedules"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              messageId: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "message_id"
+                orig: "message_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "tag"
+                orig: "tag"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "DELETE"
+          orig: "/sms/v1/schedules"
+          parts: [
+            "sms"
+            "v1"
+            "schedules"
+          ]
+          select: {
+            exist: [
+              "message_id"
+              "tag"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "message_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "PATCH"
+          orig: "/sms/v1/schedules/{messageId}"
+          parts: [
+            "sms"
+            "v1"
+            "schedules"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              messageId: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}
