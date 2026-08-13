@@ -115,16 +115,16 @@ function schedule_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["LMSMS_TEST_SCHEDULE_ENTID"] = {},
-    ["LMSMS_TEST_LIVE"] = "FALSE",
-    ["LMSMS_APIKEY"] = "NONE",
+    ["LM_SMS_TEST_SCHEDULE_ENTID"] = {},
+    ["LM_SMS_TEST_LIVE"] = "FALSE",
+    ["LM_SMS_APIKEY"] = "NONE",
   })
 
-  local live = env["LMSMS_TEST_LIVE"] == "TRUE"
+  local live = env["LM_SMS_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["LMSMS_APIKEY"],
+      apikey = env["LM_SMS_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

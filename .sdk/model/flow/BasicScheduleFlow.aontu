@@ -23,7 +23,7 @@ main: kit: flow: BasicScheduleFlow:
         ref: "schedule_ref01",
         srcdatavar: "schedule_ref01_data",
         suffix: "_up0",
-        textfield: "message_id"
+        textfield: "messageId"
       }
 
       op: "update",

@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import LmSmsSDK
-from core.error import LmSmsError
-from core.result import LmSmsResult
-from core.response import LmSmsResponse
-from core.spec import LmSmsSpec
-from feature.base_feature import LmSmsBaseFeature
+from projectname_sdk.core.error import LmSmsError
+from projectname_sdk.core.result import LmSmsResult
+from projectname_sdk.core.response import LmSmsResponse
+from projectname_sdk.core.spec import LmSmsSpec
+from projectname_sdk.feature.base_feature import LmSmsBaseFeature
 
 
 def _client():

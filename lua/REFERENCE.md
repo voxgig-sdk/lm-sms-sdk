@@ -95,10 +95,10 @@ local schedule = client:Schedule(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `message_id` | `string` | No |  |
+| `messageId` | `string` | No |  |
 | `recipient` | `string` | No |  |
-| `scheduled_at_date` | `string` | No |  |
-| `send_at_date` | `string` | No |  |
+| `scheduledAtDate` | `string` | No |  |
+| `sendAtDate` | `string` | No |  |
 | `tag` | `string` | No |  |
 
 ### Operations

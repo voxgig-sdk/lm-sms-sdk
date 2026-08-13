@@ -7,30 +7,35 @@
 -- edit by hand.
 
 ---@class Schedule
----@field message_id? string
+---@field messageId? string
 ---@field recipient? string
----@field scheduled_at_date? string
----@field send_at_date? string
+---@field scheduledAtDate? string
+---@field sendAtDate? string
 ---@field tag? string
 
 ---@class ScheduleLoadMatch
 ---@field id string
 
 ---@class ScheduleListMatch
----@field message_id? string
+---@field messageId? string
 ---@field recipient? string
----@field scheduled_at_date? string
----@field send_at_date? string
+---@field scheduledAtDate? string
+---@field sendAtDate? string
 ---@field tag? string
 
 ---@class ScheduleUpdateData
 ---@field id string
+---@field messageId? string
+---@field recipient? string
+---@field scheduledAtDate? string
+---@field sendAtDate? string
+---@field tag? string
 
 ---@class ScheduleRemoveMatch
----@field message_id? string
+---@field messageId? string
 ---@field recipient? string
----@field scheduled_at_date? string
----@field send_at_date? string
+---@field scheduledAtDate? string
+---@field sendAtDate? string
 ---@field tag? string
 
 ---@class SendMessage

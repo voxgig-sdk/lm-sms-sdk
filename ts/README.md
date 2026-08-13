@@ -37,7 +37,9 @@ const client = new LmSmsSDK({
 
 ### 2. List schedule records
 
-`list()` resolves to an array of Schedule objects — iterate it directly:
+`list()` resolves to an array of Schedule ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const schedules = await client.Schedule().list()
@@ -66,6 +68,8 @@ try {
 // Update
 const updated = await client.Schedule().update({
   id: 'example_id',
+  messageId: 'example_messageId',
+  recipient: 'example_recipient',
 })
 
 // Remove
@@ -147,7 +151,8 @@ Create a mock client for unit testing — no server required:
 const client = LmSmsSDK.test()
 
 const schedule = await client.Schedule().list()
-// schedule is a bare entity populated with mock response data
+// schedule is the entity, populated with mock response data
+// — call schedule.data() for the record itself
 console.log(schedule)
 ```
 
@@ -322,10 +327,10 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `message_id` |  |
+| `messageId` |  |
 | `recipient` |  |
-| `scheduled_at_date` |  |
-| `send_at_date` |  |
+| `scheduledAtDate` |  |
+| `sendAtDate` |  |
 | `tag` |  |
 
 Operations: list, load, remove, update.
@@ -363,10 +368,10 @@ Create an instance: `const schedule = client.Schedule()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `message_id` | `string` |  |
+| `messageId` | `string` |  |
 | `recipient` | `string` |  |
-| `scheduled_at_date` | `string` |  |
-| `send_at_date` | `string` |  |
+| `scheduledAtDate` | `string` |  |
+| `sendAtDate` | `string` |  |
 | `tag` | `string` |  |
 
 #### Example: Load

@@ -31,7 +31,7 @@ module LmSmsConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "message_id",
+              "name" => "messageId",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 0,
@@ -45,14 +45,14 @@ module LmSmsConfig
             },
             {
               "active" => true,
-              "name" => "scheduled_at_date",
+              "name" => "scheduledAtDate",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 2,
             },
             {
               "active" => true,
-              "name" => "send_at_date",
+              "name" => "sendAtDate",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 3,
@@ -127,6 +127,7 @@ module LmSmsConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/sms/v1/schedules",
                   "parts" => [
@@ -172,6 +173,7 @@ module LmSmsConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/sms/v1/schedules/{messageId}",
                   "parts" => [
@@ -225,6 +227,7 @@ module LmSmsConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/sms/v1/schedules",
                   "parts" => [
@@ -266,6 +269,7 @@ module LmSmsConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "PATCH",
                   "orig" => "/sms/v1/schedules/{messageId}",
                   "parts" => [
@@ -309,6 +313,7 @@ module LmSmsConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/sms/v1",
                   "parts" => [
@@ -325,6 +330,7 @@ module LmSmsConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/sms/v1/messages",
                   "parts" => [

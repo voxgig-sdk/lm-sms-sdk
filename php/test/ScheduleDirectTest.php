@@ -121,16 +121,16 @@ function schedule_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "LMSMS_TEST_SCHEDULE_ENTID" => [],
-        "LMSMS_TEST_LIVE" => "FALSE",
-        "LMSMS_APIKEY" => "NONE",
+        "LM_SMS_TEST_SCHEDULE_ENTID" => [],
+        "LM_SMS_TEST_LIVE" => "FALSE",
+        "LM_SMS_APIKEY" => "NONE",
     ]);
 
-    $live = $env["LMSMS_TEST_LIVE"] === "TRUE";
+    $live = $env["LM_SMS_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["LMSMS_APIKEY"],
+            "apikey" => $env["LM_SMS_APIKEY"],
         ];
         $client = new LmSmsSDK($merged_opts);
         return [

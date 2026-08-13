@@ -10,25 +10,25 @@
 
 # Schedule entity data model.
 #
-# @!attribute [rw] message_id
+# @!attribute [rw] messageId
 #   @return [String, nil]
 #
 # @!attribute [rw] recipient
 #   @return [String, nil]
 #
-# @!attribute [rw] scheduled_at_date
+# @!attribute [rw] scheduledAtDate
 #   @return [String, nil]
 #
-# @!attribute [rw] send_at_date
+# @!attribute [rw] sendAtDate
 #   @return [String, nil]
 #
 # @!attribute [rw] tag
 #   @return [String, nil]
 Schedule = Struct.new(
-  :message_id,
+  :messageId,
   :recipient,
-  :scheduled_at_date,
-  :send_at_date,
+  :scheduledAtDate,
+  :sendAtDate,
   :tag,
   keyword_init: true
 )
@@ -44,25 +44,25 @@ ScheduleLoadMatch = Struct.new(
 
 # Request payload for Schedule#list.
 #
-# @!attribute [rw] message_id
+# @!attribute [rw] messageId
 #   @return [String, nil]
 #
 # @!attribute [rw] recipient
 #   @return [String, nil]
 #
-# @!attribute [rw] scheduled_at_date
+# @!attribute [rw] scheduledAtDate
 #   @return [String, nil]
 #
-# @!attribute [rw] send_at_date
+# @!attribute [rw] sendAtDate
 #   @return [String, nil]
 #
 # @!attribute [rw] tag
 #   @return [String, nil]
 ScheduleListMatch = Struct.new(
-  :message_id,
+  :messageId,
   :recipient,
-  :scheduled_at_date,
-  :send_at_date,
+  :scheduledAtDate,
+  :sendAtDate,
   :tag,
   keyword_init: true
 )
@@ -71,32 +71,52 @@ ScheduleListMatch = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
-ScheduleUpdateData = Struct.new(
-  :id,
-  keyword_init: true
-)
-
-# Request payload for Schedule#remove.
 #
-# @!attribute [rw] message_id
+# @!attribute [rw] messageId
 #   @return [String, nil]
 #
 # @!attribute [rw] recipient
 #   @return [String, nil]
 #
-# @!attribute [rw] scheduled_at_date
+# @!attribute [rw] scheduledAtDate
 #   @return [String, nil]
 #
-# @!attribute [rw] send_at_date
+# @!attribute [rw] sendAtDate
+#   @return [String, nil]
+#
+# @!attribute [rw] tag
+#   @return [String, nil]
+ScheduleUpdateData = Struct.new(
+  :id,
+  :messageId,
+  :recipient,
+  :scheduledAtDate,
+  :sendAtDate,
+  :tag,
+  keyword_init: true
+)
+
+# Request payload for Schedule#remove.
+#
+# @!attribute [rw] messageId
+#   @return [String, nil]
+#
+# @!attribute [rw] recipient
+#   @return [String, nil]
+#
+# @!attribute [rw] scheduledAtDate
+#   @return [String, nil]
+#
+# @!attribute [rw] sendAtDate
 #   @return [String, nil]
 #
 # @!attribute [rw] tag
 #   @return [String, nil]
 ScheduleRemoveMatch = Struct.new(
-  :message_id,
+  :messageId,
   :recipient,
-  :scheduled_at_date,
-  :send_at_date,
+  :scheduledAtDate,
+  :sendAtDate,
   :tag,
   keyword_init: true
 )

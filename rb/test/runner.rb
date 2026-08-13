@@ -23,8 +23,8 @@ module LmSmsTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("LMSMS_TEST_LIVE")
-    override = getenv("LMSMS_TEST_OVERRIDE")
+    live = getenv("LM_SMS_TEST_LIVE")
+    override = getenv("LM_SMS_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module LmSmsTestRunner
       end
     end
 
-    explain = getenv("LMSMS_TEST_EXPLAIN")
-    m["LMSMS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("LM_SMS_TEST_EXPLAIN")
+    m["LM_SMS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

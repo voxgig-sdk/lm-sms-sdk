@@ -6,10 +6,10 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface Schedule {
-  message_id?: string
+  messageId?: string
   recipient?: string
-  scheduled_at_date?: string
-  send_at_date?: string
+  scheduledAtDate?: string
+  sendAtDate?: string
   tag?: string
 }
 
@@ -18,22 +18,27 @@ export interface ScheduleLoadMatch {
 }
 
 export interface ScheduleListMatch {
-  message_id?: string
+  messageId?: string
   recipient?: string
-  scheduled_at_date?: string
-  send_at_date?: string
+  scheduledAtDate?: string
+  sendAtDate?: string
   tag?: string
 }
 
 export interface ScheduleUpdateData {
   id: string
+  messageId?: string
+  recipient?: string
+  scheduledAtDate?: string
+  sendAtDate?: string
+  tag?: string
 }
 
 export interface ScheduleRemoveMatch {
-  message_id?: string
+  messageId?: string
   recipient?: string
-  scheduled_at_date?: string
-  send_at_date?: string
+  scheduledAtDate?: string
+  sendAtDate?: string
   tag?: string
 }
 

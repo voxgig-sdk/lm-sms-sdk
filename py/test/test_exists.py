@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# LmSms SDK exists test
 
 import pytest
 from lmsms_sdk import LmSmsSDK

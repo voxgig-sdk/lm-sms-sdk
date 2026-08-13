@@ -39,7 +39,7 @@ begin
   # list returns an Array of Schedule records — iterate directly.
   schedules = client.Schedule.list
   schedules.each do |item|
-    puts "#{item["message_id"]}"
+    puts "#{item["messageId"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -50,7 +50,7 @@ end
 
 ```ruby
 begin
-  # load returns the bare Schedule record (raises on error).
+  # load returns the ENTITY — call data_get for the Schedule record (raises on error).
   schedule = client.Schedule.load({ "id" => "example_id" })
   puts schedule
 rescue => err
@@ -62,7 +62,7 @@ end
 
 ```ruby
 # Update
-client.Schedule.update({ "id" => "example_id" })
+client.Schedule.update({ "id" => "example_id", "messageId" => "example_messageId", "recipient" => "example_recipient" })
 
 # Remove
 client.Schedule.remove()
@@ -146,7 +146,8 @@ client = LmSmsSDK.test({
   "entity" => { "schedule" => { "test01" => { "id" => "test01" } } },
 })
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 schedule = client.Schedule.list()
 puts schedule
 ```
@@ -270,10 +271,10 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `message_id` |  |
+| `messageId` |  |
 | `recipient` |  |
-| `scheduled_at_date` |  |
-| `send_at_date` |  |
+| `scheduledAtDate` |  |
+| `sendAtDate` |  |
 | `tag` |  |
 
 Operations: List, Load, Remove, Update.
@@ -311,16 +312,16 @@ Create an instance: `schedule = client.Schedule`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `message_id` | `String` |  |
+| `messageId` | `String` |  |
 | `recipient` | `String` |  |
-| `scheduled_at_date` | `String` |  |
-| `send_at_date` | `String` |  |
+| `scheduledAtDate` | `String` |  |
+| `sendAtDate` | `String` |  |
 | `tag` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Schedule record (raises on error).
+# load returns the ENTITY — call data_get for the Schedule record (raises on error).
 schedule = client.Schedule.load({ "id" => "schedule_id" })
 ```
 

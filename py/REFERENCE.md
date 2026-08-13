@@ -92,10 +92,10 @@ schedule = client.Schedule()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `message_id` | `str` | No |  |
+| `messageId` | `str` | No |  |
 | `recipient` | `str` | No |  |
-| `scheduled_at_date` | `str` | No |  |
-| `send_at_date` | `str` | No |  |
+| `scheduledAtDate` | `str` | No |  |
+| `sendAtDate` | `str` | No |  |
 | `tag` | `str` | No |  |
 
 ### Operations

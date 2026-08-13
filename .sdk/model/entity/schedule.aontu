@@ -6,7 +6,7 @@ main: kit: entity: schedule: {
 
   fields: [
     {
-      name: "message_id"
+      name: "messageId"
       req: false
       type: "`$STRING`"
     }
@@ -16,12 +16,12 @@ main: kit: entity: schedule: {
       type: "`$STRING`"
     }
     {
-      name: "scheduled_at_date"
+      name: "scheduledAtDate"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "send_at_date"
+      name: "sendAtDate"
       req: false
       type: "`$STRING`"
     }

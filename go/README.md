@@ -70,7 +70,7 @@ func main() {
     fmt.Println(schedule)
 
     // Update a schedule.
-    updated, err := client.Schedule(nil).Update(map[string]any{"id": "example_id"}, nil)
+    updated, err := client.Schedule(nil).Update(map[string]any{"id": "example_id", "messageId": "example_messageId", "recipient": "example_recipient"}, nil)
     if err != nil {
         panic(err)
     }
@@ -292,10 +292,10 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"message_id"` |  |
+| `"messageId"` |  |
 | `"recipient"` |  |
-| `"scheduled_at_date"` |  |
-| `"send_at_date"` |  |
+| `"scheduledAtDate"` |  |
+| `"sendAtDate"` |  |
 | `"tag"` |  |
 
 Operations: List, Load, Remove, Update.
@@ -333,10 +333,10 @@ Create an instance: `schedule := client.Schedule(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `message_id` | `string` |  |
+| `messageId` | `string` |  |
 | `recipient` | `string` |  |
-| `scheduled_at_date` | `string` |  |
-| `send_at_date` | `string` |  |
+| `scheduledAtDate` | `string` |  |
+| `sendAtDate` | `string` |  |
 | `tag` | `string` |  |
 
 #### Example: Load

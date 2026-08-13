@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from lmsms_sdk.utility.voxgig_struct import voxgig_struct as vs
 from lmsms_sdk import LmSmsSDK
-from core import helpers
+from lmsms_sdk.core import helpers
 from test import runner
 
 
@@ -105,16 +105,16 @@ def _schedule_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "LMSMS_TEST_SCHEDULE_ENTID": {},
-        "LMSMS_TEST_LIVE": "FALSE",
-        "LMSMS_APIKEY": "NONE",
+        "LM_SMS_TEST_SCHEDULE_ENTID": {},
+        "LM_SMS_TEST_LIVE": "FALSE",
+        "LM_SMS_APIKEY": "NONE",
     })
 
-    live = env.get("LMSMS_TEST_LIVE") == "TRUE"
+    live = env.get("LM_SMS_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("LMSMS_APIKEY"),
+            "apikey": env.get("LM_SMS_APIKEY"),
         }
         client = LmSmsSDK(merged_opts)
         return {

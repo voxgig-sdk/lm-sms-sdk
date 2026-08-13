@@ -15,10 +15,10 @@ declare(strict_types=1);
 /** Schedule entity data model. */
 class Schedule
 {
-    public ?string $message_id = null;
+    public ?string $messageId = null;
     public ?string $recipient = null;
-    public ?string $scheduled_at_date = null;
-    public ?string $send_at_date = null;
+    public ?string $scheduledAtDate = null;
+    public ?string $sendAtDate = null;
     public ?string $tag = null;
 }
 
@@ -31,10 +31,10 @@ class ScheduleLoadMatch
 /** Request payload for Schedule#list. */
 class ScheduleListMatch
 {
-    public ?string $message_id = null;
+    public ?string $messageId = null;
     public ?string $recipient = null;
-    public ?string $scheduled_at_date = null;
-    public ?string $send_at_date = null;
+    public ?string $scheduledAtDate = null;
+    public ?string $sendAtDate = null;
     public ?string $tag = null;
 }
 
@@ -42,15 +42,20 @@ class ScheduleListMatch
 class ScheduleUpdateData
 {
     public string $id;
+    public ?string $messageId = null;
+    public ?string $recipient = null;
+    public ?string $scheduledAtDate = null;
+    public ?string $sendAtDate = null;
+    public ?string $tag = null;
 }
 
 /** Request payload for Schedule#remove. */
 class ScheduleRemoveMatch
 {
-    public ?string $message_id = null;
+    public ?string $messageId = null;
     public ?string $recipient = null;
-    public ?string $scheduled_at_date = null;
-    public ?string $send_at_date = null;
+    public ?string $scheduledAtDate = null;
+    public ?string $sendAtDate = null;
     public ?string $tag = null;
 }
 

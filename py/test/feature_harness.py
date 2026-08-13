@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import LmSmsControl
-from core.error import LmSmsError
-from core.result import LmSmsResult
-from core.spec import LmSmsSpec
+from lmsms_sdk.config import make_config
+from lmsms_sdk.features import _make_feature
+from lmsms_sdk.core.control import LmSmsControl
+from lmsms_sdk.core.error import LmSmsError
+from lmsms_sdk.core.result import LmSmsResult
+from lmsms_sdk.core.spec import LmSmsSpec
 
 
 # True when this SDK was generated with the named feature.

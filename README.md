@@ -36,9 +36,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = LmSmsSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = LmSmsSDK.test({
+  entity: {
+    schedule: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const schedules = await client.Schedule().list()
-// schedules is an array of bare Schedule records populated with mock data
+// schedules is an array of Schedule entities, populated with mock data
+// — call schedules[0].data() for the record itself
 console.log(schedules)
 ```
 
@@ -110,7 +119,7 @@ const client = new LmSmsSDK({
   apikey: process.env.LM_SMS_APIKEY,
 })
 
-// List all schedules (returns Schedule[])
+// List all schedules (returns ScheduleEntity[] — .data() for the record)
 const schedules = await client.Schedule().list()
 for (const schedule of schedules) {
   console.log(schedule)
@@ -197,7 +206,7 @@ $client = new LmSmsSDK([
 $schedules = $client->Schedule()->list();
 print_r($schedules);
 
-// Load a specific schedule (returns the bare record; throws on error)
+// Load a specific schedule (returns the ENTITY; call data_get() for the record; throws on error)
 $schedule = $client->Schedule()->load(["id" => "example_id"]);
 print_r($schedule);
 ```
@@ -232,7 +241,7 @@ client = LmSmsSDK.new({
 schedules = client.Schedule.list
 puts schedules
 
-# Load a specific schedule (returns the bare record; raises on error)
+# Load a specific schedule (returns the ENTITY; call data_get for the record)
 schedule = client.Schedule.load({ "id" => "example_id" })
 puts schedule
 ```
@@ -371,6 +380,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://api.linkmobility.com](https://api.linkmobility.com)
 

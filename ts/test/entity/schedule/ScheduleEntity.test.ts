@@ -26,8 +26,8 @@ import {
 describe('ScheduleEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LMSMS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LMSMS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LM_SMS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LM_SMS_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LmSmsSDK.test()
@@ -63,16 +63,16 @@ describe('ScheduleEntity', async () => {
     const schedule_ref01_ent = client.Schedule()
     const schedule_ref01_match: any = {}
 
-    const schedule_ref01_list = await schedule_ref01_ent.list(schedule_ref01_match)
+    const schedule_ref01_list = (await schedule_ref01_ent.list(schedule_ref01_match)).map((e: any) => e.data())
 
 
     // UPDATE
     const schedule_ref01_data_up0: any = {}
 
-    const schedule_ref01_markdef_up0 = { name: 'message_id', value: 'Mark01-schedule_ref01_' + setup.now }
+    const schedule_ref01_markdef_up0 = { name: 'messageId', value: 'Mark01-schedule_ref01_' + setup.now }
     ;(schedule_ref01_data_up0 as any)[schedule_ref01_markdef_up0.name] = schedule_ref01_markdef_up0.value
 
-    const schedule_ref01_resdata_up0 = await schedule_ref01_ent.update(schedule_ref01_data_up0)
+    const schedule_ref01_resdata_up0 = (await schedule_ref01_ent.update(schedule_ref01_data_up0)).data()
     assert(null != schedule_ref01_resdata_up0)
 
     assert((schedule_ref01_resdata_up0 as any)[schedule_ref01_markdef_up0.name] === schedule_ref01_markdef_up0.value)

@@ -2,26 +2,26 @@
   "existing": {
     "schedule": {
       "SCHEDULE00": {
-        "message_id": "MESSAGE01",
+        "messageId": "s32",
         "recipient": "s33",
-        "scheduled_at_date": "s34",
-        "send_at_date": "s35",
+        "scheduledAtDate": "s34",
+        "sendAtDate": "s35",
         "tag": "s36",
         "id": "SCHEDULE00"
       },
       "SCHEDULE01": {
-        "message_id": "MESSAGE01",
+        "messageId": "s64",
         "recipient": "s65",
-        "scheduled_at_date": "s66",
-        "send_at_date": "s67",
+        "scheduledAtDate": "s66",
+        "sendAtDate": "s67",
         "tag": "s68",
         "id": "SCHEDULE01"
       },
       "SCHEDULE02": {
-        "message_id": "MESSAGE01",
+        "messageId": "s96",
         "recipient": "s97",
-        "scheduled_at_date": "s98",
-        "send_at_date": "s99",
+        "scheduledAtDate": "s98",
+        "sendAtDate": "s99",
         "tag": "s9a",
         "id": "SCHEDULE02"
       }
@@ -30,10 +30,10 @@
   "new": {
     "schedule": {
       "schedule_ref01": {
-        "message_id": "MESSAGE01",
+        "messageId": "sc8",
         "recipient": "sc9",
-        "scheduled_at_date": "sca",
-        "send_at_date": "scb",
+        "scheduledAtDate": "sca",
+        "sendAtDate": "scb",
         "tag": "scc"
       }
     }

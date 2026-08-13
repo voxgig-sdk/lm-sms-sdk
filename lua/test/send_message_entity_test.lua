@@ -29,7 +29,7 @@ describe("SendMessageEntity", function()
     -- The basic flow consumes synthetic IDs from the fixture. In live mode
     -- without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set LMSMS_TEST_SEND_MESSAGE_ENTID JSON to run live")
+      pending("live entity test uses synthetic IDs from fixture — set LM_SMS_TEST_SEND_MESSAGE_ENTID JSON to run live")
       return
     end
     local client = setup.client
@@ -41,7 +41,7 @@ describe("SendMessageEntity", function()
 
     local send_message_ref01_data_result, err = send_message_ref01_ent:create(send_message_ref01_data, nil)
     assert.is_nil(err)
-    send_message_ref01_data = helpers.to_map(send_message_ref01_data_result)
+    send_message_ref01_data = helpers.to_map(type(send_message_ref01_data_result) == 'table' and send_message_ref01_data_result.data_get and send_message_ref01_data_result:data_get() or send_message_ref01_data_result)
     assert.is_not_nil(send_message_ref01_data)
 
   end)
@@ -79,39 +79,39 @@ function send_message_basic_setup(extra)
   -- Detect ENTID env override before envOverride consumes it. When live
   -- mode is on without a real override, the basic test runs against synthetic
   -- IDs from the fixture and 4xx's. Surface this so the test can skip.
-  local entid_env_raw = os.getenv("LMSMS_TEST_SEND_MESSAGE_ENTID")
+  local entid_env_raw = os.getenv("LM_SMS_TEST_SEND_MESSAGE_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 
   local env = runner.env_override({
-    ["LMSMS_TEST_SEND_MESSAGE_ENTID"] = idmap,
-    ["LMSMS_TEST_LIVE"] = "FALSE",
-    ["LMSMS_TEST_EXPLAIN"] = "FALSE",
-    ["LMSMS_APIKEY"] = "NONE",
+    ["LM_SMS_TEST_SEND_MESSAGE_ENTID"] = idmap,
+    ["LM_SMS_TEST_LIVE"] = "FALSE",
+    ["LM_SMS_TEST_EXPLAIN"] = "FALSE",
+    ["LM_SMS_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
-    env["LMSMS_TEST_SEND_MESSAGE_ENTID"])
+    env["LM_SMS_TEST_SEND_MESSAGE_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
   end
 
-  if env["LMSMS_TEST_LIVE"] == "TRUE" then
+  if env["LM_SMS_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["LMSMS_APIKEY"],
+        apikey = env["LM_SMS_APIKEY"],
       },
       extra or {},
     })
     client = sdk.new(helpers.to_map(merged_opts))
   end
 
-  local live = env["LMSMS_TEST_LIVE"] == "TRUE"
+  local live = env["LM_SMS_TEST_LIVE"] == "TRUE"
   return {
     client = client,
     data = entity_data,
     idmap = idmap_resolved,
     env = env,
-    explain = env["LMSMS_TEST_EXPLAIN"] == "TRUE",
+    explain = env["LM_SMS_TEST_EXPLAIN"] == "TRUE",
     live = live,
     synthetic_only = live and not idmap_overridden,
     now = os.time() * 1000,

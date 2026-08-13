@@ -62,7 +62,7 @@ class ScheduleEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set LMSMS_TEST_SCHEDULE_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set LM_SMS_TEST_SCHEDULE_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -86,12 +86,12 @@ class ScheduleEntityTest < Minitest::Test
     schedule_ref01_data_up0_up = {
     }
 
-    schedule_ref01_markdef_up0_name = "message_id"
+    schedule_ref01_markdef_up0_name = "messageId"
     schedule_ref01_markdef_up0_value = "Mark01-schedule_ref01_#{setup[:now]}"
     schedule_ref01_data_up0_up[schedule_ref01_markdef_up0_name] = schedule_ref01_markdef_up0_value
 
     schedule_ref01_resdata_up0_result = schedule_ref01_ent.update(schedule_ref01_data_up0_up, nil)
-    schedule_ref01_resdata_up0 = Helpers.to_map(schedule_ref01_resdata_up0_result)
+    schedule_ref01_resdata_up0 = Helpers.to_map(schedule_ref01_resdata_up0_result.respond_to?(:data_get) ? schedule_ref01_resdata_up0_result.data_get : schedule_ref01_resdata_up0_result)
     assert !schedule_ref01_resdata_up0.nil?
     assert_equal schedule_ref01_resdata_up0[schedule_ref01_markdef_up0_name], schedule_ref01_markdef_up0_value
 
@@ -129,39 +129,39 @@ def schedule_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["LMSMS_TEST_SCHEDULE_ENTID"]
+  entid_env_raw = ENV["LM_SMS_TEST_SCHEDULE_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "LMSMS_TEST_SCHEDULE_ENTID" => idmap,
-    "LMSMS_TEST_LIVE" => "FALSE",
-    "LMSMS_TEST_EXPLAIN" => "FALSE",
-    "LMSMS_APIKEY" => "NONE",
+    "LM_SMS_TEST_SCHEDULE_ENTID" => idmap,
+    "LM_SMS_TEST_LIVE" => "FALSE",
+    "LM_SMS_TEST_EXPLAIN" => "FALSE",
+    "LM_SMS_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["LMSMS_TEST_SCHEDULE_ENTID"])
+    env["LM_SMS_TEST_SCHEDULE_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["LMSMS_TEST_LIVE"] == "TRUE"
+  if env["LM_SMS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["LMSMS_APIKEY"],
+        "apikey" => env["LM_SMS_APIKEY"],
       },
       extra || {},
     ])
     client = LmSmsSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["LMSMS_TEST_LIVE"] == "TRUE"
+  live = env["LM_SMS_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["LMSMS_TEST_EXPLAIN"] == "TRUE",
+    explain: env["LM_SMS_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

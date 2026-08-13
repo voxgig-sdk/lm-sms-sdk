@@ -40,7 +40,7 @@ try {
     // list() returns an array of Schedule records — iterate directly.
     $schedules = $client->Schedule()->list();
     foreach ($schedules as $item) {
-        echo $item["message_id"] . "\n";
+        echo $item["messageId"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -51,7 +51,7 @@ try {
 
 ```php
 try {
-    // load() returns the bare Schedule record (throws on error).
+    // load() returns the ENTITY — call data_get() for the Schedule record (throws on error).
     $schedule = $client->Schedule()->load(["id" => "example_id"]);
     print_r($schedule);
 } catch (\Throwable $err) {
@@ -63,7 +63,7 @@ try {
 
 ```php
 // Update
-$client->Schedule()->update(["id" => "example_id"]);
+$client->Schedule()->update(["id" => "example_id", "messageId" => "example_messageId", "recipient" => "example_recipient"]);
 
 // Remove
 $client->Schedule()->remove();
@@ -152,7 +152,8 @@ $client = LmSmsSDK::test([
     "entity" => ["schedule" => ["test01" => ["id" => "test01"]]],
 ]);
 
-// Entity ops return the bare mock record (throws on error).
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
 $schedule = $client->Schedule()->list();
 print_r($schedule);
 ```
@@ -258,7 +259,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -280,10 +281,10 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `message_id` |  |
+| `messageId` |  |
 | `recipient` |  |
-| `scheduled_at_date` |  |
-| `send_at_date` |  |
+| `scheduledAtDate` |  |
+| `sendAtDate` |  |
 | `tag` |  |
 
 Operations: List, Load, Remove, Update.
@@ -321,16 +322,16 @@ Create an instance: `$schedule = $client->Schedule();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `message_id` | `string` |  |
+| `messageId` | `string` |  |
 | `recipient` | `string` |  |
-| `scheduled_at_date` | `string` |  |
-| `send_at_date` | `string` |  |
+| `scheduledAtDate` | `string` |  |
+| `sendAtDate` | `string` |  |
 | `tag` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Schedule record (throws on error).
+// load() returns the ENTITY — call data_get() for the Schedule record (throws on error).
 $schedule = $client->Schedule()->load(["id" => "schedule_id"]);
 ```
 

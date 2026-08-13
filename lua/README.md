@@ -45,7 +45,7 @@ local schedules, err = client:Schedule():list()
 if err then error(err) end
 
 for _, item in ipairs(schedules) do
-  print(item["message_id"])
+  print(item["messageId"])
 end
 ```
 
@@ -61,7 +61,7 @@ print(schedule)
 
 ```lua
 -- Update
-client:Schedule():update({ id = "example_id" })
+client:Schedule():update({ id = "example_id", messageId = "example_messageId", recipient = "example_recipient" })
 
 -- Remove
 client:Schedule():remove()
@@ -259,10 +259,10 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `message_id` |  |
+| `messageId` |  |
 | `recipient` |  |
-| `scheduled_at_date` |  |
-| `send_at_date` |  |
+| `scheduledAtDate` |  |
+| `sendAtDate` |  |
 | `tag` |  |
 
 Operations: List, Load, Remove, Update.
@@ -300,10 +300,10 @@ Create an instance: `local schedule = client:Schedule(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `message_id` | `string` |  |
+| `messageId` | `string` |  |
 | `recipient` | `string` |  |
-| `scheduled_at_date` | `string` |  |
-| `send_at_date` | `string` |  |
+| `scheduledAtDate` | `string` |  |
+| `sendAtDate` | `string` |  |
 | `tag` | `string` |  |
 
 #### Example: Load

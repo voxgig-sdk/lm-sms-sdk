@@ -93,7 +93,7 @@ func TestScheduleEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set LMSMS_TEST_SCHEDULE_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set LM_SMS_TEST_SCHEDULE_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
@@ -125,7 +125,7 @@ func TestScheduleEntity(t *testing.T) {
 		scheduleRef01DataUp0Up := map[string]any{
 		}
 
-		scheduleRef01MarkdefUp0Name := "message_id"
+		scheduleRef01MarkdefUp0Name := "messageId"
 		scheduleRef01MarkdefUp0Value := fmt.Sprintf("Mark01-schedule_ref01_%d", setup.now)
 		scheduleRef01DataUp0Up[scheduleRef01MarkdefUp0Name] = scheduleRef01MarkdefUp0Value
 
@@ -133,7 +133,7 @@ func TestScheduleEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("update failed: %v", err)
 		}
-		scheduleRef01ResdataUp0 := core.ToMapAny(scheduleRef01ResdataUp0Result)
+		scheduleRef01ResdataUp0 := core.ToMapAny(entityData(scheduleRef01ResdataUp0Result))
 		if scheduleRef01ResdataUp0 == nil {
 			t.Fatal("expected update result to be a map")
 		}
@@ -191,38 +191,38 @@ func scheduleBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("LMSMS_TEST_SCHEDULE_ENTID")
+	entidEnvRaw := os.Getenv("LM_SMS_TEST_SCHEDULE_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"LMSMS_TEST_SCHEDULE_ENTID": idmap,
-		"LMSMS_TEST_LIVE":      "FALSE",
-		"LMSMS_TEST_EXPLAIN":   "FALSE",
-		"LMSMS_APIKEY":         "NONE",
+		"LM_SMS_TEST_SCHEDULE_ENTID": idmap,
+		"LM_SMS_TEST_LIVE":      "FALSE",
+		"LM_SMS_TEST_EXPLAIN":   "FALSE",
+		"LM_SMS_APIKEY":         "NONE",
 	})
 
-	idmapResolved := core.ToMapAny(env["LMSMS_TEST_SCHEDULE_ENTID"])
+	idmapResolved := core.ToMapAny(env["LM_SMS_TEST_SCHEDULE_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["LMSMS_TEST_LIVE"] == "TRUE" {
+	if env["LM_SMS_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["LMSMS_APIKEY"],
+				"apikey": env["LM_SMS_APIKEY"],
 			},
 			extra,
 		})
 		client = sdk.NewLmSmsSDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["LMSMS_TEST_LIVE"] == "TRUE"
+	live := env["LM_SMS_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["LMSMS_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["LM_SMS_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

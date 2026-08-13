@@ -43,8 +43,8 @@ class LmSmsTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('LMSMS_TEST_LIVE');
-        $override = self::getenv('LMSMS_TEST_OVERRIDE');
+        $live = self::getenv('LM_SMS_TEST_LIVE');
+        $override = self::getenv('LM_SMS_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class LmSmsTestRunner
             }
         }
 
-        $explain = self::getenv('LMSMS_TEST_EXPLAIN');
+        $explain = self::getenv('LM_SMS_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['LMSMS_TEST_EXPLAIN'] = $explain;
+            $m['LM_SMS_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;
