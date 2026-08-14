@@ -33,7 +33,7 @@ class ScheduleEntityTest < Minitest::Test
     assert_equal 3, seen.length
 
     # Inbound: streaming active -> yields each item from the feature.
-    cfg = LmSmsConfig.make_config
+    cfg = LmSmsConfig.shared_config
     if cfg["feature"].is_a?(Hash) && cfg["feature"].key?("streaming")
       sdk = LmSmsSDK.test(seed, { "feature" => { "streaming" => { "active" => true } } })
       got = []

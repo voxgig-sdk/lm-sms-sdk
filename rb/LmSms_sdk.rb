@@ -28,7 +28,7 @@ class LmSmsSDK
     utility = LmSmsUtility.new
     @_utility = utility
 
-    config = LmSmsConfig.make_config
+    config = LmSmsConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

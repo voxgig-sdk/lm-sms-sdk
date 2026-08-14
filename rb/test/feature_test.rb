@@ -15,7 +15,7 @@ require_relative "../LmSms_sdk"
 module LmSmsFeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = LmSmsConfig.make_config["feature"]
+    f = LmSmsConfig.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 

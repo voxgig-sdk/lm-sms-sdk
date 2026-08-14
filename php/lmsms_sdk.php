@@ -40,7 +40,7 @@ class LmSmsSDK
         $utility = new LmSmsUtility();
         $this->_utility = $utility;
 
-        $config = LmSmsConfig::make_config();
+        $config = LmSmsConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
