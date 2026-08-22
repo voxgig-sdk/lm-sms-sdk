@@ -19,6 +19,9 @@ module LmSmsConfig
     {
       "main" => {
         "name" => "LmSms",
+        "slug" => "lm-sms",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {

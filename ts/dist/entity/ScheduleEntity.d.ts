@@ -5,9 +5,9 @@ import type { Schedule, ScheduleLoadMatch, ScheduleListMatch, ScheduleUpdateData
 declare class ScheduleEntity extends LmSmsEntityBase<Schedule> {
     constructor(client: LmSmsSDK, entopts: any);
     make(this: ScheduleEntity): ScheduleEntity;
-    load(this: any, reqmatch?: ScheduleLoadMatch, ctrl?: Control): Promise<Schedule>;
-    list(this: any, reqmatch?: ScheduleListMatch, ctrl?: Control): Promise<Schedule[]>;
-    update(this: any, reqdata?: ScheduleUpdateData, ctrl?: Control): Promise<Schedule>;
-    remove(this: any, reqmatch?: ScheduleRemoveMatch, ctrl?: Control): Promise<Schedule>;
+    load(this: any, reqmatch?: ScheduleLoadMatch, ctrl?: Control): Promise<ScheduleEntity>;
+    list(this: any, reqmatch?: ScheduleListMatch, ctrl?: Control): Promise<ScheduleEntity[]>;
+    update(this: any, reqdata?: ScheduleUpdateData, ctrl?: Control): Promise<ScheduleEntity>;
+    remove(this: any, reqmatch?: ScheduleRemoveMatch, ctrl?: Control): Promise<ScheduleEntity>;
 }
 export { ScheduleEntity };

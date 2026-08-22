@@ -12,8 +12,17 @@ class Config {
         // TODO: errors etc
         return fi;
     }
+    // False for a feature added at runtime via options.extend (station's
+    // adopt path) - the constructor uses this to skip makeFeature for names
+    // no generated class backs.
+    hasFeature(fn) {
+        return null != FEATURE_CLASS[fn];
+    }
     main = {
-        name: 'ProjectName',
+        name: 'LmSms',
+        slug: "lm-sms",
+        version: "0.0.1",
+        target: "ts",
     };
     feature = {
         test: {
@@ -23,7 +32,7 @@ class Config {
         },
     };
     options = {
-        base: 'https://api.linkmobility.com',
+        base: "https://api.linkmobility.com",
         auth: {
             prefix: 'Bearer',
         },
@@ -39,39 +48,24 @@ class Config {
         "schedule": {
             "fields": [
                 {
-                    "active": true,
-                    "name": "message_id",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "name": "messageId",
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
                     "name": "recipient",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
-                    "name": "scheduled_at_date",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 2
+                    "name": "scheduledAtDate",
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
-                    "name": "send_at_date",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 3
+                    "name": "sendAtDate",
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
                     "name": "tag",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 4
+                    "type": "`$STRING`"
                 }
             ],
             "name": "schedule",
@@ -81,61 +75,49 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "end",
                                         "orig": "end",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     },
                                     {
-                                        "active": true,
                                         "example": 1,
                                         "kind": "query",
                                         "name": "page",
                                         "orig": "page",
-                                        "reqd": false,
                                         "type": "`$INTEGER`"
                                     },
                                     {
-                                        "active": true,
                                         "example": 25,
                                         "kind": "query",
                                         "name": "size",
                                         "orig": "size",
-                                        "reqd": false,
                                         "type": "`$INTEGER`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "sort",
                                         "orig": "sort",
-                                        "reqd": false,
                                         "type": "`$ARRAY`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "start",
                                         "orig": "start",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "tag",
                                         "orig": "tag",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "GET",
                             "orig": "/sms/v1/schedules",
                             "parts": [
@@ -156,31 +138,27 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "list"
+                    ]
                 },
                 "load": {
                     "input": "data",
                     "name": "load",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "id",
                                         "orig": "message_id",
                                         "reqd": true,
-                                        "type": "`$STRING`",
-                                        "index$": 0
+                                        "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "GET",
                             "orig": "/sms/v1/schedules/{messageId}",
                             "parts": [
@@ -202,38 +180,32 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "load"
+                    ]
                 },
                 "remove": {
                     "input": "data",
                     "name": "remove",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "message_id",
                                         "orig": "message_id",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "tag",
                                         "orig": "tag",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "DELETE",
                             "orig": "/sms/v1/schedules",
                             "parts": [
@@ -250,31 +222,27 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "remove"
+                    ]
                 },
                 "update": {
                     "input": "data",
                     "name": "update",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "id",
                                         "orig": "message_id",
                                         "reqd": true,
-                                        "type": "`$STRING`",
-                                        "index$": 0
+                                        "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "PATCH",
                             "orig": "/sms/v1/schedules/{messageId}",
                             "parts": [
@@ -296,11 +264,9 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "update"
+                    ]
                 }
             },
             "relations": {
@@ -316,8 +282,8 @@ class Config {
                     "name": "create",
                     "points": [
                         {
-                            "active": true,
                             "args": {},
+                            "kind": "http",
                             "method": "POST",
                             "orig": "/sms/v1",
                             "parts": [
@@ -328,12 +294,11 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         },
                         {
-                            "active": true,
                             "args": {},
+                            "kind": "http",
                             "method": "POST",
                             "orig": "/sms/v1/messages",
                             "parts": [
@@ -345,11 +310,9 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 1
+                            }
                         }
-                    ],
-                    "key$": "create"
+                    ]
                 }
             },
             "relations": {

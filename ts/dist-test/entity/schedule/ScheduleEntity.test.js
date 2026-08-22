@@ -46,8 +46,8 @@ const __1 = require("../../..");
 const utility_1 = require("../../utility");
 (0, node_test_1.describe)('ScheduleEntity', async () => {
     // Per-test live pacing. Delay is read from sdk-test-control.json's
-    // `test.live.delayMs`; only sleeps when LMSMS_TEST_LIVE=TRUE.
-    (0, node_test_1.afterEach)((0, utility_1.liveDelay)('LMSMS_TEST_LIVE'));
+    // `test.live.delayMs`; only sleeps when LM_SMS_TEST_LIVE=TRUE.
+    (0, node_test_1.afterEach)((0, utility_1.liveDelay)('LM_SMS_TEST_LIVE'));
     (0, node_test_1.test)('instance', async () => {
         const testsdk = __1.LmSmsSDK.test();
         const ent = testsdk.Schedule();
@@ -75,12 +75,12 @@ const utility_1 = require("../../utility");
         // LIST
         const schedule_ref01_ent = client.Schedule();
         const schedule_ref01_match = {};
-        const schedule_ref01_list = await schedule_ref01_ent.list(schedule_ref01_match);
+        const schedule_ref01_list = (await schedule_ref01_ent.list(schedule_ref01_match)).map((e) => e.data());
         // UPDATE
         const schedule_ref01_data_up0 = {};
-        const schedule_ref01_markdef_up0 = { name: 'message_id', value: 'Mark01-schedule_ref01_' + setup.now };
+        const schedule_ref01_markdef_up0 = { name: 'messageId', value: 'Mark01-schedule_ref01_' + setup.now };
         schedule_ref01_data_up0[schedule_ref01_markdef_up0.name] = schedule_ref01_markdef_up0.value;
-        const schedule_ref01_resdata_up0 = await schedule_ref01_ent.update(schedule_ref01_data_up0);
+        const schedule_ref01_resdata_up0 = (await schedule_ref01_ent.update(schedule_ref01_data_up0)).data();
         (0, node_assert_1.default)(null != schedule_ref01_resdata_up0);
         (0, node_assert_1.default)(schedule_ref01_resdata_up0[schedule_ref01_markdef_up0.name] === schedule_ref01_markdef_up0.value);
     });

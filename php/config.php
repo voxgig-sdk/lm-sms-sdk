@@ -33,6 +33,9 @@ class LmSmsConfig
         return [
             "main" => [
                 "name" => "LmSms",
+                "slug" => "lm-sms",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [

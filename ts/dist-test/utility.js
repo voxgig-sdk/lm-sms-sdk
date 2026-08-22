@@ -83,8 +83,8 @@ function makeCtrl(explain) {
 // CLAUDE: add a full stop to each function comment
 // Overrides configuration values with environment variables if available
 function envOverride(m) {
-    if ('TRUE' === process.env.LMSMS_TEST_LIVE ||
-        'TRUE' === process.env.LMSMS_TEST_OVERRIDE) {
+    if ('TRUE' === process.env.LM_SMS_TEST_LIVE ||
+        'TRUE' === process.env.LM_SMS_TEST_OVERRIDE) {
         Object.entries(m).map(n => {
             let envval = process.env[n[0]];
             if (null != envval) {
@@ -93,7 +93,7 @@ function envOverride(m) {
             }
         });
     }
-    m.LMSMS_TEST_EXPLAIN = process.env.LMSMS_TEST_EXPLAIN || m.LMSMS_TEST_EXPLAIN;
+    m.LM_SMS_TEST_EXPLAIN = process.env.LM_SMS_TEST_EXPLAIN || m.LM_SMS_TEST_EXPLAIN;
     return m;
 }
 let _testControlCache = null;

@@ -5,6 +5,6 @@ import type { SendMessage, SendMessageCreateData } from '../LmSmsTypes';
 declare class SendMessageEntity extends LmSmsEntityBase<SendMessage> {
     constructor(client: LmSmsSDK, entopts: any);
     make(this: SendMessageEntity): SendMessageEntity;
-    create(this: any, reqdata?: SendMessageCreateData, ctrl?: Control): Promise<SendMessage>;
+    create(this: any, reqdata?: SendMessageCreateData, ctrl?: Control): Promise<SendMessageEntity>;
 }
 export { SendMessageEntity };

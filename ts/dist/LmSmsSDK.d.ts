@@ -31,8 +31,22 @@ declare class LmSmsSDK {
         headers?: undefined;
         data?: undefined;
     }>;
-    Schedule(data?: any): ScheduleEntity;
-    SendMessage(data?: any): SendMessageEntity;
+    _rawRequest(fetchargs?: any): Promise<Error | {
+        ok: boolean;
+        status: number;
+        headers: any;
+        data: any;
+        err?: undefined;
+    } | {
+        ok: boolean;
+        err: any;
+        status?: undefined;
+        headers?: undefined;
+        data?: undefined;
+    }>;
+    graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
+    Schedule(entopts?: Record<string, any>): ScheduleEntity;
+    SendMessage(entopts?: Record<string, any>): SendMessageEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): LmSmsSDK;
     tester(testopts?: any, sdkopts?: any): LmSmsSDK;
     toJSON(): {
