@@ -226,7 +226,9 @@ main: kit: entity: schedule: {
             ]
           }
           transform: {
-            req: "`reqdata`"
+            req: {
+              sendAtDate: "`reqdata.send_at_date`"
+            }
             res: "`body`"
           }
         }

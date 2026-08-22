@@ -20,7 +20,7 @@ module LmSmsConfig
       "main" => {
         "name" => "LmSms",
         "slug" => "lm-sms",
-        "version" => "0.0.1",
+        "version" => "0.1.1",
         "target" => "rb",
       },
       "feature" => {
@@ -261,7 +261,9 @@ module LmSmsConfig
                     ],
                   },
                   "transform" => {
-                    "req" => "`reqdata`",
+                    "req" => {
+                      "sendAtDate" => "`reqdata.send_at_date`",
+                    },
                     "res" => "`body`",
                   },
                 },

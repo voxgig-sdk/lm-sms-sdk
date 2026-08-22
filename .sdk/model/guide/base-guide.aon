@@ -14,6 +14,7 @@ guide: {
       rename: param: "messageId": *"id"
       op: load: method: *GET
       op: patch: method: *PATCH
+      op: patch: transform: req: "sendAtDate": *("`reqdata.send_at_date`")|top
     }
   }
 

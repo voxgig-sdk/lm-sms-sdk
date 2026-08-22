@@ -150,7 +150,9 @@ declare class Config {
                             exist: string[];
                         };
                         transform: {
-                            req: string;
+                            req: {
+                                sendAtDate: string;
+                            };
                             res: string;
                         };
                     }[];

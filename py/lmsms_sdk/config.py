@@ -29,7 +29,7 @@ def make_config():
         "main": {
             "name": "LmSms",
             "slug": "lm-sms",
-            "version": "0.0.1",
+            "version": "0.1.1",
             "target": "py",
         },
         "feature": {
@@ -270,7 +270,9 @@ def make_config():
                   ],
                 },
                 "transform": {
-                  "req": "`reqdata`",
+                  "req": {
+                    "sendAtDate": "`reqdata.send_at_date`",
+                  },
                   "res": "`body`",
                 },
               },
