@@ -1,15 +1,6 @@
 {
-  "NAME": "LM-SMS",
-  "Name": "LmSms",
   "def": "sms-openapi.json",
   "main": {
-    "api": {
-      "entity": {},
-      "guide": {}
-    },
-    "custom": {
-      "plurals": {}
-    },
     "def": {
       "desc": ""
     },
@@ -1114,8 +1105,5 @@
     }
   },
   "name": "lm-sms",
-  "name-": "lm-sms",
-  "name_": "lm_sms",
-  "name__orig": "lm-sms",
   "origin": "voxgig-sdk"
 }
