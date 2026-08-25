@@ -28,6 +28,7 @@ module LmSmsConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
