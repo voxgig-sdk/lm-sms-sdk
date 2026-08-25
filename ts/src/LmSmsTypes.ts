@@ -6,6 +6,7 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface Schedule {
+  id?: string
   messageId?: string
   recipient?: string
   scheduledAtDate?: string
@@ -18,6 +19,7 @@ export interface ScheduleLoadMatch {
 }
 
 export interface ScheduleListMatch {
+  id?: string
   messageId?: string
   recipient?: string
   scheduledAtDate?: string
@@ -35,6 +37,7 @@ export interface ScheduleUpdateData {
 }
 
 export interface ScheduleRemoveMatch {
+  id: string
   messageId?: string
   recipient?: string
   scheduledAtDate?: string

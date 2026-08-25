@@ -17,6 +17,7 @@ from typing import TypedDict, Any
 
 
 class Schedule(TypedDict, total=False):
+    id: str
     messageId: str
     recipient: str
     scheduledAtDate: str
@@ -29,6 +30,7 @@ class ScheduleLoadMatch(TypedDict):
 
 
 class ScheduleListMatch(TypedDict, total=False):
+    id: str
     messageId: str
     recipient: str
     scheduledAtDate: str
@@ -48,7 +50,11 @@ class ScheduleUpdateData(ScheduleUpdateDataRequired, total=False):
     tag: str
 
 
-class ScheduleRemoveMatch(TypedDict, total=False):
+class ScheduleRemoveMatchRequired(TypedDict):
+    id: str
+
+
+class ScheduleRemoveMatch(ScheduleRemoveMatchRequired, total=False):
     messageId: str
     recipient: str
     scheduledAtDate: str

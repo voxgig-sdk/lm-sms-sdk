@@ -39,7 +39,7 @@ begin
   # list returns an Array of Schedule records — iterate directly.
   schedules = client.Schedule.list
   schedules.each do |item|
-    puts "#{item["messageId"]}"
+    puts "#{item["id"]} #{item["messageId"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -65,7 +65,7 @@ end
 client.Schedule.update({ "id" => "example_id", "messageId" => "example_messageId", "recipient" => "example_recipient" })
 
 # Remove
-client.Schedule.remove()
+client.Schedule.remove({ "id" => "example_id" })
 ```
 
 
@@ -271,6 +271,7 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `messageId` |  |
 | `recipient` |  |
 | `scheduledAtDate` |  |
@@ -312,6 +313,7 @@ Create an instance: `schedule = client.Schedule`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `String` |  |
 | `messageId` | `String` |  |
 | `recipient` | `String` |  |
 | `scheduledAtDate` | `String` |  |

@@ -15,6 +15,7 @@ declare(strict_types=1);
 /** Schedule entity data model. */
 class Schedule
 {
+    public ?string $id = null;
     public ?string $messageId = null;
     public ?string $recipient = null;
     public ?string $scheduledAtDate = null;
@@ -31,6 +32,7 @@ class ScheduleLoadMatch
 /** Request payload for Schedule#list. */
 class ScheduleListMatch
 {
+    public ?string $id = null;
     public ?string $messageId = null;
     public ?string $recipient = null;
     public ?string $scheduledAtDate = null;
@@ -52,6 +54,7 @@ class ScheduleUpdateData
 /** Request payload for Schedule#remove. */
 class ScheduleRemoveMatch
 {
+    public string $id;
     public ?string $messageId = null;
     public ?string $recipient = null;
     public ?string $scheduledAtDate = null;

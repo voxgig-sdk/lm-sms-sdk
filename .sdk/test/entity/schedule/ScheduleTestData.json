@@ -2,39 +2,39 @@
   "existing": {
     "schedule": {
       "SCHEDULE00": {
-        "messageId": "s32",
-        "recipient": "s33",
-        "scheduledAtDate": "s34",
-        "sendAtDate": "s35",
-        "tag": "s36",
-        "id": "SCHEDULE00"
+        "id": "SCHEDULE00",
+        "messageId": "s3d",
+        "recipient": "s3e",
+        "scheduledAtDate": "s3f",
+        "sendAtDate": "s40",
+        "tag": "s41"
       },
       "SCHEDULE01": {
-        "messageId": "s64",
-        "recipient": "s65",
-        "scheduledAtDate": "s66",
-        "sendAtDate": "s67",
-        "tag": "s68",
-        "id": "SCHEDULE01"
+        "id": "SCHEDULE01",
+        "messageId": "s79",
+        "recipient": "s7a",
+        "scheduledAtDate": "s7b",
+        "sendAtDate": "s7c",
+        "tag": "s7d"
       },
       "SCHEDULE02": {
-        "messageId": "s96",
-        "recipient": "s97",
-        "scheduledAtDate": "s98",
-        "sendAtDate": "s99",
-        "tag": "s9a",
-        "id": "SCHEDULE02"
+        "id": "SCHEDULE02",
+        "messageId": "sb5",
+        "recipient": "sb6",
+        "scheduledAtDate": "sb7",
+        "sendAtDate": "sb8",
+        "tag": "sb9"
       }
     }
   },
   "new": {
     "schedule": {
       "schedule_ref01": {
-        "messageId": "sc8",
-        "recipient": "sc9",
-        "scheduledAtDate": "sca",
-        "sendAtDate": "scb",
-        "tag": "scc"
+        "messageId": "sf1",
+        "recipient": "sf2",
+        "scheduledAtDate": "sf3",
+        "sendAtDate": "sf4",
+        "tag": "sf5"
       }
     }
   }

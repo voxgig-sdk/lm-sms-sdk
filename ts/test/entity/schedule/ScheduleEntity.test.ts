@@ -68,15 +68,22 @@ describe('ScheduleEntity', async () => {
 
     // UPDATE
     const schedule_ref01_data_up0: any = {}
+    schedule_ref01_data_up0.id = schedule_ref01_data.id
 
     const schedule_ref01_markdef_up0 = { name: 'messageId', value: 'Mark01-schedule_ref01_' + setup.now }
     ;(schedule_ref01_data_up0 as any)[schedule_ref01_markdef_up0.name] = schedule_ref01_markdef_up0.value
 
     const schedule_ref01_resdata_up0 = (await schedule_ref01_ent.update(schedule_ref01_data_up0)).data()
-    assert(null != schedule_ref01_resdata_up0)
+    assert(schedule_ref01_resdata_up0.id === schedule_ref01_data_up0.id)
 
     assert((schedule_ref01_resdata_up0 as any)[schedule_ref01_markdef_up0.name] === schedule_ref01_markdef_up0.value)
 
+
+    // LOAD
+    const schedule_ref01_match_dt0: any = {}
+    schedule_ref01_match_dt0.id = schedule_ref01_data.id
+    const schedule_ref01_data_dt0 = (await schedule_ref01_ent.load(schedule_ref01_match_dt0)).data()
+    assert(schedule_ref01_data_dt0.id === schedule_ref01_data.id)
 
 
   })

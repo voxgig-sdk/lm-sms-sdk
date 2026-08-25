@@ -40,7 +40,7 @@ try {
     // list() returns an array of Schedule records — iterate directly.
     $schedules = $client->Schedule()->list();
     foreach ($schedules as $item) {
-        echo $item["messageId"] . "\n";
+        echo $item["id"] . " " . $item["messageId"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -66,7 +66,7 @@ try {
 $client->Schedule()->update(["id" => "example_id", "messageId" => "example_messageId", "recipient" => "example_recipient"]);
 
 // Remove
-$client->Schedule()->remove();
+$client->Schedule()->remove(["id" => "example_id"]);
 ```
 
 
@@ -281,6 +281,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `messageId` |  |
 | `recipient` |  |
 | `scheduledAtDate` |  |
@@ -322,6 +323,7 @@ Create an instance: `$schedule = $client->Schedule();`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `string` |  |
 | `messageId` | `string` |  |
 | `recipient` | `string` |  |
 | `scheduledAtDate` | `string` |  |

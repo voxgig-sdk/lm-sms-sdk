@@ -92,6 +92,7 @@ schedule = client.Schedule()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `str` | No |  |
 | `messageId` | `str` | No |  |
 | `recipient` | `str` | No |  |
 | `scheduledAtDate` | `str` | No |  |
@@ -123,7 +124,7 @@ result = client.Schedule().load({"id": "schedule_id"})
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.Schedule().remove()
+result = client.Schedule().remove({"id": "schedule_id"})
 ```
 
 #### `update(reqdata, ctrl=None) -> dict`

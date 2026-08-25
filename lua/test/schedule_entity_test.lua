@@ -93,6 +93,7 @@ describe("ScheduleEntity", function()
 
     -- UPDATE
     local schedule_ref01_data_up0_up = {
+      id = schedule_ref01_data["id"],
     }
 
     local schedule_ref01_markdef_up0_name = "messageId"
@@ -103,13 +104,18 @@ describe("ScheduleEntity", function()
     assert.is_nil(err)
     local schedule_ref01_resdata_up0 = helpers.to_map(type(schedule_ref01_resdata_up0_result) == 'table' and schedule_ref01_resdata_up0_result.data_get and schedule_ref01_resdata_up0_result:data_get() or schedule_ref01_resdata_up0_result)
     assert.is_not_nil(schedule_ref01_resdata_up0)
+    assert.are.equal(schedule_ref01_resdata_up0["id"], schedule_ref01_data_up0_up["id"])
     assert.are.equal(schedule_ref01_resdata_up0[schedule_ref01_markdef_up0_name], schedule_ref01_markdef_up0_value)
 
     -- LOAD
-    local schedule_ref01_match_dt0 = {}
+    local schedule_ref01_match_dt0 = {
+      id = schedule_ref01_data["id"],
+    }
     local schedule_ref01_data_dt0_loaded, err = schedule_ref01_ent:load(schedule_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_not_nil(schedule_ref01_data_dt0_loaded)
+    local schedule_ref01_data_dt0_load_result = helpers.to_map(type(schedule_ref01_data_dt0_loaded) == 'table' and schedule_ref01_data_dt0_loaded.data_get and schedule_ref01_data_dt0_loaded:data_get() or schedule_ref01_data_dt0_loaded)
+    assert.is_not_nil(schedule_ref01_data_dt0_load_result)
+    assert.are.equal(schedule_ref01_data_dt0_load_result["id"], schedule_ref01_data["id"])
 
   end)
 end)

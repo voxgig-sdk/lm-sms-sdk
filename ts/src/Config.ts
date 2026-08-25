@@ -74,6 +74,10 @@ class Config {
     "schedule": {
       "fields": [
         {
+          "name": "id",
+          "type": "`$STRING`"
+        },
+        {
           "name": "messageId",
           "type": "`$STRING`"
         },

@@ -72,7 +72,7 @@ except Exception as err:
 client.Schedule().update({"id": "example_id", "messageId": "example_messageId", "recipient": "example_recipient"})
 
 # Remove
-client.Schedule().remove()
+client.Schedule().remove({"id": "example_id"})
 ```
 
 
@@ -275,6 +275,7 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `messageId` |  |
 | `recipient` |  |
 | `scheduledAtDate` |  |
@@ -316,6 +317,7 @@ Create an instance: `schedule = client.Schedule()`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `str` |  |
 | `messageId` | `str` |  |
 | `recipient` | `str` |  |
 | `scheduledAtDate` | `str` |  |

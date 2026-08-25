@@ -129,6 +129,7 @@ const schedule = client.Schedule()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `string` | No |  |
 | `messageId` | `string` | No |  |
 | `recipient` | `string` | No |  |
 | `scheduledAtDate` | `string` | No |  |
@@ -158,7 +159,7 @@ const result = await client.Schedule().load({ id: 'schedule_id' })
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.Schedule().remove()
+const result = await client.Schedule().remove({ id: 'schedule_id' })
 ```
 
 #### `update(data: object, ctrl?: object)`

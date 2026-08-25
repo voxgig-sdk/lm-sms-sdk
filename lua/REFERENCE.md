@@ -95,6 +95,7 @@ local schedule = client:Schedule(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `string` | No |  |
 | `messageId` | `string` | No |  |
 | `recipient` | `string` | No |  |
 | `scheduledAtDate` | `string` | No |  |
@@ -124,7 +125,7 @@ local result, err = client:Schedule():load({ id = "schedule_id" })
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:Schedule():remove()
+local result, err = client:Schedule():remove({ id = "schedule_id" })
 ```
 
 #### `update(reqdata, ctrl) -> any, err`

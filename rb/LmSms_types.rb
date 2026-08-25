@@ -10,6 +10,9 @@
 
 # Schedule entity data model.
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] messageId
 #   @return [String, nil]
 #
@@ -25,6 +28,7 @@
 # @!attribute [rw] tag
 #   @return [String, nil]
 Schedule = Struct.new(
+  :id,
   :messageId,
   :recipient,
   :scheduledAtDate,
@@ -44,6 +48,9 @@ ScheduleLoadMatch = Struct.new(
 
 # Request payload for Schedule#list.
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] messageId
 #   @return [String, nil]
 #
@@ -59,6 +66,7 @@ ScheduleLoadMatch = Struct.new(
 # @!attribute [rw] tag
 #   @return [String, nil]
 ScheduleListMatch = Struct.new(
+  :id,
   :messageId,
   :recipient,
   :scheduledAtDate,
@@ -98,6 +106,9 @@ ScheduleUpdateData = Struct.new(
 
 # Request payload for Schedule#remove.
 #
+# @!attribute [rw] id
+#   @return [String]
+#
 # @!attribute [rw] messageId
 #   @return [String, nil]
 #
@@ -113,6 +124,7 @@ ScheduleUpdateData = Struct.new(
 # @!attribute [rw] tag
 #   @return [String, nil]
 ScheduleRemoveMatch = Struct.new(
+  :id,
   :messageId,
   :recipient,
   :scheduledAtDate,

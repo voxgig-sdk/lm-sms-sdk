@@ -97,6 +97,7 @@ $schedule = $client->Schedule();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `string` | No |  |
 | `messageId` | `string` | No |  |
 | `recipient` | `string` | No |  |
 | `scheduledAtDate` | `string` | No |  |
@@ -126,7 +127,7 @@ $result = $client->Schedule()->load(["id" => "schedule_id"]);
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Schedule()->remove();
+$result = $client->Schedule()->remove(["id" => "schedule_id"]);
 ```
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`

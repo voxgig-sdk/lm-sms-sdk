@@ -34,6 +34,12 @@
           "fields": [
             {
               "active": true,
+              "name": "id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
               "name": "messageId",
               "req": false,
               "type": "`$STRING`"
@@ -63,6 +69,10 @@
               "type": "`$STRING`"
             }
           ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
           "name": "schedule",
           "op": {
             "list": {

@@ -45,7 +45,7 @@ local schedules, err = client:Schedule():list()
 if err then error(err) end
 
 for _, item in ipairs(schedules) do
-  print(item["messageId"])
+  print(item["id"], item["messageId"])
 end
 ```
 
@@ -64,7 +64,7 @@ print(schedule)
 client:Schedule():update({ id = "example_id", messageId = "example_messageId", recipient = "example_recipient" })
 
 -- Remove
-client:Schedule():remove()
+client:Schedule():remove({ id = "example_id" })
 ```
 
 
@@ -259,6 +259,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `messageId` |  |
 | `recipient` |  |
 | `scheduledAtDate` |  |
@@ -300,6 +301,7 @@ Create an instance: `local schedule = client:Schedule(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `string` |  |
 | `messageId` | `string` |  |
 | `recipient` | `string` |  |
 | `scheduledAtDate` | `string` |  |

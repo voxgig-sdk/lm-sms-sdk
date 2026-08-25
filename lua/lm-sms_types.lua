@@ -7,6 +7,7 @@
 -- edit by hand.
 
 ---@class Schedule
+---@field id? string
 ---@field messageId? string
 ---@field recipient? string
 ---@field scheduledAtDate? string
@@ -17,6 +18,7 @@
 ---@field id string
 
 ---@class ScheduleListMatch
+---@field id? string
 ---@field messageId? string
 ---@field recipient? string
 ---@field scheduledAtDate? string
@@ -32,6 +34,7 @@
 ---@field tag? string
 
 ---@class ScheduleRemoveMatch
+---@field id string
 ---@field messageId? string
 ---@field recipient? string
 ---@field scheduledAtDate? string

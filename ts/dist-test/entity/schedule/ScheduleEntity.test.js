@@ -78,11 +78,17 @@ const utility_1 = require("../../utility");
         const schedule_ref01_list = (await schedule_ref01_ent.list(schedule_ref01_match)).map((e) => e.data());
         // UPDATE
         const schedule_ref01_data_up0 = {};
+        schedule_ref01_data_up0.id = schedule_ref01_data.id;
         const schedule_ref01_markdef_up0 = { name: 'messageId', value: 'Mark01-schedule_ref01_' + setup.now };
         schedule_ref01_data_up0[schedule_ref01_markdef_up0.name] = schedule_ref01_markdef_up0.value;
         const schedule_ref01_resdata_up0 = (await schedule_ref01_ent.update(schedule_ref01_data_up0)).data();
-        (0, node_assert_1.default)(null != schedule_ref01_resdata_up0);
+        (0, node_assert_1.default)(schedule_ref01_resdata_up0.id === schedule_ref01_data_up0.id);
         (0, node_assert_1.default)(schedule_ref01_resdata_up0[schedule_ref01_markdef_up0.name] === schedule_ref01_markdef_up0.value);
+        // LOAD
+        const schedule_ref01_match_dt0 = {};
+        schedule_ref01_match_dt0.id = schedule_ref01_data.id;
+        const schedule_ref01_data_dt0 = (await schedule_ref01_ent.load(schedule_ref01_match_dt0)).data();
+        (0, node_assert_1.default)(schedule_ref01_data_dt0.id === schedule_ref01_data.id);
     });
 });
 function basicSetup(extra) {

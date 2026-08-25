@@ -6,6 +6,11 @@ main: kit: entity: schedule: {
 
   fields: [
     {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
       name: "messageId"
       req: false
       type: "`$STRING`"
@@ -31,6 +36,11 @@ main: kit: entity: schedule: {
       type: "`$STRING`"
     }
   ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
 
   name: "schedule"
   op: {

@@ -123,6 +123,7 @@ func TestScheduleEntity(t *testing.T) {
 
 		// UPDATE
 		scheduleRef01DataUp0Up := map[string]any{
+			"id": scheduleRef01Data["id"],
 		}
 
 		scheduleRef01MarkdefUp0Name := "messageId"
@@ -137,18 +138,27 @@ func TestScheduleEntity(t *testing.T) {
 		if scheduleRef01ResdataUp0 == nil {
 			t.Fatal("expected update result to be a map")
 		}
+		if scheduleRef01ResdataUp0["id"] != scheduleRef01DataUp0Up["id"] {
+			t.Fatal("expected update result id to match")
+		}
 		if scheduleRef01ResdataUp0[scheduleRef01MarkdefUp0Name] != scheduleRef01MarkdefUp0Value {
 			t.Fatalf("expected %s to be updated, got %v", scheduleRef01MarkdefUp0Name, scheduleRef01ResdataUp0[scheduleRef01MarkdefUp0Name])
 		}
 
 		// LOAD
-		scheduleRef01MatchDt0 := map[string]any{}
+		scheduleRef01MatchDt0 := map[string]any{
+			"id": scheduleRef01Data["id"],
+		}
 		scheduleRef01DataDt0Loaded, err := scheduleRef01Ent.Load(scheduleRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if scheduleRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		scheduleRef01DataDt0LoadResult := core.ToMapAny(entityData(scheduleRef01DataDt0Loaded))
+		if scheduleRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if scheduleRef01DataDt0LoadResult["id"] != scheduleRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

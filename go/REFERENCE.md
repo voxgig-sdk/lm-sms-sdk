@@ -103,6 +103,7 @@ fmt.Println(schedule.GetName()) // "schedule"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `string` | No |  |
 | `messageId` | `string` | No |  |
 | `recipient` | `string` | No |  |
 | `scheduledAtDate` | `string` | No |  |
@@ -155,7 +156,7 @@ fmt.Println(result)
 Remove the entity matching the given criteria.
 
 ```go
-result, err := client.Schedule(nil).Remove(nil, nil)
+result, err := client.Schedule(nil).Remove(map[string]any{"id": "schedule_id"}, nil)
 if err != nil {
     panic(err)
 }

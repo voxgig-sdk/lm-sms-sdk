@@ -73,7 +73,9 @@ const updated = await client.Schedule().update({
 })
 
 // Remove
-await client.Schedule().remove()
+await client.Schedule().remove({
+  id: 'example_id',
+})
 ```
 
 
@@ -175,7 +177,7 @@ await entity.list()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data)
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -327,6 +329,7 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 | `messageId` |  |
 | `recipient` |  |
 | `scheduledAtDate` |  |
@@ -368,6 +371,7 @@ Create an instance: `const schedule = client.Schedule()`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `string` |  |
 | `messageId` | `string` |  |
 | `recipient` | `string` |  |
 | `scheduledAtDate` | `string` |  |

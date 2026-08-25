@@ -89,6 +89,7 @@ class TestScheduleEntity:
 
         # UPDATE
         schedule_ref01_data_up0_up = {
+            "id": schedule_ref01_data["id"],
         }
 
         schedule_ref01_markdef_up0_name = "messageId"
@@ -97,12 +98,17 @@ class TestScheduleEntity:
 
         schedule_ref01_resdata_up0 = helpers.to_map(runner.entity_data(schedule_ref01_ent.update(schedule_ref01_data_up0_up, None)))
         assert schedule_ref01_resdata_up0 is not None
+        assert schedule_ref01_resdata_up0["id"] == schedule_ref01_data_up0_up["id"]
         assert schedule_ref01_resdata_up0[schedule_ref01_markdef_up0_name] == schedule_ref01_markdef_up0_value
 
         # LOAD
-        schedule_ref01_match_dt0 = {}
+        schedule_ref01_match_dt0 = {
+            "id": schedule_ref01_data["id"],
+        }
         schedule_ref01_data_dt0_loaded = schedule_ref01_ent.load(schedule_ref01_match_dt0, None)
-        assert schedule_ref01_data_dt0_loaded is not None
+        schedule_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(schedule_ref01_data_dt0_loaded))
+        assert schedule_ref01_data_dt0_load_result is not None
+        assert schedule_ref01_data_dt0_load_result["id"] == schedule_ref01_data["id"]
 
 
 

@@ -98,6 +98,7 @@ schedule = client.Schedule
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `id` | `String` | No |  |
 | `messageId` | `String` | No |  |
 | `recipient` | `String` | No |  |
 | `scheduledAtDate` | `String` | No |  |
@@ -127,7 +128,7 @@ result = client.Schedule.load({ "id" => "schedule_id" })
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Schedule.remove()
+result = client.Schedule.remove({ "id" => "schedule_id" })
 ```
 
 #### `update(reqdata, ctrl = nil) -> result`

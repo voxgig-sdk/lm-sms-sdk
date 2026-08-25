@@ -77,7 +77,7 @@ func main() {
     fmt.Println(updated)
 
     // Remove a schedule.
-    removed, err := client.Schedule(nil).Remove(nil, nil)
+    removed, err := client.Schedule(nil).Remove(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
@@ -292,6 +292,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
+| `"id"` |  |
 | `"messageId"` |  |
 | `"recipient"` |  |
 | `"scheduledAtDate"` |  |
@@ -333,6 +334,7 @@ Create an instance: `schedule := client.Schedule(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `id` | `string` |  |
 | `messageId` | `string` |  |
 | `recipient` | `string` |  |
 | `scheduledAtDate` | `string` |  |

@@ -94,6 +94,7 @@ class ScheduleEntityTest extends TestCase
 
         // UPDATE
         $schedule_ref01_data_up0_up = [
+            "id" => $schedule_ref01_data["id"],
         ];
 
         $schedule_ref01_markdef_up0_name = "messageId";
@@ -103,12 +104,17 @@ class ScheduleEntityTest extends TestCase
         $schedule_ref01_resdata_up0_result = $schedule_ref01_ent->update($schedule_ref01_data_up0_up, null);
         $schedule_ref01_resdata_up0 = Helpers::to_map(is_object($schedule_ref01_resdata_up0_result) && method_exists($schedule_ref01_resdata_up0_result, 'data_get') ? $schedule_ref01_resdata_up0_result->data_get() : $schedule_ref01_resdata_up0_result);
         $this->assertNotNull($schedule_ref01_resdata_up0);
+        $this->assertEquals($schedule_ref01_resdata_up0["id"], $schedule_ref01_data_up0_up["id"]);
         $this->assertEquals($schedule_ref01_resdata_up0[$schedule_ref01_markdef_up0_name], $schedule_ref01_markdef_up0_value);
 
         // LOAD
-        $schedule_ref01_match_dt0 = [];
+        $schedule_ref01_match_dt0 = [
+            "id" => $schedule_ref01_data["id"],
+        ];
         $schedule_ref01_data_dt0_loaded = $schedule_ref01_ent->load($schedule_ref01_match_dt0, null);
-        $this->assertNotNull($schedule_ref01_data_dt0_loaded);
+        $schedule_ref01_data_dt0_load_result = Helpers::to_map(is_object($schedule_ref01_data_dt0_loaded) && method_exists($schedule_ref01_data_dt0_loaded, 'data_get') ? $schedule_ref01_data_dt0_loaded->data_get() : $schedule_ref01_data_dt0_loaded);
+        $this->assertNotNull($schedule_ref01_data_dt0_load_result);
+        $this->assertEquals($schedule_ref01_data_dt0_load_result["id"], $schedule_ref01_data["id"]);
 
     }
 }

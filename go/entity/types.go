@@ -14,6 +14,7 @@ import (
 
 // Schedule is the typed data model for the schedule entity.
 type Schedule struct {
+	Id *string `json:"id,omitempty"`
 	MessageId *string `json:"messageId,omitempty"`
 	Recipient *string `json:"recipient,omitempty"`
 	ScheduledAtDate *string `json:"scheduledAtDate,omitempty"`
@@ -28,6 +29,7 @@ type ScheduleLoadMatch struct {
 
 // ScheduleListMatch is the typed request payload for Schedule.ListTyped.
 type ScheduleListMatch struct {
+	Id *string `json:"id,omitempty"`
 	MessageId *string `json:"messageId,omitempty"`
 	Recipient *string `json:"recipient,omitempty"`
 	ScheduledAtDate *string `json:"scheduledAtDate,omitempty"`
@@ -47,6 +49,7 @@ type ScheduleUpdateData struct {
 
 // ScheduleRemoveMatch is the typed request payload for Schedule.RemoveTyped.
 type ScheduleRemoveMatch struct {
+	Id string `json:"id"`
 	MessageId *string `json:"messageId,omitempty"`
 	Recipient *string `json:"recipient,omitempty"`
 	ScheduledAtDate *string `json:"scheduledAtDate,omitempty"`
