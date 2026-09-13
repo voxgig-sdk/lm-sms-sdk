@@ -29,11 +29,11 @@ type ScheduleLoadMatch struct {
 
 // ScheduleListMatch is the typed request payload for Schedule.ListTyped.
 type ScheduleListMatch struct {
-	Id *string `json:"id,omitempty"`
-	MessageId *string `json:"messageId,omitempty"`
-	Recipient *string `json:"recipient,omitempty"`
-	ScheduledAtDate *string `json:"scheduledAtDate,omitempty"`
-	SendAtDate *string `json:"sendAtDate,omitempty"`
+	End *string `json:"end,omitempty"`
+	Page *int `json:"page,omitempty"`
+	Size *int `json:"size,omitempty"`
+	Sort *[]any `json:"sort,omitempty"`
+	Start *string `json:"start,omitempty"`
 	Tag *string `json:"tag,omitempty"`
 }
 
@@ -49,11 +49,7 @@ type ScheduleUpdateData struct {
 
 // ScheduleRemoveMatch is the typed request payload for Schedule.RemoveTyped.
 type ScheduleRemoveMatch struct {
-	Id string `json:"id"`
-	MessageId *string `json:"messageId,omitempty"`
-	Recipient *string `json:"recipient,omitempty"`
-	ScheduledAtDate *string `json:"scheduledAtDate,omitempty"`
-	SendAtDate *string `json:"sendAtDate,omitempty"`
+	MessageId *string `json:"message_id,omitempty"`
 	Tag *string `json:"tag,omitempty"`
 }
 

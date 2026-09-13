@@ -1,10 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.config = void 0;
+exports.FEATURE_PLUGINS = exports.config = void 0;
 const TestFeature_1 = require("./feature/test/TestFeature");
 const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
 };
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS = {};
+exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
@@ -53,6 +61,7 @@ class Config {
                     "type": "`$STRING`"
                 },
                 {
+                    "format": "uuid",
                     "name": "messageId",
                     "type": "`$STRING`"
                 },
@@ -61,10 +70,12 @@ class Config {
                     "type": "`$STRING`"
                 },
                 {
+                    "format": "date-time",
                     "name": "scheduledAtDate",
                     "type": "`$STRING`"
                 },
                 {
+                    "format": "date-time",
                     "name": "sendAtDate",
                     "type": "`$STRING`"
                 },
@@ -73,6 +84,10 @@ class Config {
                     "type": "`$STRING`"
                 }
             ],
+            "id": {
+                "field": "id",
+                "name": "id"
+            },
             "name": "schedule",
             "op": {
                 "list": {
@@ -125,10 +140,16 @@ class Config {
                             "kind": "http",
                             "method": "GET",
                             "orig": "/sms/v1/schedules",
-                            "parts": [
-                                "sms",
-                                "v1",
-                                "schedules"
+                            "segments": [
+                                {
+                                    "lit": "sms"
+                                },
+                                {
+                                    "lit": "v1"
+                                },
+                                {
+                                    "lit": "schedules"
+                                }
                             ],
                             "select": {
                                 "exist": [
@@ -143,7 +164,12 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            }
+                            },
+                            "parts": [
+                                "sms",
+                                "v1",
+                                "schedules"
+                            ]
                         }
                     ]
                 },
@@ -166,17 +192,25 @@ class Config {
                             "kind": "http",
                             "method": "GET",
                             "orig": "/sms/v1/schedules/{messageId}",
-                            "parts": [
-                                "sms",
-                                "v1",
-                                "schedules",
-                                "{id}"
-                            ],
                             "rename": {
                                 "param": {
                                     "messageId": "id"
                                 }
                             },
+                            "segments": [
+                                {
+                                    "lit": "sms"
+                                },
+                                {
+                                    "lit": "v1"
+                                },
+                                {
+                                    "lit": "schedules"
+                                },
+                                {
+                                    "var": "id"
+                                }
+                            ],
                             "select": {
                                 "exist": [
                                     "id"
@@ -185,7 +219,13 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            }
+                            },
+                            "parts": [
+                                "sms",
+                                "v1",
+                                "schedules",
+                                "{id}"
+                            ]
                         }
                     ]
                 },
@@ -213,10 +253,16 @@ class Config {
                             "kind": "http",
                             "method": "DELETE",
                             "orig": "/sms/v1/schedules",
-                            "parts": [
-                                "sms",
-                                "v1",
-                                "schedules"
+                            "segments": [
+                                {
+                                    "lit": "sms"
+                                },
+                                {
+                                    "lit": "v1"
+                                },
+                                {
+                                    "lit": "schedules"
+                                }
                             ],
                             "select": {
                                 "exist": [
@@ -227,7 +273,12 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            }
+                            },
+                            "parts": [
+                                "sms",
+                                "v1",
+                                "schedules"
+                            ]
                         }
                     ]
                 },
@@ -250,17 +301,25 @@ class Config {
                             "kind": "http",
                             "method": "PATCH",
                             "orig": "/sms/v1/schedules/{messageId}",
-                            "parts": [
-                                "sms",
-                                "v1",
-                                "schedules",
-                                "{id}"
-                            ],
                             "rename": {
                                 "param": {
                                     "messageId": "id"
                                 }
                             },
+                            "segments": [
+                                {
+                                    "lit": "sms"
+                                },
+                                {
+                                    "lit": "v1"
+                                },
+                                {
+                                    "lit": "schedules"
+                                },
+                                {
+                                    "var": "id"
+                                }
+                            ],
                             "select": {
                                 "exist": [
                                     "id"
@@ -271,7 +330,13 @@ class Config {
                                     "sendAtDate": "`reqdata.send_at_date`"
                                 },
                                 "res": "`body`"
-                            }
+                            },
+                            "parts": [
+                                "sms",
+                                "v1",
+                                "schedules",
+                                "{id}"
+                            ]
                         }
                     ]
                 }
@@ -293,31 +358,50 @@ class Config {
                             "kind": "http",
                             "method": "POST",
                             "orig": "/sms/v1",
-                            "parts": [
-                                "sms",
-                                "v1"
+                            "segments": [
+                                {
+                                    "lit": "sms"
+                                },
+                                {
+                                    "lit": "v1"
+                                }
                             ],
                             "select": {},
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            }
+                            },
+                            "parts": [
+                                "sms",
+                                "v1"
+                            ]
                         },
                         {
                             "args": {},
                             "kind": "http",
                             "method": "POST",
                             "orig": "/sms/v1/messages",
-                            "parts": [
-                                "sms",
-                                "v1",
-                                "messages"
+                            "segments": [
+                                {
+                                    "lit": "sms"
+                                },
+                                {
+                                    "lit": "v1"
+                                },
+                                {
+                                    "lit": "messages"
+                                }
                             ],
                             "select": {},
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            }
+                            },
+                            "parts": [
+                                "sms",
+                                "v1",
+                                "messages"
+                            ]
                         }
                     ]
                 }

@@ -40,6 +40,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uuid",
             ["name"] = "messageId",
             ["type"] = "`$STRING`",
           },
@@ -48,10 +49,12 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "scheduledAtDate",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "sendAtDate",
             ["type"] = "`$STRING`",
           },
@@ -59,6 +62,10 @@ local function make_config()
             ["name"] = "tag",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "schedule",
         ["op"] = {
@@ -112,10 +119,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/sms/v1/schedules",
-                ["parts"] = {
-                  "sms",
-                  "v1",
-                  "schedules",
+                ["segments"] = {
+                  {
+                    ["lit"] = "sms",
+                  },
+                  {
+                    ["lit"] = "v1",
+                  },
+                  {
+                    ["lit"] = "schedules",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -130,6 +143,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "sms",
+                  "v1",
+                  "schedules",
                 },
               },
             },
@@ -153,15 +171,23 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/sms/v1/schedules/{messageId}",
-                ["parts"] = {
-                  "sms",
-                  "v1",
-                  "schedules",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["messageId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "sms",
+                  },
+                  {
+                    ["lit"] = "v1",
+                  },
+                  {
+                    ["lit"] = "schedules",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -172,6 +198,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "sms",
+                  "v1",
+                  "schedules",
+                  "{id}",
                 },
               },
             },
@@ -200,10 +232,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/sms/v1/schedules",
-                ["parts"] = {
-                  "sms",
-                  "v1",
-                  "schedules",
+                ["segments"] = {
+                  {
+                    ["lit"] = "sms",
+                  },
+                  {
+                    ["lit"] = "v1",
+                  },
+                  {
+                    ["lit"] = "schedules",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -214,6 +252,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "sms",
+                  "v1",
+                  "schedules",
                 },
               },
             },
@@ -237,15 +280,23 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "PATCH",
                 ["orig"] = "/sms/v1/schedules/{messageId}",
-                ["parts"] = {
-                  "sms",
-                  "v1",
-                  "schedules",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["messageId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "sms",
+                  },
+                  {
+                    ["lit"] = "v1",
+                  },
+                  {
+                    ["lit"] = "schedules",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -258,6 +309,12 @@ local function make_config()
                     ["sendAtDate"] = "`reqdata.send_at_date`",
                   },
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "sms",
+                  "v1",
+                  "schedules",
+                  "{id}",
                 },
               },
             },
@@ -280,14 +337,22 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/sms/v1",
-                ["parts"] = {
-                  "sms",
-                  "v1",
+                ["segments"] = {
+                  {
+                    ["lit"] = "sms",
+                  },
+                  {
+                    ["lit"] = "v1",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "sms",
+                  "v1",
                 },
               },
               {
@@ -295,15 +360,26 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/sms/v1/messages",
-                ["parts"] = {
-                  "sms",
-                  "v1",
-                  "messages",
+                ["segments"] = {
+                  {
+                    ["lit"] = "sms",
+                  },
+                  {
+                    ["lit"] = "v1",
+                  },
+                  {
+                    ["lit"] = "messages",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "sms",
+                  "v1",
+                  "messages",
                 },
               },
             },

@@ -11,6 +11,7 @@ main: kit: entity: schedule: {
       type: "`$STRING`"
     }
     {
+      format: "uuid"
       name: "messageId"
       req: false
       type: "`$STRING`"
@@ -21,11 +22,13 @@ main: kit: entity: schedule: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "scheduledAtDate"
       req: false
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "sendAtDate"
       req: false
       type: "`$STRING`"
@@ -98,10 +101,16 @@ main: kit: entity: schedule: {
           }
           method: "GET"
           orig: "/sms/v1/schedules"
-          parts: [
-            "sms"
-            "v1"
-            "schedules"
+          segments: [
+            {
+              lit: "sms"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "schedules"
+            }
           ]
           select: {
             exist: [
@@ -137,17 +146,25 @@ main: kit: entity: schedule: {
           }
           method: "GET"
           orig: "/sms/v1/schedules/{messageId}"
-          parts: [
-            "sms"
-            "v1"
-            "schedules"
-            "{id}"
-          ]
           rename: {
             param: {
               messageId: "id"
             }
           }
+          segments: [
+            {
+              lit: "sms"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "schedules"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -184,10 +201,16 @@ main: kit: entity: schedule: {
           }
           method: "DELETE"
           orig: "/sms/v1/schedules"
-          parts: [
-            "sms"
-            "v1"
-            "schedules"
+          segments: [
+            {
+              lit: "sms"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "schedules"
+            }
           ]
           select: {
             exist: [
@@ -219,17 +242,25 @@ main: kit: entity: schedule: {
           }
           method: "PATCH"
           orig: "/sms/v1/schedules/{messageId}"
-          parts: [
-            "sms"
-            "v1"
-            "schedules"
-            "{id}"
-          ]
           rename: {
             param: {
               messageId: "id"
             }
           }
+          segments: [
+            {
+              lit: "sms"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "schedules"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

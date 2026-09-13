@@ -196,14 +196,22 @@ func scheduleDirectSetup(mockres any) *scheduleDirectSetupResult {
 	env := envOverride(map[string]any{
 		"LM_SMS_TEST_SCHEDULE_ENTID": map[string]any{},
 		"LM_SMS_TEST_LIVE":    "FALSE",
-		"LM_SMS_APIKEY":       "NONE",
+		"LM_SMS_APIKEY":       "",
 	})
 
 	live := env["LM_SMS_TEST_LIVE"] == "TRUE"
 
 	if live {
-		mergedOpts := map[string]any{
+		// sdk-test-control.json's test.client.options seeds the live
+		// client; the generated fields below overwrite anything they name.
+		mergedOpts := map[string]any{}
+		for k, v := range liveClientOptions() {
+			mergedOpts[k] = v
+		}
+		for k, v := range map[string]any{
 			"apikey": env["LM_SMS_APIKEY"],
+		} {
+			mergedOpts[k] = v
 		}
 		client := sdk.NewLmSmsSDK(mergedOpts)
 

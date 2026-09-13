@@ -30,11 +30,11 @@ class ScheduleLoadMatch(TypedDict):
 
 
 class ScheduleListMatch(TypedDict, total=False):
-    id: str
-    messageId: str
-    recipient: str
-    scheduledAtDate: str
-    sendAtDate: str
+    end: str
+    page: int
+    size: int
+    sort: list
+    start: str
     tag: str
 
 
@@ -50,15 +50,8 @@ class ScheduleUpdateData(ScheduleUpdateDataRequired, total=False):
     tag: str
 
 
-class ScheduleRemoveMatchRequired(TypedDict):
-    id: str
-
-
-class ScheduleRemoveMatch(ScheduleRemoveMatchRequired, total=False):
-    messageId: str
-    recipient: str
-    scheduledAtDate: str
-    sendAtDate: str
+class ScheduleRemoveMatch(TypedDict, total=False):
+    message_id: str
     tag: str
 
 

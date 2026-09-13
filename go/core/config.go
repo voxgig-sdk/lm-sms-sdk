@@ -44,6 +44,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "uuid",
 						"name": "messageId",
 						"type": "`$STRING`",
 					},
@@ -52,10 +53,12 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "date-time",
 						"name": "scheduledAtDate",
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "date-time",
 						"name": "sendAtDate",
 						"type": "`$STRING`",
 					},
@@ -63,6 +66,10 @@ func MakeConfig() map[string]any {
 						"name": "tag",
 						"type": "`$STRING`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "schedule",
 				"op": map[string]any{
@@ -116,10 +123,16 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/sms/v1/schedules",
-								"parts": []any{
-									"sms",
-									"v1",
-									"schedules",
+								"segments": []any{
+									map[string]any{
+										"lit": "sms",
+									},
+									map[string]any{
+										"lit": "v1",
+									},
+									map[string]any{
+										"lit": "schedules",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -134,6 +147,11 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"sms",
+									"v1",
+									"schedules",
 								},
 							},
 						},
@@ -157,15 +175,23 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/sms/v1/schedules/{messageId}",
-								"parts": []any{
-									"sms",
-									"v1",
-									"schedules",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"messageId": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "sms",
+									},
+									map[string]any{
+										"lit": "v1",
+									},
+									map[string]any{
+										"lit": "schedules",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -176,6 +202,12 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"sms",
+									"v1",
+									"schedules",
+									"{id}",
 								},
 							},
 						},
@@ -204,10 +236,16 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/sms/v1/schedules",
-								"parts": []any{
-									"sms",
-									"v1",
-									"schedules",
+								"segments": []any{
+									map[string]any{
+										"lit": "sms",
+									},
+									map[string]any{
+										"lit": "v1",
+									},
+									map[string]any{
+										"lit": "schedules",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -218,6 +256,11 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"sms",
+									"v1",
+									"schedules",
 								},
 							},
 						},
@@ -241,15 +284,23 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "PATCH",
 								"orig": "/sms/v1/schedules/{messageId}",
-								"parts": []any{
-									"sms",
-									"v1",
-									"schedules",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"messageId": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "sms",
+									},
+									map[string]any{
+										"lit": "v1",
+									},
+									map[string]any{
+										"lit": "schedules",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -262,6 +313,12 @@ func MakeConfig() map[string]any {
 										"sendAtDate": "`reqdata.send_at_date`",
 									},
 									"res": "`body`",
+								},
+								"parts": []any{
+									"sms",
+									"v1",
+									"schedules",
+									"{id}",
 								},
 							},
 						},
@@ -284,14 +341,22 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "POST",
 								"orig": "/sms/v1",
-								"parts": []any{
-									"sms",
-									"v1",
+								"segments": []any{
+									map[string]any{
+										"lit": "sms",
+									},
+									map[string]any{
+										"lit": "v1",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"sms",
+									"v1",
 								},
 							},
 							map[string]any{
@@ -299,15 +364,26 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "POST",
 								"orig": "/sms/v1/messages",
-								"parts": []any{
-									"sms",
-									"v1",
-									"messages",
+								"segments": []any{
+									map[string]any{
+										"lit": "sms",
+									},
+									map[string]any{
+										"lit": "v1",
+									},
+									map[string]any{
+										"lit": "messages",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"sms",
+									"v1",
+									"messages",
 								},
 							},
 						},
@@ -319,6 +395,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (

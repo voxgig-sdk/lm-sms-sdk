@@ -32,11 +32,11 @@ class ScheduleLoadMatch
 /** Request payload for Schedule#list. */
 class ScheduleListMatch
 {
-    public ?string $id = null;
-    public ?string $messageId = null;
-    public ?string $recipient = null;
-    public ?string $scheduledAtDate = null;
-    public ?string $sendAtDate = null;
+    public ?string $end = null;
+    public ?int $page = null;
+    public ?int $size = null;
+    public ?array $sort = null;
+    public ?string $start = null;
     public ?string $tag = null;
 }
 
@@ -54,11 +54,7 @@ class ScheduleUpdateData
 /** Request payload for Schedule#remove. */
 class ScheduleRemoveMatch
 {
-    public string $id;
-    public ?string $messageId = null;
-    public ?string $recipient = null;
-    public ?string $scheduledAtDate = null;
-    public ?string $sendAtDate = null;
+    public ?string $message_id = null;
     public ?string $tag = null;
 }
 

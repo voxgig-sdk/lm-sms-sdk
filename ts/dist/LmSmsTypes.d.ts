@@ -10,11 +10,11 @@ export interface ScheduleLoadMatch {
     id: string;
 }
 export interface ScheduleListMatch {
-    id?: string;
-    messageId?: string;
-    recipient?: string;
-    scheduledAtDate?: string;
-    sendAtDate?: string;
+    end?: string;
+    page?: number;
+    size?: number;
+    sort?: any[];
+    start?: string;
     tag?: string;
 }
 export interface ScheduleUpdateData {
@@ -26,11 +26,7 @@ export interface ScheduleUpdateData {
     tag?: string;
 }
 export interface ScheduleRemoveMatch {
-    id: string;
-    messageId?: string;
-    recipient?: string;
-    scheduledAtDate?: string;
-    sendAtDate?: string;
+    message_id?: string;
     tag?: string;
 }
 export interface SendMessage {

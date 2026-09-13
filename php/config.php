@@ -66,6 +66,7 @@ class LmSmsConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'uuid',
               'name' => 'messageId',
               'type' => '`$STRING`',
             ],
@@ -74,10 +75,12 @@ class LmSmsConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'scheduledAtDate',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'sendAtDate',
               'type' => '`$STRING`',
             ],
@@ -85,6 +88,10 @@ class LmSmsConfig
               'name' => 'tag',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'schedule',
           'op' => [
@@ -138,10 +145,16 @@ class LmSmsConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/sms/v1/schedules',
-                  'parts' => [
-                    'sms',
-                    'v1',
-                    'schedules',
+                  'segments' => [
+                    [
+                      'lit' => 'sms',
+                    ],
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'schedules',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -156,6 +169,11 @@ class LmSmsConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'sms',
+                    'v1',
+                    'schedules',
                   ],
                 ],
               ],
@@ -179,15 +197,23 @@ class LmSmsConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/sms/v1/schedules/{messageId}',
-                  'parts' => [
-                    'sms',
-                    'v1',
-                    'schedules',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'messageId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'sms',
+                    ],
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'schedules',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -198,6 +224,12 @@ class LmSmsConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'sms',
+                    'v1',
+                    'schedules',
+                    '{id}',
                   ],
                 ],
               ],
@@ -226,10 +258,16 @@ class LmSmsConfig
                   'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/sms/v1/schedules',
-                  'parts' => [
-                    'sms',
-                    'v1',
-                    'schedules',
+                  'segments' => [
+                    [
+                      'lit' => 'sms',
+                    ],
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'schedules',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -240,6 +278,11 @@ class LmSmsConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'sms',
+                    'v1',
+                    'schedules',
                   ],
                 ],
               ],
@@ -263,15 +306,23 @@ class LmSmsConfig
                   'kind' => 'http',
                   'method' => 'PATCH',
                   'orig' => '/sms/v1/schedules/{messageId}',
-                  'parts' => [
-                    'sms',
-                    'v1',
-                    'schedules',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'messageId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'sms',
+                    ],
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'schedules',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -284,6 +335,12 @@ class LmSmsConfig
                       'sendAtDate' => '`reqdata.send_at_date`',
                     ],
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'sms',
+                    'v1',
+                    'schedules',
+                    '{id}',
                   ],
                 ],
               ],
@@ -306,14 +363,22 @@ class LmSmsConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/sms/v1',
-                  'parts' => [
-                    'sms',
-                    'v1',
+                  'segments' => [
+                    [
+                      'lit' => 'sms',
+                    ],
+                    [
+                      'lit' => 'v1',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'sms',
+                    'v1',
                   ],
                 ],
                 [
@@ -321,15 +386,26 @@ class LmSmsConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/sms/v1/messages',
-                  'parts' => [
-                    'sms',
-                    'v1',
-                    'messages',
+                  'segments' => [
+                    [
+                      'lit' => 'sms',
+                    ],
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'messages',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'sms',
+                    'v1',
+                    'messages',
                   ],
                 ],
               ],

@@ -48,29 +48,29 @@ ScheduleLoadMatch = Struct.new(
 
 # Request payload for Schedule#list.
 #
-# @!attribute [rw] id
+# @!attribute [rw] end
 #   @return [String, nil]
 #
-# @!attribute [rw] messageId
-#   @return [String, nil]
+# @!attribute [rw] page
+#   @return [Integer, nil]
 #
-# @!attribute [rw] recipient
-#   @return [String, nil]
+# @!attribute [rw] size
+#   @return [Integer, nil]
 #
-# @!attribute [rw] scheduledAtDate
-#   @return [String, nil]
+# @!attribute [rw] sort
+#   @return [Array, nil]
 #
-# @!attribute [rw] sendAtDate
+# @!attribute [rw] start
 #   @return [String, nil]
 #
 # @!attribute [rw] tag
 #   @return [String, nil]
 ScheduleListMatch = Struct.new(
-  :id,
-  :messageId,
-  :recipient,
-  :scheduledAtDate,
-  :sendAtDate,
+  :end,
+  :page,
+  :size,
+  :sort,
+  :start,
   :tag,
   keyword_init: true
 )
@@ -106,29 +106,13 @@ ScheduleUpdateData = Struct.new(
 
 # Request payload for Schedule#remove.
 #
-# @!attribute [rw] id
-#   @return [String]
-#
-# @!attribute [rw] messageId
-#   @return [String, nil]
-#
-# @!attribute [rw] recipient
-#   @return [String, nil]
-#
-# @!attribute [rw] scheduledAtDate
-#   @return [String, nil]
-#
-# @!attribute [rw] sendAtDate
+# @!attribute [rw] message_id
 #   @return [String, nil]
 #
 # @!attribute [rw] tag
 #   @return [String, nil]
 ScheduleRemoveMatch = Struct.new(
-  :id,
-  :messageId,
-  :recipient,
-  :scheduledAtDate,
-  :sendAtDate,
+  :message_id,
   :tag,
   keyword_init: true
 )

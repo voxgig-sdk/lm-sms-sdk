@@ -1,6 +1,14 @@
 # LmSms SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -61,6 +69,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "uuid",
             "name": "messageId",
             "type": "`$STRING`",
           },
@@ -69,10 +78,12 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "date-time",
             "name": "scheduledAtDate",
             "type": "`$STRING`",
           },
           {
+            "format": "date-time",
             "name": "sendAtDate",
             "type": "`$STRING`",
           },
@@ -81,6 +92,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "schedule",
         "op": {
           "list": {
@@ -133,10 +148,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/sms/v1/schedules",
-                "parts": [
-                  "sms",
-                  "v1",
-                  "schedules",
+                "segments": [
+                  {
+                    "lit": "sms",
+                  },
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "schedules",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -152,6 +173,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "sms",
+                  "v1",
+                  "schedules",
+                ],
               },
             ],
           },
@@ -174,17 +200,25 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/sms/v1/schedules/{messageId}",
-                "parts": [
-                  "sms",
-                  "v1",
-                  "schedules",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "messageId": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "sms",
+                  },
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "schedules",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -194,6 +228,12 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "sms",
+                  "v1",
+                  "schedules",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -221,10 +261,16 @@ def make_config():
                 "kind": "http",
                 "method": "DELETE",
                 "orig": "/sms/v1/schedules",
-                "parts": [
-                  "sms",
-                  "v1",
-                  "schedules",
+                "segments": [
+                  {
+                    "lit": "sms",
+                  },
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "schedules",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -236,6 +282,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "sms",
+                  "v1",
+                  "schedules",
+                ],
               },
             ],
           },
@@ -258,17 +309,25 @@ def make_config():
                 "kind": "http",
                 "method": "PATCH",
                 "orig": "/sms/v1/schedules/{messageId}",
-                "parts": [
-                  "sms",
-                  "v1",
-                  "schedules",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "messageId": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "sms",
+                  },
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "schedules",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -280,6 +339,12 @@ def make_config():
                   },
                   "res": "`body`",
                 },
+                "parts": [
+                  "sms",
+                  "v1",
+                  "schedules",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -301,31 +366,50 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/sms/v1",
-                "parts": [
-                  "sms",
-                  "v1",
+                "segments": [
+                  {
+                    "lit": "sms",
+                  },
+                  {
+                    "lit": "v1",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "sms",
+                  "v1",
+                ],
               },
               {
                 "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/sms/v1/messages",
-                "parts": [
-                  "sms",
-                  "v1",
-                  "messages",
+                "segments": [
+                  {
+                    "lit": "sms",
+                  },
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "messages",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "sms",
+                  "v1",
+                  "messages",
+                ],
               },
             ],
           },

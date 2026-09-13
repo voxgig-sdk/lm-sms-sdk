@@ -18,11 +18,11 @@
 ---@field id string
 
 ---@class ScheduleListMatch
----@field id? string
----@field messageId? string
----@field recipient? string
----@field scheduledAtDate? string
----@field sendAtDate? string
+---@field end? string
+---@field page? number
+---@field size? number
+---@field sort? table
+---@field start? string
 ---@field tag? string
 
 ---@class ScheduleUpdateData
@@ -34,11 +34,7 @@
 ---@field tag? string
 
 ---@class ScheduleRemoveMatch
----@field id string
----@field messageId? string
----@field recipient? string
----@field scheduledAtDate? string
----@field sendAtDate? string
+---@field message_id? string
 ---@field tag? string
 
 ---@class SendMessage
