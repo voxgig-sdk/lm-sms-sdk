@@ -33,7 +33,93 @@
         "repr": "auto"
       },
       "contributor": {},
-      "docs": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "github-pages": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "github-pages",
+            "name": "github-pages",
+            "origname": "",
+            "output": {
+              "path": "docs"
+            },
+            "package": "@voxgig/docgen",
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          },
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "schedule": {
           "active": true,
@@ -147,6 +233,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "GET /sms/v1/schedules",
+                    "json": "{\"parameters\":[{\"description\":\"List of fields used to sort results\",\"in\":\"query\",\"name\":\"sort\",\"schema\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"}},{\"description\":\"Requested page\",\"in\":\"query\",\"name\":\"page\",\"schema\":{\"default\":1,\"format\":\"int32\",\"type\":\"integer\"}},{\"description\":\"Number of items per page\",\"in\":\"query\",\"name\":\"size\",\"schema\":{\"default\":25,\"format\":\"int32\",\"maximum\":100,\"minimum\":0,\"type\":\"integer\"}},{\"description\":\"Return schedule sending related with the same tag\",\"in\":\"query\",\"name\":\"tag\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Return sending with scheduled date after start date\",\"in\":\"query\",\"name\":\"start\",\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Return sending with scheduled date before end date\",\"in\":\"query\",\"name\":\"end\",\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"messageId\":{\"format\":\"uuid\",\"type\":\"string\"},\"recipient\":{\"nullable\":true,\"type\":\"string\"},\"scheduledAtDate\":{\"format\":\"date-time\",\"type\":\"string\"},\"sendAtDate\":{\"format\":\"date-time\",\"type\":\"string\"},\"tag\":{\"nullable\":true,\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Success\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"message\":{\"description\":\"Human-readable summary of the problem.\",\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"description\":\"Unique Id of the request made towards LINK\",\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Bad Request\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"description\":\"Forbidden\"},\"429\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Too Many Requests\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Server Error\"},\"502\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Server Error\"}},\"security\":[{\"Bearer\":[]}],\"securitySchemes\":{\"Bearer\":{\"description\":\"Bearer token\",\"flows\":{\"clientCredentials\":{\"scopes\":{},\"tokenUrl\":\"https://sso.linkmobility.com/auth/realms/CPaaS/protocol/openid-connect/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/sms/v1/schedules",
@@ -195,6 +287,12 @@
                         "type": "`$STRING`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "GET /sms/v1/schedules/{messageId}",
+                    "json": "{\"parameters\":[{\"in\":\"path\",\"name\":\"messageId\",\"required\":true,\"schema\":{\"format\":\"uuid\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"messageId\":{\"format\":\"uuid\",\"type\":\"string\"},\"recipient\":{\"nullable\":true,\"type\":\"string\"},\"scheduledAtDate\":{\"format\":\"date-time\",\"type\":\"string\"},\"sendAtDate\":{\"format\":\"date-time\",\"type\":\"string\"},\"tag\":{\"nullable\":true,\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Success\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Bad Request\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"description\":\"Forbidden\"},\"429\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Too Many Requests\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Server Error\"},\"502\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Server Error\"}},\"security\":[{\"Bearer\":[]}],\"securitySchemes\":{\"Bearer\":{\"description\":\"Bearer token\",\"flows\":{\"clientCredentials\":{\"scopes\":{},\"tokenUrl\":\"https://sso.linkmobility.com/auth/realms/CPaaS/protocol/openid-connect/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "GET",
@@ -256,6 +354,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "DELETE /sms/v1/schedules",
+                    "json": "{\"parameters\":[{\"in\":\"query\",\"name\":\"messageId\",\"schema\":{\"format\":\"uuid\",\"type\":\"string\"}},{\"in\":\"query\",\"name\":\"tag\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"messageId\":{\"format\":\"uuid\",\"type\":\"string\"},\"recipient\":{\"nullable\":true,\"type\":\"string\"},\"scheduledAtDate\":{\"format\":\"date-time\",\"type\":\"string\"},\"sendAtDate\":{\"format\":\"date-time\",\"type\":\"string\"},\"tag\":{\"nullable\":true,\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Success\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Bad Request\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"description\":\"Forbidden\"},\"429\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Too Many Requests\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Server Error\"},\"502\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Server Error\"}},\"security\":[{\"Bearer\":[]}],\"securitySchemes\":{\"Bearer\":{\"description\":\"Bearer token\",\"flows\":{\"clientCredentials\":{\"scopes\":{},\"tokenUrl\":\"https://sso.linkmobility.com/auth/realms/CPaaS/protocol/openid-connect/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/sms/v1/schedules",
@@ -300,6 +404,12 @@
                         "type": "`$STRING`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "PATCH /sms/v1/schedules/{messageId}",
+                    "json": "{\"parameters\":[{\"in\":\"path\",\"name\":\"messageId\",\"required\":true,\"schema\":{\"format\":\"uuid\",\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"sendAtDate\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"}}}},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"messageId\":{\"format\":\"uuid\",\"type\":\"string\"},\"recipient\":{\"nullable\":true,\"type\":\"string\"},\"scheduledAtDate\":{\"format\":\"date-time\",\"type\":\"string\"},\"sendAtDate\":{\"format\":\"date-time\",\"type\":\"string\"},\"tag\":{\"nullable\":true,\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Success\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Bad Request\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"description\":\"Forbidden\"},\"429\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Too Many Requests\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Server Error\"},\"502\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"nullable\":true,\"type\":\"string\"},\"description\":{\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Server Error\"}},\"security\":[{\"Bearer\":[]}],\"securitySchemes\":{\"Bearer\":{\"description\":\"Bearer token\",\"flows\":{\"clientCredentials\":{\"scopes\":{},\"tokenUrl\":\"https://sso.linkmobility.com/auth/realms/CPaaS/protocol/openid-connect/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "PATCH",
@@ -357,6 +467,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "POST /sms/v1",
+                    "json": "{\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"callback\":{\"additionalProperties\":false,\"properties\":{\"gateId\":{\"description\":\"The ID of the callback to be used. Can be set up in the Callbacks section of MyLINK portal. Mandatory when using mode \\\"Gate\\\" - not relevant to any other modes.\",\"nullable\":true,\"type\":\"string\"},\"mode\":{\"description\":\"Choose how you want to receive your Delivery reports. Mode Profile sends any DLRs towards your default configuration in MyLINK portal), URL sends towards a list of urls provided in the request, Gate sends towards a referenced configuration from MyLINK portal, or None (no DLR is sent anywhere). Each mode requires different request parameters, refer to the fields below.\",\"enum\":[\"Profile\",\"URL\",\"Gate\",\"None\"],\"type\":\"string\"},\"ttl\":{\"description\":\"Time specified in milliseconds of how long the delivery report is supposed to live. Max value: 28800000. Default value: 14400000. Applicable to all callback modes except for \\\"None\\\".<p>Example for mode Profile</p><pre><code>[\\n \\t{\\n\\t\\t\\\"callback\\\": {\\n\\t\\t\\t\\\"mode\\\": \\\"Profile\\\" \\n\\t\\t}\\n\\t}\\n]</code></pre><p>Example for mode URL</p><pre><code>[\\n \\t{\\n\\t\\t\\\"callback\\\": {\\n\\t\\t\\t\\\"mode\\\": \\\"URL\\\",\\n\\t\\t\\t\\\"urls\\\": [\\\"URL\\\"], \\n\\t\\t\\t\\\"ttl\\\": 0 \\n\\t\\t}\\n\\t}\\n]</code></pre><p>Example for mode Gate</p><pre><code>[\\n \\t{\\n\\t\\t\\\"callback\\\": {\\n\\t\\t\\t\\\"mode\\\": \\\"Gate\\\",\\n\\t\\t\\t\\\"gateId\\\": \\\"fb8eac56-4311-4f09-94b9-54f4bee0acb6\\\", \\n\\t\\t\\t\\\"ttl\\\": 0 \\n\\t\\t}\\n\\t}\\n]</code></pre>\",\"format\":\"int32\",\"maximum\":28800000,\"minimum\":0,\"type\":\"integer\"},\"urls\":{\"description\":\"List of URLs to receive DLRs on. Mandatory when using mode \\\"URL\\\" - not relevant to any other modes.\",\"items\":{\"type\":\"string\"},\"nullable\":true,\"type\":\"array\"}},\"type\":\"object\"},\"content\":{\"additionalProperties\":false,\"properties\":{\"options\":{\"additionalProperties\":false,\"properties\":{\"sms.encoding\":{\"enum\":[\"AutoDetect\",\"GSM\",\"UCS2\"],\"type\":\"string\"},\"sms.obfuscate\":{\"description\":\"Obfuscation allows you to anonymize content and recipient or content only after the message is processed. Non-retrievable.\",\"enum\":[\"ContentAndRecipient\",\"Content\"],\"type\":\"string\"},\"sms.sender\":{\"description\":\"SenderID of the message. Can be numeric or alphanumeric. Restrictions may apply in different countries.\",\"minLength\":1,\"pattern\":\"^(\\\\+?[0-9]{1,15}|[A-Za-z0-9\\\\s\\\\+\\\\-\\\\/\\\\'\\\"!#%&()*.?><;]{1,11})$\",\"type\":\"string\"}},\"required\":[\"sms.sender\"],\"type\":\"object\"},\"text\":{\"description\":\"A single message can be 160 characters (GSM encoding). If message exceeds 160 characters each message part will be split in to 153 characters. Maximum length of a message is dependent on the operator you are sending towards.UCS2 encoding: 70/67 characters single/multipart.\",\"maxLength\":38862,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"options\",\"text\"],\"type\":\"object\"},\"expiration\":{\"additionalProperties\":false,\"properties\":{\"absolute\":{\"description\":\"Absolute time specified of when this message should expire. ISO8601 formatted string in UTC.\",\"format\":\"date-time\",\"type\":\"string\"},\"relative\":{\"description\":\"Time specified in milliseconds of how long the message is supposed to live. The maximum value is 48 hours (172800000 milliseconds), which is also the default.\",\"format\":\"int32\",\"maximum\":172800000,\"minimum\":1,\"type\":\"integer\"}},\"type\":\"object\"},\"priority\":{\"description\":\"Set priority on your own messages. Priority only affects your own queue.\",\"enum\":[\"Normal\",\"High\",\"Low\"],\"type\":\"string\"},\"recipient\":{\"description\":\"Recipients must be provided in MSISDN format. Remember that MSISDN must have a leading (+). Example: +4712345678\",\"minLength\":1,\"pattern\":\"^\\\\+.*$\",\"type\":\"string\"},\"referenceId\":{\"description\":\"Your own internal transaction ID. Not used for anything except as a reference. Optional.\",\"maxLength\":500,\"nullable\":true,\"type\":\"string\"},\"schedule\":{\"additionalProperties\":false,\"oneOf\":[{\"required\":[\"relative\"]},{\"required\":[\"absolute\"]}],\"properties\":{\"absolute\":{\"description\":\"Absolute time specified of when this message should be sent. ISO8601 formatted string in UTC.\",\"format\":\"date-time\",\"type\":\"string\"},\"relative\":{\"description\":\"Time specified in milliseconds of how much we will offset the message in the future. The maximum value is 3 months (7_889_232_000 milliseconds), which is also the default. The minimum value is 600000 ms (10 minutes)\",\"format\":\"int64\",\"maximum\":7889232000,\"minimum\":600000,\"type\":\"integer\"},\"tag\":{\"description\":\"A tag for the message schedule. Can be used to group schedules by tag\",\"maxLength\":100,\"minLength\":0,\"nullable\":true,\"pattern\":\"[a-zA-Z0-9_-]+\",\"type\":\"string\"}},\"type\":\"object\"}},\"required\":[\"content\",\"recipient\"],\"type\":\"object\"},\"type\":\"array\"}}}},\"responses\":{\"202\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"messages\":{\"description\":\"List of message information includes details such as messageId, recipient, referenceId\",\"items\":{\"additionalProperties\":false,\"properties\":{\"messageId\":{\"description\":\"Unique message ID generated as part of processing the request.\",\"format\":\"uuid\",\"type\":\"string\"},\"recipient\":{\"description\":\"Recipient of the message as submitted in the corresponding Message.\",\"nullable\":true,\"type\":\"string\"},\"referenceId\":{\"description\":\"Your own internal transaction ID. Not used for anything except as a reference.\",\"nullable\":true,\"type\":\"string\"}},\"type\":\"object\"},\"nullable\":true,\"type\":\"array\"},\"requestId\":{\"description\":\"Unique Id of the request made towards LINK\",\"format\":\"uuid\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Accepted\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"message\":{\"description\":\"Human-readable summary of the problem.\",\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"description\":\"Unique Id of the request made towards LINK\",\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Bad Request\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"message\":{\"description\":\"Human-readable summary of the problem.\",\"nullable\":true,\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"description\":\"Forbidden\"},\"429\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"description\":\"Error code of the problem.\",\"nullable\":true,\"type\":\"string\"},\"description\":{\"description\":\"Human-readable summary of the problem.\",\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"description\":\"Unique Id of the request made towards LINK\",\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Too Many Requests\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"description\":\"Error code of the problem.\",\"nullable\":true,\"type\":\"string\"},\"description\":{\"description\":\"Human-readable summary of the problem.\",\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"description\":\"Unique Id of the request made towards LINK\",\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Server Error\"},\"502\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"description\":\"Error code of the problem.\",\"nullable\":true,\"type\":\"string\"},\"description\":{\"description\":\"Human-readable summary of the problem.\",\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"description\":\"Unique Id of the request made towards LINK\",\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Server Error\"}},\"security\":[{\"Bearer\":[]}],\"securitySchemes\":{\"Bearer\":{\"description\":\"Bearer token\",\"flows\":{\"clientCredentials\":{\"scopes\":{},\"tokenUrl\":\"https://sso.linkmobility.com/auth/realms/CPaaS/protocol/openid-connect/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/sms/v1",
@@ -377,6 +493,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "POST /sms/v1/messages",
+                    "json": "{\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"callback\":{\"additionalProperties\":false,\"properties\":{\"gateId\":{\"description\":\"The ID of the callback to be used. Can be set up in the Callbacks section of MyLINK portal. Mandatory when using mode \\\"Gate\\\" - not relevant to any other modes.\",\"nullable\":true,\"type\":\"string\"},\"mode\":{\"description\":\"Choose how you want to receive your Delivery reports. Mode Profile sends any DLRs towards your default configuration in MyLINK portal), URL sends towards a list of urls provided in the request, Gate sends towards a referenced configuration from MyLINK portal, or None (no DLR is sent anywhere). Each mode requires different request parameters, refer to the fields below.\",\"enum\":[\"Profile\",\"URL\",\"Gate\",\"None\"],\"type\":\"string\"},\"ttl\":{\"description\":\"Time specified in milliseconds of how long the delivery report is supposed to live. Max value: 28800000. Default value: 14400000. Applicable to all callback modes except for \\\"None\\\".<p>Example for mode Profile</p><pre><code>[\\n \\t{\\n\\t\\t\\\"callback\\\": {\\n\\t\\t\\t\\\"mode\\\": \\\"Profile\\\" \\n\\t\\t}\\n\\t}\\n]</code></pre><p>Example for mode URL</p><pre><code>[\\n \\t{\\n\\t\\t\\\"callback\\\": {\\n\\t\\t\\t\\\"mode\\\": \\\"URL\\\",\\n\\t\\t\\t\\\"urls\\\": [\\\"URL\\\"], \\n\\t\\t\\t\\\"ttl\\\": 0 \\n\\t\\t}\\n\\t}\\n]</code></pre><p>Example for mode Gate</p><pre><code>[\\n \\t{\\n\\t\\t\\\"callback\\\": {\\n\\t\\t\\t\\\"mode\\\": \\\"Gate\\\",\\n\\t\\t\\t\\\"gateId\\\": \\\"fb8eac56-4311-4f09-94b9-54f4bee0acb6\\\", \\n\\t\\t\\t\\\"ttl\\\": 0 \\n\\t\\t}\\n\\t}\\n]</code></pre>\",\"format\":\"int32\",\"maximum\":28800000,\"minimum\":0,\"type\":\"integer\"},\"urls\":{\"description\":\"List of URLs to receive DLRs on. Mandatory when using mode \\\"URL\\\" - not relevant to any other modes.\",\"items\":{\"type\":\"string\"},\"nullable\":true,\"type\":\"array\"}},\"type\":\"object\"},\"content\":{\"additionalProperties\":false,\"properties\":{\"options\":{\"additionalProperties\":false,\"properties\":{\"sms.encoding\":{\"enum\":[\"AutoDetect\",\"GSM\",\"UCS2\"],\"type\":\"string\"},\"sms.obfuscate\":{\"description\":\"Obfuscation allows you to anonymize content and recipient or content only after the message is processed. Non-retrievable.\",\"enum\":[\"ContentAndRecipient\",\"Content\"],\"type\":\"string\"},\"sms.sender\":{\"description\":\"SenderID of the message. Can be numeric or alphanumeric. Restrictions may apply in different countries.\",\"minLength\":1,\"pattern\":\"^(\\\\+?[0-9]{1,15}|[A-Za-z0-9\\\\s\\\\+\\\\-\\\\/\\\\'\\\"!#%&()*.?><;]{1,11})$\",\"type\":\"string\"}},\"required\":[\"sms.sender\"],\"type\":\"object\"},\"text\":{\"description\":\"A single message can be 160 characters (GSM encoding). If message exceeds 160 characters each message part will be split in to 153 characters. Maximum length of a message is dependent on the operator you are sending towards.UCS2 encoding: 70/67 characters single/multipart.\",\"maxLength\":38862,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"options\",\"text\"],\"type\":\"object\"},\"expiration\":{\"additionalProperties\":false,\"properties\":{\"absolute\":{\"description\":\"Absolute time specified of when this message should expire. ISO8601 formatted string in UTC.\",\"format\":\"date-time\",\"type\":\"string\"},\"relative\":{\"description\":\"Time specified in milliseconds of how long the message is supposed to live. The maximum value is 48 hours (172800000 milliseconds), which is also the default.\",\"format\":\"int32\",\"maximum\":172800000,\"minimum\":1,\"type\":\"integer\"}},\"type\":\"object\"},\"priority\":{\"description\":\"Set priority on your own messages. Priority only affects your own queue.\",\"enum\":[\"Normal\",\"High\",\"Low\"],\"type\":\"string\"},\"recipient\":{\"description\":\"Recipients must be provided in MSISDN format. Remember that MSISDN must have a leading (+). Example: +4712345678\",\"minLength\":1,\"pattern\":\"^\\\\+.*$\",\"type\":\"string\"},\"referenceId\":{\"description\":\"Your own internal transaction ID. Not used for anything except as a reference. Optional.\",\"maxLength\":500,\"nullable\":true,\"type\":\"string\"},\"schedule\":{\"additionalProperties\":false,\"oneOf\":[{\"required\":[\"relative\"]},{\"required\":[\"absolute\"]}],\"properties\":{\"absolute\":{\"description\":\"Absolute time specified of when this message should be sent. ISO8601 formatted string in UTC.\",\"format\":\"date-time\",\"type\":\"string\"},\"relative\":{\"description\":\"Time specified in milliseconds of how much we will offset the message in the future. The maximum value is 3 months (7_889_232_000 milliseconds), which is also the default. The minimum value is 600000 ms (10 minutes)\",\"format\":\"int64\",\"maximum\":7889232000,\"minimum\":600000,\"type\":\"integer\"},\"tag\":{\"description\":\"A tag for the message schedule. Can be used to group schedules by tag\",\"maxLength\":100,\"minLength\":0,\"nullable\":true,\"pattern\":\"[a-zA-Z0-9_-]+\",\"type\":\"string\"}},\"type\":\"object\"}},\"required\":[\"content\",\"recipient\"],\"type\":\"object\"},\"type\":\"array\"}}}},\"responses\":{\"202\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"messages\":{\"description\":\"List of message information includes details such as messageId, recipient, referenceId\",\"items\":{\"additionalProperties\":false,\"properties\":{\"messageId\":{\"description\":\"Unique message ID generated as part of processing the request.\",\"format\":\"uuid\",\"type\":\"string\"},\"recipient\":{\"description\":\"Recipient of the message as submitted in the corresponding Message.\",\"nullable\":true,\"type\":\"string\"},\"referenceId\":{\"description\":\"Your own internal transaction ID. Not used for anything except as a reference.\",\"nullable\":true,\"type\":\"string\"}},\"type\":\"object\"},\"nullable\":true,\"type\":\"array\"},\"requestId\":{\"description\":\"Unique Id of the request made towards LINK\",\"format\":\"uuid\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Accepted\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"message\":{\"description\":\"Human-readable summary of the problem.\",\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"description\":\"Unique Id of the request made towards LINK\",\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Bad Request\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"message\":{\"description\":\"Human-readable summary of the problem.\",\"nullable\":true,\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"description\":\"Forbidden\"},\"429\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"description\":\"Error code of the problem.\",\"nullable\":true,\"type\":\"string\"},\"description\":{\"description\":\"Human-readable summary of the problem.\",\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"description\":\"Unique Id of the request made towards LINK\",\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Too Many Requests\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"description\":\"Error code of the problem.\",\"nullable\":true,\"type\":\"string\"},\"description\":{\"description\":\"Human-readable summary of the problem.\",\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"description\":\"Unique Id of the request made towards LINK\",\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Server Error\"},\"502\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"code\":{\"description\":\"Error code of the problem.\",\"nullable\":true,\"type\":\"string\"},\"description\":{\"description\":\"Human-readable summary of the problem.\",\"nullable\":true,\"type\":\"string\"},\"requestId\":{\"description\":\"Unique Id of the request made towards LINK\",\"format\":\"uuid\",\"type\":\"string\"}},\"required\":[\"requestId\"],\"type\":\"object\"}}},\"description\":\"Server Error\"}},\"security\":[{\"Bearer\":[]}],\"securitySchemes\":{\"Bearer\":{\"description\":\"Bearer token\",\"flows\":{\"clientCredentials\":{\"scopes\":{},\"tokenUrl\":\"https://sso.linkmobility.com/auth/realms/CPaaS/protocol/openid-connect/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/sms/v1/messages",
@@ -406,13 +528,649 @@
         }
       },
       "feature": {
+        "debug": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "max": 100,
+              "redact": [
+                "authorization",
+                "cookie",
+                "set-cookie",
+                "api-key",
+                "apikey",
+                "x-api-key",
+                "idempotency-key"
+              ]
+            },
+            "optspec": {
+              "now": "`$FUNCTION`",
+              "onEntry": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreDone": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "PreUnexpected": {
+              "active": true,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "debug",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Request/response capture ring buffer for debugging",
+          "transport": "none",
+          "version": "0.0.1"
+        },
+        "idempotency": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "header": "Idempotency-Key",
+              "methods": [
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ],
+              "ops": [
+                "create",
+                "update",
+                "remove"
+              ]
+            },
+            "optspec": {
+              "keygen": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "idempotency",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Idempotency keys for safe retries of mutating operations",
+          "transport": "none",
+          "version": "0.0.1"
+        },
+        "metrics": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false
+            },
+            "optspec": {
+              "now": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreDone": {
+              "active": true,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "PreUnexpected": {
+              "active": true,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "metrics",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Statistics capture: per-operation counters and latency",
+          "transport": "none",
+          "version": "0.0.1"
+        },
+        "paging": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "afterVar": "after",
+              "cursorParam": "cursor",
+              "firstVar": "first",
+              "limitParam": "limit",
+              "pageParam": "page",
+              "startPage": 1
+            },
+            "optspec": {
+              "limit": "`$NUMBER`",
+              "ops": "`$LIST`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "paging",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Pagination signals for list operations",
+          "transport": "none",
+          "version": "0.0.1"
+        },
+        "ratelimit": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "burst": 5,
+              "rate": 5
+            },
+            "optspec": {
+              "now": "`$FUNCTION`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "ratelimit",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Client-side rate limiting via a token bucket",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
+        "retry": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "factor": 2,
+              "maxDelay": 2000,
+              "minDelay": 50,
+              "retries": 2,
+              "statuses": [
+                408,
+                425,
+                429,
+                500,
+                502,
+                503,
+                504
+              ]
+            },
+            "optspec": {
+              "jitter": "`$BOOLEAN`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "retry",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Automatic retry of transient failures with exponential backoff",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
         "test": {
           "active": true,
           "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "config": {
             "options": {
               "active": false
-            }
+            },
+            "optspec": {
+              "entity": "`$MAP`",
+              "net": "`$MAP`"
+            },
+            "strict": false
           },
           "hook": {
             "GetData": {
@@ -502,6 +1260,102 @@
           },
           "title": "In-memory mock transport for testing without a live server",
           "transport": "base",
+          "version": "0.0.1"
+        },
+        "timeout": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "ms": 30000
+            },
+            "optspec": {
+              "clearTimer": "`$FUNCTION`",
+              "setTimer": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "timeout",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Per-request timeout with transport abort",
+          "transport": "wrap",
           "version": "0.0.1"
         }
       },
@@ -617,6 +1471,48 @@
         "website": "https://linkmobility.com"
       },
       "option": {},
+      "optspec": {
+        "allow": {
+          "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
+          "op": "create,update,load,list,remove,command,direct,graphql"
+        },
+        "apikey": "",
+        "auth": {
+          "basic": false,
+          "prefix": ""
+        },
+        "base": "http://localhost:8000",
+        "clean": {
+          "keys": "key,token,id"
+        },
+        "entity": {
+          "`$CHILD`": {
+            "`$OPEN`": true,
+            "active": false,
+            "alias": {}
+          }
+        },
+        "extend": "`$ANY`",
+        "headers": {
+          "`$CHILD`": "`$STRING`"
+        },
+        "prefix": "",
+        "secret": "",
+        "server": {
+          "`$CHILD`": ""
+        },
+        "suffix": "",
+        "system": {
+          "fetch": "`$ANY`"
+        },
+        "test": {
+          "active": false,
+          "entity": {
+            "`$OPEN`": true
+          }
+        },
+        "utility": {}
+      },
       "repo": {
         "host": "github.com",
         "path": ""
@@ -1171,6 +2067,7 @@
           },
           "package": "@voxgig/sdkgen",
           "provides": {
+            "schema": true,
             "sekreto": true
           },
           "publish": {
@@ -1212,7 +2109,7 @@
         "live": {
           "app": false,
           "base": "",
-          "strict": false
+          "strict": true
         }
       }
     }

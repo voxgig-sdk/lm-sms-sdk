@@ -16,5 +16,787 @@
     "send_message": {
       "send_message_ref01": {}
     }
+  },
+  "requests": {
+    "POST /sms/v1": {
+      "provenance": "operation-contract",
+      "contract": {
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "callback": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "gateId": {
+                          "description": "The ID of the callback to be used. Can be set up in the Callbacks section of MyLINK portal. Mandatory when using mode \"Gate\" - not relevant to any other modes.",
+                          "nullable": true,
+                          "type": "string"
+                        },
+                        "mode": {
+                          "description": "Choose how you want to receive your Delivery reports. Mode Profile sends any DLRs towards your default configuration in MyLINK portal), URL sends towards a list of urls provided in the request, Gate sends towards a referenced configuration from MyLINK portal, or None (no DLR is sent anywhere). Each mode requires different request parameters, refer to the fields below.",
+                          "enum": [
+                            "Profile",
+                            "URL",
+                            "Gate",
+                            "None"
+                          ],
+                          "type": "string"
+                        },
+                        "ttl": {
+                          "description": "Time specified in milliseconds of how long the delivery report is supposed to live. Max value: 28800000. Default value: 14400000. Applicable to all callback modes except for \"None\".<p>Example for mode Profile</p><pre><code>[\n \t{\n\t\t\"callback\": {\n\t\t\t\"mode\": \"Profile\" \n\t\t}\n\t}\n]</code></pre><p>Example for mode URL</p><pre><code>[\n \t{\n\t\t\"callback\": {\n\t\t\t\"mode\": \"URL\",\n\t\t\t\"urls\": [\"URL\"], \n\t\t\t\"ttl\": 0 \n\t\t}\n\t}\n]</code></pre><p>Example for mode Gate</p><pre><code>[\n \t{\n\t\t\"callback\": {\n\t\t\t\"mode\": \"Gate\",\n\t\t\t\"gateId\": \"fb8eac56-4311-4f09-94b9-54f4bee0acb6\", \n\t\t\t\"ttl\": 0 \n\t\t}\n\t}\n]</code></pre>",
+                          "format": "int32",
+                          "maximum": 28800000,
+                          "minimum": 0,
+                          "type": "integer"
+                        },
+                        "urls": {
+                          "description": "List of URLs to receive DLRs on. Mandatory when using mode \"URL\" - not relevant to any other modes.",
+                          "items": {
+                            "type": "string"
+                          },
+                          "nullable": true,
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "content": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "options": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "sms.encoding": {
+                              "enum": [
+                                "AutoDetect",
+                                "GSM",
+                                "UCS2"
+                              ],
+                              "type": "string"
+                            },
+                            "sms.obfuscate": {
+                              "description": "Obfuscation allows you to anonymize content and recipient or content only after the message is processed. Non-retrievable.",
+                              "enum": [
+                                "ContentAndRecipient",
+                                "Content"
+                              ],
+                              "type": "string"
+                            },
+                            "sms.sender": {
+                              "description": "SenderID of the message. Can be numeric or alphanumeric. Restrictions may apply in different countries.",
+                              "minLength": 1,
+                              "pattern": "^(\\+?[0-9]{1,15}|[A-Za-z0-9\\s\\+\\-\\/\\'\"!#%&()*.?><;]{1,11})$",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "sms.sender"
+                          ],
+                          "type": "object"
+                        },
+                        "text": {
+                          "description": "A single message can be 160 characters (GSM encoding). If message exceeds 160 characters each message part will be split in to 153 characters. Maximum length of a message is dependent on the operator you are sending towards.UCS2 encoding: 70/67 characters single/multipart.",
+                          "maxLength": 38862,
+                          "minLength": 1,
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "options",
+                        "text"
+                      ],
+                      "type": "object"
+                    },
+                    "expiration": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "absolute": {
+                          "description": "Absolute time specified of when this message should expire. ISO8601 formatted string in UTC.",
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "relative": {
+                          "description": "Time specified in milliseconds of how long the message is supposed to live. The maximum value is 48 hours (172800000 milliseconds), which is also the default.",
+                          "format": "int32",
+                          "maximum": 172800000,
+                          "minimum": 1,
+                          "type": "integer"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "priority": {
+                      "description": "Set priority on your own messages. Priority only affects your own queue.",
+                      "enum": [
+                        "Normal",
+                        "High",
+                        "Low"
+                      ],
+                      "type": "string"
+                    },
+                    "recipient": {
+                      "description": "Recipients must be provided in MSISDN format. Remember that MSISDN must have a leading (+). Example: +4712345678",
+                      "minLength": 1,
+                      "pattern": "^\\+.*$",
+                      "type": "string"
+                    },
+                    "referenceId": {
+                      "description": "Your own internal transaction ID. Not used for anything except as a reference. Optional.",
+                      "maxLength": 500,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "schedule": {
+                      "additionalProperties": false,
+                      "oneOf": [
+                        {
+                          "required": [
+                            "relative"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "absolute"
+                          ]
+                        }
+                      ],
+                      "properties": {
+                        "absolute": {
+                          "description": "Absolute time specified of when this message should be sent. ISO8601 formatted string in UTC.",
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "relative": {
+                          "description": "Time specified in milliseconds of how much we will offset the message in the future. The maximum value is 3 months (7_889_232_000 milliseconds), which is also the default. The minimum value is 600000 ms (10 minutes)",
+                          "format": "int64",
+                          "maximum": 7889232000,
+                          "minimum": 600000,
+                          "type": "integer"
+                        },
+                        "tag": {
+                          "description": "A tag for the message schedule. Can be used to group schedules by tag",
+                          "maxLength": 100,
+                          "minLength": 0,
+                          "nullable": true,
+                          "pattern": "[a-zA-Z0-9_-]+",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "content",
+                    "recipient"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "messages": {
+                      "description": "List of message information includes details such as messageId, recipient, referenceId",
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "messageId": {
+                            "description": "Unique message ID generated as part of processing the request.",
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "recipient": {
+                            "description": "Recipient of the message as submitted in the corresponding Message.",
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "referenceId": {
+                            "description": "Your own internal transaction ID. Not used for anything except as a reference.",
+                            "nullable": true,
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "nullable": true,
+                      "type": "array"
+                    },
+                    "requestId": {
+                      "description": "Unique Id of the request made towards LINK",
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "message": {
+                      "description": "Human-readable summary of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique Id of the request made towards LINK",
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "message": {
+                      "description": "Human-readable summary of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": {
+                      "description": "Error code of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "Human-readable summary of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique Id of the request made towards LINK",
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": {
+                      "description": "Error code of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "Human-readable summary of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique Id of the request made towards LINK",
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Server Error"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": {
+                      "description": "Error code of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "Human-readable summary of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique Id of the request made towards LINK",
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "securitySchemes": {
+          "Bearer": {
+            "description": "Bearer token",
+            "flows": {
+              "clientCredentials": {
+                "scopes": {},
+                "tokenUrl": "https://sso.linkmobility.com/auth/realms/CPaaS/protocol/openid-connect/token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "POST /sms/v1/messages": {
+      "provenance": "operation-contract",
+      "contract": {
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "callback": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "gateId": {
+                          "description": "The ID of the callback to be used. Can be set up in the Callbacks section of MyLINK portal. Mandatory when using mode \"Gate\" - not relevant to any other modes.",
+                          "nullable": true,
+                          "type": "string"
+                        },
+                        "mode": {
+                          "description": "Choose how you want to receive your Delivery reports. Mode Profile sends any DLRs towards your default configuration in MyLINK portal), URL sends towards a list of urls provided in the request, Gate sends towards a referenced configuration from MyLINK portal, or None (no DLR is sent anywhere). Each mode requires different request parameters, refer to the fields below.",
+                          "enum": [
+                            "Profile",
+                            "URL",
+                            "Gate",
+                            "None"
+                          ],
+                          "type": "string"
+                        },
+                        "ttl": {
+                          "description": "Time specified in milliseconds of how long the delivery report is supposed to live. Max value: 28800000. Default value: 14400000. Applicable to all callback modes except for \"None\".<p>Example for mode Profile</p><pre><code>[\n \t{\n\t\t\"callback\": {\n\t\t\t\"mode\": \"Profile\" \n\t\t}\n\t}\n]</code></pre><p>Example for mode URL</p><pre><code>[\n \t{\n\t\t\"callback\": {\n\t\t\t\"mode\": \"URL\",\n\t\t\t\"urls\": [\"URL\"], \n\t\t\t\"ttl\": 0 \n\t\t}\n\t}\n]</code></pre><p>Example for mode Gate</p><pre><code>[\n \t{\n\t\t\"callback\": {\n\t\t\t\"mode\": \"Gate\",\n\t\t\t\"gateId\": \"fb8eac56-4311-4f09-94b9-54f4bee0acb6\", \n\t\t\t\"ttl\": 0 \n\t\t}\n\t}\n]</code></pre>",
+                          "format": "int32",
+                          "maximum": 28800000,
+                          "minimum": 0,
+                          "type": "integer"
+                        },
+                        "urls": {
+                          "description": "List of URLs to receive DLRs on. Mandatory when using mode \"URL\" - not relevant to any other modes.",
+                          "items": {
+                            "type": "string"
+                          },
+                          "nullable": true,
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "content": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "options": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "sms.encoding": {
+                              "enum": [
+                                "AutoDetect",
+                                "GSM",
+                                "UCS2"
+                              ],
+                              "type": "string"
+                            },
+                            "sms.obfuscate": {
+                              "description": "Obfuscation allows you to anonymize content and recipient or content only after the message is processed. Non-retrievable.",
+                              "enum": [
+                                "ContentAndRecipient",
+                                "Content"
+                              ],
+                              "type": "string"
+                            },
+                            "sms.sender": {
+                              "description": "SenderID of the message. Can be numeric or alphanumeric. Restrictions may apply in different countries.",
+                              "minLength": 1,
+                              "pattern": "^(\\+?[0-9]{1,15}|[A-Za-z0-9\\s\\+\\-\\/\\'\"!#%&()*.?><;]{1,11})$",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "sms.sender"
+                          ],
+                          "type": "object"
+                        },
+                        "text": {
+                          "description": "A single message can be 160 characters (GSM encoding). If message exceeds 160 characters each message part will be split in to 153 characters. Maximum length of a message is dependent on the operator you are sending towards.UCS2 encoding: 70/67 characters single/multipart.",
+                          "maxLength": 38862,
+                          "minLength": 1,
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "options",
+                        "text"
+                      ],
+                      "type": "object"
+                    },
+                    "expiration": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "absolute": {
+                          "description": "Absolute time specified of when this message should expire. ISO8601 formatted string in UTC.",
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "relative": {
+                          "description": "Time specified in milliseconds of how long the message is supposed to live. The maximum value is 48 hours (172800000 milliseconds), which is also the default.",
+                          "format": "int32",
+                          "maximum": 172800000,
+                          "minimum": 1,
+                          "type": "integer"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "priority": {
+                      "description": "Set priority on your own messages. Priority only affects your own queue.",
+                      "enum": [
+                        "Normal",
+                        "High",
+                        "Low"
+                      ],
+                      "type": "string"
+                    },
+                    "recipient": {
+                      "description": "Recipients must be provided in MSISDN format. Remember that MSISDN must have a leading (+). Example: +4712345678",
+                      "minLength": 1,
+                      "pattern": "^\\+.*$",
+                      "type": "string"
+                    },
+                    "referenceId": {
+                      "description": "Your own internal transaction ID. Not used for anything except as a reference. Optional.",
+                      "maxLength": 500,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "schedule": {
+                      "additionalProperties": false,
+                      "oneOf": [
+                        {
+                          "required": [
+                            "relative"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "absolute"
+                          ]
+                        }
+                      ],
+                      "properties": {
+                        "absolute": {
+                          "description": "Absolute time specified of when this message should be sent. ISO8601 formatted string in UTC.",
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "relative": {
+                          "description": "Time specified in milliseconds of how much we will offset the message in the future. The maximum value is 3 months (7_889_232_000 milliseconds), which is also the default. The minimum value is 600000 ms (10 minutes)",
+                          "format": "int64",
+                          "maximum": 7889232000,
+                          "minimum": 600000,
+                          "type": "integer"
+                        },
+                        "tag": {
+                          "description": "A tag for the message schedule. Can be used to group schedules by tag",
+                          "maxLength": 100,
+                          "minLength": 0,
+                          "nullable": true,
+                          "pattern": "[a-zA-Z0-9_-]+",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "content",
+                    "recipient"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "messages": {
+                      "description": "List of message information includes details such as messageId, recipient, referenceId",
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "messageId": {
+                            "description": "Unique message ID generated as part of processing the request.",
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "recipient": {
+                            "description": "Recipient of the message as submitted in the corresponding Message.",
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "referenceId": {
+                            "description": "Your own internal transaction ID. Not used for anything except as a reference.",
+                            "nullable": true,
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "nullable": true,
+                      "type": "array"
+                    },
+                    "requestId": {
+                      "description": "Unique Id of the request made towards LINK",
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "message": {
+                      "description": "Human-readable summary of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique Id of the request made towards LINK",
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "message": {
+                      "description": "Human-readable summary of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": {
+                      "description": "Error code of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "Human-readable summary of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique Id of the request made towards LINK",
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": {
+                      "description": "Error code of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "Human-readable summary of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique Id of the request made towards LINK",
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Server Error"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": {
+                      "description": "Error code of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "Human-readable summary of the problem.",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "description": "Unique Id of the request made towards LINK",
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Server Error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "securitySchemes": {
+          "Bearer": {
+            "description": "Bearer token",
+            "flows": {
+              "clientCredentials": {
+                "scopes": {},
+                "tokenUrl": "https://sso.linkmobility.com/auth/realms/CPaaS/protocol/openid-connect/token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "definition"
+      }
+    }
   }
 }

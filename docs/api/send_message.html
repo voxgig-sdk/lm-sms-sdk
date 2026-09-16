@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SendMessage | MyLINK SMS API</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="../index.html">MyLINK SMS API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/lm-sms-sdk">voxgig-sdk/lm-sms-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">MyLINK SMS API</a></details>
+<details open><summary>API</summary><a href="../api/index.html">API overview</a>
+<a href="../api/schedule.html">Schedule</a>
+<a aria-current="page" href="../api/send_message.html">SendMessage</a><div class="nav-sections"><a class="nav-section" href="#post-smsv1">POST /sms/v1</a>
+<a class="nav-section" href="#post-smsv1messages">POST /sms/v1/messages</a></div></details>
+<details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
+<a href="../guides/first-call.html">Make your first API call</a>
+<a href="../guides/errors.html">Handle errors</a>
+<a href="../guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="../sdks/go.html">Golang</a>
+<a href="../sdks/lua.html">Lua</a>
+<a href="../sdks/php.html">PHP</a>
+<a href="../sdks/py.html">Python</a>
+<a href="../sdks/rb.html">Ruby</a>
+<a href="../sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
+<a href="../tools/go-mcp.html">Go MCP server</a></details>
+<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
+<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
+<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
+<a href="../features/paging.html">Pagination signals for list operations</a>
+<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
+<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
+<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
+<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="sendmessage">SendMessage</h1>
+<h2 id="operations">Operations</h2>
+<p>Every route this entity exposes. Each route links to its own reference on this page.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Route</th>
+<th>SDK operation</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-smsv1"><code>/sms/v1</code></a></td>
+<td><code>create</code></td>
+<td>Accepted</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-smsv1messages"><code>/sms/v1/messages</code></a></td>
+<td><code>create</code></td>
+<td>Accepted</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+</table>
+<h2 id="create">create</h2>
+<h3 id="post-smsv1" class="operation" data-method="post"><code>POST</code> /sms/v1</h3>
+<p>Authentication: oauth2 (<code>Bearer</code>).</p>
+<h4 id="request-body">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[].callback</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[].callback.gateId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ID of the callback to be used. Can be set up in the Callbacks section of MyLINK portal. Mandatory when using mode &quot;Gate&quot; - not relevant to any other modes.</td>
+</tr>
+<tr>
+<td><code>[].callback.mode</code></td>
+<td><code>enum: Profile, URL, Gate, None</code></td>
+<td>No</td>
+<td>Choose how you want to receive your Delivery reports. Mode Profile sends any DLRs towards your default configuration in MyLINK portal), URL sends towards a list of urls provided in the request, Gate sends towards a referenced configuration from MyLINK portal, or None (no DLR is sent anywhere). Each mode requires different request parameters, refer to the fields below.</td>
+</tr>
+<tr>
+<td><code>[].callback.ttl</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Time specified in milliseconds of how long the delivery report is supposed to live. Max value: 28800000. Default value: 14400000. Applicable to all callback modes except for &quot;None&quot;. Example for mode Profile &lt;pre&gt;&lt;code&gt;[ { &quot;callback&quot;: { &quot;mode&quot;: &quot;Profile&quot; } } ]&lt;/code&gt;&lt;/pre&gt; Example for mode URL &lt;pre&gt;&lt;code&gt;[ { &quot;callback&quot;: { &quot;mode&quot;: &quot;URL&quot;, &quot;urls&quot;: [&quot;URL&quot;], &quot;ttl&quot;: 0 } } ]&lt;/code&gt;&lt;/pre&gt; Example for mode Gate &lt;pre&gt;&lt;code&gt;[ { &quot;callback&quot;: { &quot;mode&quot;: &quot;Gate&quot;, &quot;gateId&quot;: &quot;fb8eac56-4311-4f09-94b9-54f4bee0acb6&quot;, &quot;ttl&quot;: 0 } } ]&lt;/code&gt;&lt;/pre&gt;</td>
+</tr>
+<tr>
+<td><code>[].callback.urls</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>List of URLs to receive DLRs on. Mandatory when using mode &quot;URL&quot; - not relevant to any other modes.</td>
+</tr>
+<tr>
+<td><code>[].content</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[].content.options</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[].content.options.sms.encoding</code></td>
+<td><code>enum: AutoDetect, GSM, UCS2</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[].content.options.sms.obfuscate</code></td>
+<td><code>enum: ContentAndRecipient, Content</code></td>
+<td>No</td>
+<td>Obfuscation allows you to anonymize content and recipient or content only after the message is processed. Non-retrievable.</td>
+</tr>
+<tr>
+<td><code>[].content.options.sms.sender</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>SenderID of the message. Can be numeric or alphanumeric. Restrictions may apply in different countries.</td>
+</tr>
+<tr>
+<td><code>[].content.text</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A single message can be 160 characters (GSM encoding). If message exceeds 160 characters each message part will be split in to 153 characters. Maximum length of a message is dependent on the operator you are sending towards.UCS2 encoding: 70/67 characters single/multipart.</td>
+</tr>
+<tr>
+<td><code>[].expiration</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[].expiration.absolute</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>Absolute time specified of when this message should expire. ISO8601 formatted string in UTC.</td>
+</tr>
+<tr>
+<td><code>[].expiration.relative</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Time specified in milliseconds of how long the message is supposed to live. The maximum value is 48 hours (172800000 milliseconds), which is also the default.</td>
+</tr>
+<tr>
+<td><code>[].priority</code></td>
+<td><code>enum: Normal, High, Low</code></td>
+<td>No</td>
+<td>Set priority on your own messages. Priority only affects your own queue.</td>
+</tr>
+<tr>
+<td><code>[].recipient</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Recipients must be provided in MSISDN format. Remember that MSISDN must have a leading (+). Example: +4712345678</td>
+</tr>
+<tr>
+<td><code>[].referenceId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Your own internal transaction ID. Not used for anything except as a reference. Optional.</td>
+</tr>
+<tr>
+<td><code>[].schedule</code></td>
+<td><code>any or any</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[].schedule.absolute</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>Absolute time specified of when this message should be sent. ISO8601 formatted string in UTC.</td>
+</tr>
+<tr>
+<td><code>[].schedule.relative</code></td>
+<td><code>integer (int64)</code></td>
+<td>No</td>
+<td>Time specified in milliseconds of how much we will offset the message in the future. The maximum value is 3 months (7_889_232_000 milliseconds), which is also the default. The minimum value is 600000 ms (10 minutes)</td>
+</tr>
+<tr>
+<td><code>[].schedule.tag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A tag for the message schedule. Can be used to group schedules by tag</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses">Responses</h4>
+<h5 id="202-accepted" class="status" data-status="2xx">202: Accepted</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>List of message information includes details such as messageId, recipient, referenceId</td>
+</tr>
+<tr>
+<td><code>messages[].messageId</code></td>
+<td><code>string (uuid)</code></td>
+<td>No</td>
+<td>Unique message ID generated as part of processing the request.</td>
+</tr>
+<tr>
+<td><code>messages[].recipient</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Recipient of the message as submitted in the corresponding Message.</td>
+</tr>
+<tr>
+<td><code>messages[].referenceId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Your own internal transaction ID. Not used for anything except as a reference.</td>
+</tr>
+<tr>
+<td><code>requestId</code></td>
+<td><code>string (uuid)</code></td>
+<td>No</td>
+<td>Unique Id of the request made towards LINK</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-bad-request" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>message</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Human-readable summary of the problem.</td>
+</tr>
+<tr>
+<td><code>requestId</code></td>
+<td><code>string (uuid)</code></td>
+<td>Yes</td>
+<td>Unique Id of the request made towards LINK</td>
+</tr>
+</tbody>
+</table>
+<h5 id="401-unauthorized" class="status" data-status="4xx">401: Unauthorized</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>message</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Human-readable summary of the problem.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="403-forbidden" class="status" data-status="4xx">403: Forbidden</h5>
+<h5 id="429-too-many-requests" class="status" data-status="4xx">429: Too Many Requests</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Error code of the problem.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Human-readable summary of the problem.</td>
+</tr>
+<tr>
+<td><code>requestId</code></td>
+<td><code>string (uuid)</code></td>
+<td>Yes</td>
+<td>Unique Id of the request made towards LINK</td>
+</tr>
+</tbody>
+</table>
+<h5 id="500-server-error" class="status" data-status="5xx">500: Server Error</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Error code of the problem.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Human-readable summary of the problem.</td>
+</tr>
+<tr>
+<td><code>requestId</code></td>
+<td><code>string (uuid)</code></td>
+<td>Yes</td>
+<td>Unique Id of the request made towards LINK</td>
+</tr>
+</tbody>
+</table>
+<h5 id="502-server-error" class="status" data-status="5xx">502: Server Error</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Error code of the problem.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Human-readable summary of the problem.</td>
+</tr>
+<tr>
+<td><code>requestId</code></td>
+<td><code>string (uuid)</code></td>
+<td>Yes</td>
+<td>Unique Id of the request made towards LINK</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-smsv1messages" class="operation" data-method="post"><code>POST</code> /sms/v1/messages</h3>
+<p>Authentication: oauth2 (<code>Bearer</code>).</p>
+<h4 id="request-body-1">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[].callback</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[].callback.gateId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The ID of the callback to be used. Can be set up in the Callbacks section of MyLINK portal. Mandatory when using mode &quot;Gate&quot; - not relevant to any other modes.</td>
+</tr>
+<tr>
+<td><code>[].callback.mode</code></td>
+<td><code>enum: Profile, URL, Gate, None</code></td>
+<td>No</td>
+<td>Choose how you want to receive your Delivery reports. Mode Profile sends any DLRs towards your default configuration in MyLINK portal), URL sends towards a list of urls provided in the request, Gate sends towards a referenced configuration from MyLINK portal, or None (no DLR is sent anywhere). Each mode requires different request parameters, refer to the fields below.</td>
+</tr>
+<tr>
+<td><code>[].callback.ttl</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Time specified in milliseconds of how long the delivery report is supposed to live. Max value: 28800000. Default value: 14400000. Applicable to all callback modes except for &quot;None&quot;. Example for mode Profile &lt;pre&gt;&lt;code&gt;[ { &quot;callback&quot;: { &quot;mode&quot;: &quot;Profile&quot; } } ]&lt;/code&gt;&lt;/pre&gt; Example for mode URL &lt;pre&gt;&lt;code&gt;[ { &quot;callback&quot;: { &quot;mode&quot;: &quot;URL&quot;, &quot;urls&quot;: [&quot;URL&quot;], &quot;ttl&quot;: 0 } } ]&lt;/code&gt;&lt;/pre&gt; Example for mode Gate &lt;pre&gt;&lt;code&gt;[ { &quot;callback&quot;: { &quot;mode&quot;: &quot;Gate&quot;, &quot;gateId&quot;: &quot;fb8eac56-4311-4f09-94b9-54f4bee0acb6&quot;, &quot;ttl&quot;: 0 } } ]&lt;/code&gt;&lt;/pre&gt;</td>
+</tr>
+<tr>
+<td><code>[].callback.urls</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>List of URLs to receive DLRs on. Mandatory when using mode &quot;URL&quot; - not relevant to any other modes.</td>
+</tr>
+<tr>
+<td><code>[].content</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[].content.options</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[].content.options.sms.encoding</code></td>
+<td><code>enum: AutoDetect, GSM, UCS2</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[].content.options.sms.obfuscate</code></td>
+<td><code>enum: ContentAndRecipient, Content</code></td>
+<td>No</td>
+<td>Obfuscation allows you to anonymize content and recipient or content only after the message is processed. Non-retrievable.</td>
+</tr>
+<tr>
+<td><code>[].content.options.sms.sender</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>SenderID of the message. Can be numeric or alphanumeric. Restrictions may apply in different countries.</td>
+</tr>
+<tr>
+<td><code>[].content.text</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>A single message can be 160 characters (GSM encoding). If message exceeds 160 characters each message part will be split in to 153 characters. Maximum length of a message is dependent on the operator you are sending towards.UCS2 encoding: 70/67 characters single/multipart.</td>
+</tr>
+<tr>
+<td><code>[].expiration</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[].expiration.absolute</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>Absolute time specified of when this message should expire. ISO8601 formatted string in UTC.</td>
+</tr>
+<tr>
+<td><code>[].expiration.relative</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Time specified in milliseconds of how long the message is supposed to live. The maximum value is 48 hours (172800000 milliseconds), which is also the default.</td>
+</tr>
+<tr>
+<td><code>[].priority</code></td>
+<td><code>enum: Normal, High, Low</code></td>
+<td>No</td>
+<td>Set priority on your own messages. Priority only affects your own queue.</td>
+</tr>
+<tr>
+<td><code>[].recipient</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Recipients must be provided in MSISDN format. Remember that MSISDN must have a leading (+). Example: +4712345678</td>
+</tr>
+<tr>
+<td><code>[].referenceId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Your own internal transaction ID. Not used for anything except as a reference. Optional.</td>
+</tr>
+<tr>
+<td><code>[].schedule</code></td>
+<td><code>any or any</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[].schedule.absolute</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>Absolute time specified of when this message should be sent. ISO8601 formatted string in UTC.</td>
+</tr>
+<tr>
+<td><code>[].schedule.relative</code></td>
+<td><code>integer (int64)</code></td>
+<td>No</td>
+<td>Time specified in milliseconds of how much we will offset the message in the future. The maximum value is 3 months (7_889_232_000 milliseconds), which is also the default. The minimum value is 600000 ms (10 minutes)</td>
+</tr>
+<tr>
+<td><code>[].schedule.tag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A tag for the message schedule. Can be used to group schedules by tag</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-1">Responses</h4>
+<h5 id="202-accepted-1" class="status" data-status="2xx">202: Accepted</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>List of message information includes details such as messageId, recipient, referenceId</td>
+</tr>
+<tr>
+<td><code>messages[].messageId</code></td>
+<td><code>string (uuid)</code></td>
+<td>No</td>
+<td>Unique message ID generated as part of processing the request.</td>
+</tr>
+<tr>
+<td><code>messages[].recipient</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Recipient of the message as submitted in the corresponding Message.</td>
+</tr>
+<tr>
+<td><code>messages[].referenceId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Your own internal transaction ID. Not used for anything except as a reference.</td>
+</tr>
+<tr>
+<td><code>requestId</code></td>
+<td><code>string (uuid)</code></td>
+<td>No</td>
+<td>Unique Id of the request made towards LINK</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-bad-request-1" class="status" data-status="4xx">400: Bad Request</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>message</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Human-readable summary of the problem.</td>
+</tr>
+<tr>
+<td><code>requestId</code></td>
+<td><code>string (uuid)</code></td>
+<td>Yes</td>
+<td>Unique Id of the request made towards LINK</td>
+</tr>
+</tbody>
+</table>
+<h5 id="401-unauthorized-1" class="status" data-status="4xx">401: Unauthorized</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>message</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Human-readable summary of the problem.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="403-forbidden-1" class="status" data-status="4xx">403: Forbidden</h5>
+<h5 id="429-too-many-requests-1" class="status" data-status="4xx">429: Too Many Requests</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Error code of the problem.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Human-readable summary of the problem.</td>
+</tr>
+<tr>
+<td><code>requestId</code></td>
+<td><code>string (uuid)</code></td>
+<td>Yes</td>
+<td>Unique Id of the request made towards LINK</td>
+</tr>
+</tbody>
+</table>
+<h5 id="500-server-error-1" class="status" data-status="5xx">500: Server Error</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Error code of the problem.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Human-readable summary of the problem.</td>
+</tr>
+<tr>
+<td><code>requestId</code></td>
+<td><code>string (uuid)</code></td>
+<td>Yes</td>
+<td>Unique Id of the request made towards LINK</td>
+</tr>
+</tbody>
+</table>
+<h5 id="502-server-error-1" class="status" data-status="5xx">502: Server Error</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Error code of the problem.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Human-readable summary of the problem.</td>
+</tr>
+<tr>
+<td><code>requestId</code></td>
+<td><code>string (uuid)</code></td>
+<td>Yes</td>
+<td>Unique Id of the request made towards LINK</td>
+</tr>
+</tbody>
+</table>
+</main></div>
+<script src="../assets/search.js" defer></script></body></html>

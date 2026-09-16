@@ -4,7 +4,14 @@ declare(strict_types=1);
 // LmSms SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/DebugFeature.php';
+require_once __DIR__ . '/feature/IdempotencyFeature.php';
+require_once __DIR__ . '/feature/MetricsFeature.php';
+require_once __DIR__ . '/feature/PagingFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class LmSmsFeatures
@@ -14,8 +21,22 @@ class LmSmsFeatures
         switch ($name) {
             case "base":
                 return new LmSmsBaseFeature();
+            case "debug":
+                return new LmSmsDebugFeature();
+            case "idempotency":
+                return new LmSmsIdempotencyFeature();
+            case "metrics":
+                return new LmSmsMetricsFeature();
+            case "paging":
+                return new LmSmsPagingFeature();
+            case "ratelimit":
+                return new LmSmsRatelimitFeature();
+            case "retry":
+                return new LmSmsRetryFeature();
             case "test":
                 return new LmSmsTestFeature();
+            case "timeout":
+                return new LmSmsTimeoutFeature();
             default:
                 return new LmSmsBaseFeature();
         }
@@ -31,7 +52,14 @@ class LmSmsFeatures
     {
         switch ($name) {
             case "base":
+            case "debug":
+            case "idempotency":
+            case "metrics":
+            case "paging":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;
