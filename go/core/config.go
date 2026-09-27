@@ -165,29 +165,35 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "uuid",
 						"name": "messageId",
+						"title": "Message Id",
 						"type": "`$STRING`",
+						"format": "uuid",
 					},
 					map[string]any{
 						"name": "recipient",
+						"title": "Recipient",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "scheduledAtDate",
+						"title": "Scheduled At Date",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "sendAtDate",
+						"title": "Send At Date",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "tag",
+						"title": "Tag",
 						"type": "`$STRING`",
 					},
 				},
@@ -202,48 +208,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "end",
-											"orig": "end",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 25,
-											"kind": "query",
-											"name": "size",
-											"orig": "size",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "sort",
-											"orig": "sort",
-											"type": "`$ARRAY`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "start",
-											"orig": "start",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "tag",
-											"orig": "tag",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/sms/v1/schedules",
@@ -258,6 +222,58 @@ func MakeConfig() map[string]any {
 										"lit": "schedules",
 									},
 								},
+								"parts": []any{
+									"sms",
+									"v1",
+									"schedules",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "end",
+											"orig": "end",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "size",
+											"orig": "size",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 25,
+										},
+										map[string]any{
+											"name": "sort",
+											"orig": "sort",
+											"type": "`$ARRAY`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "start",
+											"orig": "start",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "tag",
+											"orig": "tag",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"end",
@@ -268,15 +284,6 @@ func MakeConfig() map[string]any {
 										"tag",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"sms",
-									"v1",
-									"schedules",
-								},
 							},
 						},
 					},
@@ -285,25 +292,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "message_id",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/sms/v1/schedules/{messageId}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"messageId": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "sms",
@@ -318,20 +309,36 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"sms",
+									"v1",
+									"schedules",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"messageId": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"sms",
-									"v1",
-									"schedules",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "message_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
@@ -341,22 +348,6 @@ func MakeConfig() map[string]any {
 						"name": "remove",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "message_id",
-											"orig": "message_id",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "tag",
-											"orig": "tag",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/sms/v1/schedules",
@@ -371,20 +362,37 @@ func MakeConfig() map[string]any {
 										"lit": "schedules",
 									},
 								},
+								"parts": []any{
+									"sms",
+									"v1",
+									"schedules",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "message_id",
+											"orig": "message_id",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "tag",
+											"orig": "tag",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"message_id",
 										"tag",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"sms",
-									"v1",
-									"schedules",
 								},
 							},
 						},
@@ -394,25 +402,9 @@ func MakeConfig() map[string]any {
 						"name": "update",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "message_id",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "PATCH",
 								"orig": "/sms/v1/schedules/{messageId}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"messageId": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "sms",
@@ -427,9 +419,15 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"sms",
+									"v1",
+									"schedules",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"messageId": "id",
 									},
 								},
 								"transform": map[string]any{
@@ -438,11 +436,21 @@ func MakeConfig() map[string]any {
 									},
 									"res": "`body`",
 								},
-								"parts": []any{
-									"sms",
-									"v1",
-									"schedules",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "message_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
@@ -461,7 +469,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/sms/v1",
@@ -473,18 +480,19 @@ func MakeConfig() map[string]any {
 										"lit": "v1",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"sms",
 									"v1",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/sms/v1/messages",
@@ -499,16 +507,18 @@ func MakeConfig() map[string]any {
 										"lit": "messages",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"sms",
 									"v1",
 									"messages",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},

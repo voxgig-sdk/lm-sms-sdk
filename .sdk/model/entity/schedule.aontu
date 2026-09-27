@@ -1,0 +1,308 @@
+# Entity: schedule
+
+main: kit: entity: schedule: {
+
+  alias: field: {}
+
+  fields: {
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    messageId: {
+      fo: "uuid"
+      h: "Message Id"
+      n: "messageId"
+      r: false
+      t: "`$STRING`"
+    }
+    recipient: {
+      h: "Recipient"
+      n: "recipient"
+      r: false
+      t: "`$STRING`"
+    }
+    scheduledAtDate: {
+      fo: "date-time"
+      h: "Scheduled At Date"
+      n: "scheduledAtDate"
+      r: false
+      t: "`$STRING`"
+    }
+    sendAtDate: {
+      fo: "date-time"
+      h: "Send At Date"
+      n: "sendAtDate"
+      r: false
+      t: "`$STRING`"
+    }
+    tag: {
+      h: "Tag"
+      n: "tag"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "schedule"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /sms/v1/schedules"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "end"
+                or: "end"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 1
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 25
+                k: "query"
+                n: "size"
+                or: "size"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "sort"
+                or: "sort"
+                r: false
+                t: "`$ARRAY`"
+              }
+              {
+                k: "query"
+                n: "start"
+                or: "start"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "tag"
+                or: "tag"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/sms/v1/schedules"
+          q: {
+            exist: [
+              "end"
+              "page"
+              "size"
+              "sort"
+              "start"
+              "tag"
+            ]
+          }
+          s: [
+            {
+              lit: "sms"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "schedules"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /sms/v1/schedules/{messageId}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "message_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/sms/v1/schedules/{messageId}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              messageId: "id"
+            }
+          }
+          s: [
+            {
+              lit: "sms"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "schedules"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /sms/v1/schedules"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "message_id"
+                or: "message_id"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "tag"
+                or: "tag"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/sms/v1/schedules"
+          q: {
+            exist: [
+              "message_id"
+              "tag"
+            ]
+          }
+          s: [
+            {
+              lit: "sms"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "schedules"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PATCH /sms/v1/schedules/{messageId}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "message_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PATCH"
+          o: "/sms/v1/schedules/{messageId}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              messageId: "id"
+            }
+          }
+          s: [
+            {
+              lit: "sms"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "schedules"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: {
+              sendAtDate: "`reqdata.send_at_date`"
+            }
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

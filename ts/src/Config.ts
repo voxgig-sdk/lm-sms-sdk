@@ -24,12 +24,6 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS: Record<string, any[]> = {
   
 }
@@ -40,7 +34,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -209,12 +202,12 @@ class Config {
 
     entity: {
       
-      schedule: {
-      },
-
-      send_message: {
-      },
-
+        schedule: {
+        },
+  
+        send_message: {
+        },
+  
     }
   }
 
@@ -224,29 +217,35 @@ class Config {
       "fields": [
         {
           "name": "id",
+          "title": "Id",
           "type": "`$STRING`"
         },
         {
-          "format": "uuid",
           "name": "messageId",
-          "type": "`$STRING`"
+          "title": "Message Id",
+          "type": "`$STRING`",
+          "format": "uuid"
         },
         {
           "name": "recipient",
+          "title": "Recipient",
           "type": "`$STRING`"
         },
         {
-          "format": "date-time",
           "name": "scheduledAtDate",
-          "type": "`$STRING`"
+          "title": "Scheduled At Date",
+          "type": "`$STRING`",
+          "format": "date-time"
         },
         {
-          "format": "date-time",
           "name": "sendAtDate",
-          "type": "`$STRING`"
+          "title": "Send At Date",
+          "type": "`$STRING`",
+          "format": "date-time"
         },
         {
           "name": "tag",
+          "title": "Tag",
           "type": "`$STRING`"
         }
       ],
@@ -261,48 +260,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "end",
-                    "orig": "end",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": 1,
-                    "kind": "query",
-                    "name": "page",
-                    "orig": "page",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": 25,
-                    "kind": "query",
-                    "name": "size",
-                    "orig": "size",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "kind": "query",
-                    "name": "sort",
-                    "orig": "sort",
-                    "type": "`$ARRAY`"
-                  },
-                  {
-                    "kind": "query",
-                    "name": "start",
-                    "orig": "start",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "query",
-                    "name": "tag",
-                    "orig": "tag",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/sms/v1/schedules",
@@ -317,6 +274,58 @@ class Config {
                   "lit": "schedules"
                 }
               ],
+              "parts": [
+                "sms",
+                "v1",
+                "schedules"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "end",
+                    "orig": "end",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "page",
+                    "orig": "page",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 1
+                  },
+                  {
+                    "name": "size",
+                    "orig": "size",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 25
+                  },
+                  {
+                    "name": "sort",
+                    "orig": "sort",
+                    "type": "`$ARRAY`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "start",
+                    "orig": "start",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "tag",
+                    "orig": "tag",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "end",
@@ -326,16 +335,7 @@ class Config {
                   "start",
                   "tag"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "sms",
-                "v1",
-                "schedules"
-              ]
+              }
             }
           ]
         },
@@ -344,25 +344,9 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "message_id",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/sms/v1/schedules/{messageId}",
-              "rename": {
-                "param": {
-                  "messageId": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "sms"
@@ -377,21 +361,37 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "sms",
                 "v1",
                 "schedules",
                 "{id}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "messageId": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "message_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              }
             }
           ]
         },
@@ -400,22 +400,6 @@ class Config {
           "name": "remove",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "message_id",
-                    "orig": "message_id",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "query",
-                    "name": "tag",
-                    "orig": "tag",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "DELETE",
               "orig": "/sms/v1/schedules",
@@ -430,21 +414,38 @@ class Config {
                   "lit": "schedules"
                 }
               ],
+              "parts": [
+                "sms",
+                "v1",
+                "schedules"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "message_id",
+                    "orig": "message_id",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "tag",
+                    "orig": "tag",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "message_id",
                   "tag"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "sms",
-                "v1",
-                "schedules"
-              ]
+              }
             }
           ]
         },
@@ -453,25 +454,9 @@ class Config {
           "name": "update",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "message_id",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "PATCH",
               "orig": "/sms/v1/schedules/{messageId}",
-              "rename": {
-                "param": {
-                  "messageId": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "sms"
@@ -486,10 +471,16 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "id"
-                ]
+              "parts": [
+                "sms",
+                "v1",
+                "schedules",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "messageId": "id"
+                }
               },
               "transform": {
                 "req": {
@@ -497,12 +488,22 @@ class Config {
                 },
                 "res": "`body`"
               },
-              "parts": [
-                "sms",
-                "v1",
-                "schedules",
-                "{id}"
-              ]
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "message_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              }
             }
           ]
         }
@@ -520,7 +521,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/sms/v1",
@@ -532,18 +532,19 @@ class Config {
                   "lit": "v1"
                 }
               ],
-              "select": {},
+              "parts": [
+                "sms",
+                "v1"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "sms",
-                "v1"
-              ]
+              "args": {},
+              "select": {}
             },
             {
-              "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/sms/v1/messages",
@@ -558,16 +559,18 @@ class Config {
                   "lit": "messages"
                 }
               ],
-              "select": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "sms",
                 "v1",
                 "messages"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {},
+              "select": {}
             }
           ]
         }

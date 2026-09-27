@@ -12,7 +12,7 @@ Learn more about Voxgig SDKs at [voxgig.com/sdk](https://voxgig.com/sdk/).
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `debug`, `idempotency`, `metrics`, `paging`, `ratelimit`, `retry`, `test`, `timeout` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
@@ -103,12 +103,12 @@ local results, err = client:Schedule():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/lm-sms` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/releases) |
-| Python | `voxgig-sdk-lm-sms` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/releases) |
-| PHP | `voxgig-sdk/lm-sms` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/releases) |
+| TypeScript | `@voxgig-sdk/lm-sms-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/tags) |
+| Python | `voxgig-sdk-lm-sms-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/tags) |
+| PHP | `voxgig-sdk/lm-sms-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/lm-sms-sdk/go` | `go get github.com/voxgig-sdk/lm-sms-sdk/go@latest` |
-| Ruby | `voxgig-sdk-lm-sms` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/releases) |
-| Lua | `voxgig-sdk-lm-sms` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/releases) |
+| Ruby | `voxgig-sdk-lm-sms-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/tags) |
+| Lua | `voxgig-sdk-lm-sms-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/lm-sms-sdk/go-cli` | `go install github.com/voxgig-sdk/lm-sms-sdk/go-cli/cmd/lm-sms@latest` |
 | Go MCP server | `github.com/voxgig-sdk/lm-sms-sdk/go-mcp` | `go get github.com/voxgig-sdk/lm-sms-sdk/go-mcp@latest` |
 
@@ -117,7 +117,7 @@ local results, err = client:Schedule():list()
 ### TypeScript
 
 ```ts
-import { LmSmsSDK } from '@voxgig-sdk/lm-sms'
+import { LmSmsSDK } from '@voxgig-sdk/lm-sms-sdk'
 
 const client = new LmSmsSDK({
   apikey: process.env.LM_SMS_APIKEY,
@@ -367,14 +367,14 @@ forking the SDK.
 
 | Feature | Purpose |
 | --- | --- |
-| **DebugFeature** | Request/response capture ring buffer for debugging |
-| **IdempotencyFeature** | Idempotency keys for safe retries of mutating operations |
-| **MetricsFeature** | Statistics capture: per-operation counters and latency |
-| **PagingFeature** | Pagination signals for list operations |
-| **RatelimitFeature** | Client-side rate limiting via a token bucket |
-| **RetryFeature** | Automatic retry of transient failures with exponential backoff |
-| **TestFeature** | In-memory mock transport for testing without a live server |
-| **TimeoutFeature** | Per-request timeout with transport abort |
+| **DebugFeature** | Debug capture |
+| **IdempotencyFeature** | Idempotency |
+| **MetricsFeature** | Metrics |
+| **PagingFeature** | Paging |
+| **RatelimitFeature** | Rate limiting |
+| **RetryFeature** | Retry |
+| **TestFeature** | Test transport |
+| **TimeoutFeature** | Timeout |
 
 Pass custom features via the `extend` option at construction time.
 

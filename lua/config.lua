@@ -161,29 +161,35 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "id",
+            ["title"] = "Id",
             ["type"] = "`$STRING`",
           },
           {
-            ["format"] = "uuid",
             ["name"] = "messageId",
+            ["title"] = "Message Id",
             ["type"] = "`$STRING`",
+            ["format"] = "uuid",
           },
           {
             ["name"] = "recipient",
+            ["title"] = "Recipient",
             ["type"] = "`$STRING`",
           },
           {
-            ["format"] = "date-time",
             ["name"] = "scheduledAtDate",
+            ["title"] = "Scheduled At Date",
             ["type"] = "`$STRING`",
+            ["format"] = "date-time",
           },
           {
-            ["format"] = "date-time",
             ["name"] = "sendAtDate",
+            ["title"] = "Send At Date",
             ["type"] = "`$STRING`",
+            ["format"] = "date-time",
           },
           {
             ["name"] = "tag",
+            ["title"] = "Tag",
             ["type"] = "`$STRING`",
           },
         },
@@ -198,48 +204,6 @@ local function make_config()
             ["name"] = "list",
             ["points"] = {
               {
-                ["args"] = {
-                  ["query"] = {
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "end",
-                      ["orig"] = "end",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = 1,
-                      ["kind"] = "query",
-                      ["name"] = "page",
-                      ["orig"] = "page",
-                      ["type"] = "`$INTEGER`",
-                    },
-                    {
-                      ["example"] = 25,
-                      ["kind"] = "query",
-                      ["name"] = "size",
-                      ["orig"] = "size",
-                      ["type"] = "`$INTEGER`",
-                    },
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "sort",
-                      ["orig"] = "sort",
-                      ["type"] = "`$ARRAY`",
-                    },
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "start",
-                      ["orig"] = "start",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "tag",
-                      ["orig"] = "tag",
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/sms/v1/schedules",
@@ -254,6 +218,58 @@ local function make_config()
                     ["lit"] = "schedules",
                   },
                 },
+                ["parts"] = {
+                  "sms",
+                  "v1",
+                  "schedules",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["query"] = {
+                    {
+                      ["name"] = "end",
+                      ["orig"] = "end",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                    {
+                      ["name"] = "page",
+                      ["orig"] = "page",
+                      ["type"] = "`$INTEGER`",
+                      ["kind"] = "query",
+                      ["example"] = 1,
+                    },
+                    {
+                      ["name"] = "size",
+                      ["orig"] = "size",
+                      ["type"] = "`$INTEGER`",
+                      ["kind"] = "query",
+                      ["example"] = 25,
+                    },
+                    {
+                      ["name"] = "sort",
+                      ["orig"] = "sort",
+                      ["type"] = "`$ARRAY`",
+                      ["kind"] = "query",
+                    },
+                    {
+                      ["name"] = "start",
+                      ["orig"] = "start",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                    {
+                      ["name"] = "tag",
+                      ["orig"] = "tag",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                  },
+                },
                 ["select"] = {
                   ["exist"] = {
                     "end",
@@ -264,15 +280,6 @@ local function make_config()
                     "tag",
                   },
                 },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
-                ["parts"] = {
-                  "sms",
-                  "v1",
-                  "schedules",
-                },
               },
             },
           },
@@ -281,25 +288,9 @@ local function make_config()
             ["name"] = "load",
             ["points"] = {
               {
-                ["args"] = {
-                  ["params"] = {
-                    {
-                      ["kind"] = "param",
-                      ["name"] = "id",
-                      ["orig"] = "message_id",
-                      ["reqd"] = true,
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/sms/v1/schedules/{messageId}",
-                ["rename"] = {
-                  ["param"] = {
-                    ["messageId"] = "id",
-                  },
-                },
                 ["segments"] = {
                   {
                     ["lit"] = "sms",
@@ -314,20 +305,36 @@ local function make_config()
                     ["var"] = "id",
                   },
                 },
-                ["select"] = {
-                  ["exist"] = {
-                    "id",
+                ["parts"] = {
+                  "sms",
+                  "v1",
+                  "schedules",
+                  "{id}",
+                },
+                ["rename"] = {
+                  ["param"] = {
+                    ["messageId"] = "id",
                   },
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["parts"] = {
-                  "sms",
-                  "v1",
-                  "schedules",
-                  "{id}",
+                ["args"] = {
+                  ["params"] = {
+                    {
+                      ["name"] = "id",
+                      ["orig"] = "message_id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "id",
+                  },
                 },
               },
             },
@@ -337,22 +344,6 @@ local function make_config()
             ["name"] = "remove",
             ["points"] = {
               {
-                ["args"] = {
-                  ["query"] = {
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "message_id",
-                      ["orig"] = "message_id",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "tag",
-                      ["orig"] = "tag",
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/sms/v1/schedules",
@@ -367,20 +358,37 @@ local function make_config()
                     ["lit"] = "schedules",
                   },
                 },
+                ["parts"] = {
+                  "sms",
+                  "v1",
+                  "schedules",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["query"] = {
+                    {
+                      ["name"] = "message_id",
+                      ["orig"] = "message_id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                    {
+                      ["name"] = "tag",
+                      ["orig"] = "tag",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                  },
+                },
                 ["select"] = {
                   ["exist"] = {
                     "message_id",
                     "tag",
                   },
-                },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
-                ["parts"] = {
-                  "sms",
-                  "v1",
-                  "schedules",
                 },
               },
             },
@@ -390,25 +398,9 @@ local function make_config()
             ["name"] = "update",
             ["points"] = {
               {
-                ["args"] = {
-                  ["params"] = {
-                    {
-                      ["kind"] = "param",
-                      ["name"] = "id",
-                      ["orig"] = "message_id",
-                      ["reqd"] = true,
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "PATCH",
                 ["orig"] = "/sms/v1/schedules/{messageId}",
-                ["rename"] = {
-                  ["param"] = {
-                    ["messageId"] = "id",
-                  },
-                },
                 ["segments"] = {
                   {
                     ["lit"] = "sms",
@@ -423,9 +415,15 @@ local function make_config()
                     ["var"] = "id",
                   },
                 },
-                ["select"] = {
-                  ["exist"] = {
-                    "id",
+                ["parts"] = {
+                  "sms",
+                  "v1",
+                  "schedules",
+                  "{id}",
+                },
+                ["rename"] = {
+                  ["param"] = {
+                    ["messageId"] = "id",
                   },
                 },
                 ["transform"] = {
@@ -434,11 +432,21 @@ local function make_config()
                   },
                   ["res"] = "`body`",
                 },
-                ["parts"] = {
-                  "sms",
-                  "v1",
-                  "schedules",
-                  "{id}",
+                ["args"] = {
+                  ["params"] = {
+                    {
+                      ["name"] = "id",
+                      ["orig"] = "message_id",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "id",
+                  },
                 },
               },
             },
@@ -457,7 +465,6 @@ local function make_config()
             ["name"] = "create",
             ["points"] = {
               {
-                ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/sms/v1",
@@ -469,18 +476,19 @@ local function make_config()
                     ["lit"] = "v1",
                   },
                 },
-                ["select"] = {},
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
                 ["parts"] = {
                   "sms",
                   "v1",
                 },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {},
+                ["select"] = {},
               },
               {
-                ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/sms/v1/messages",
@@ -495,16 +503,18 @@ local function make_config()
                     ["lit"] = "messages",
                   },
                 },
-                ["select"] = {},
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
                 ["parts"] = {
                   "sms",
                   "v1",
                   "messages",
                 },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {},
+                ["select"] = {},
               },
             },
           },

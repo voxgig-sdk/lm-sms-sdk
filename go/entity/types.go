@@ -1,7 +1,7 @@
 // Typed models for the LmSms SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,12 +14,6 @@ import (
 
 // Schedule is the typed data model for the schedule entity.
 type Schedule struct {
-	Id *string `json:"id,omitempty"`
-	MessageId *string `json:"messageId,omitempty"`
-	Recipient *string `json:"recipient,omitempty"`
-	ScheduledAtDate *string `json:"scheduledAtDate,omitempty"`
-	SendAtDate *string `json:"sendAtDate,omitempty"`
-	Tag *string `json:"tag,omitempty"`
 }
 
 // ScheduleLoadMatch is the typed request payload for Schedule.LoadTyped.

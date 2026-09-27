@@ -1,0 +1,33 @@
+# Generated from the API definition and overwritten on every build: do not
+# edit this file. Put customizations in the guide entry file, which includes
+# this one and overrides its defaults:
+#   guide.aontu
+
+guide: {
+  metrics: count: entity: 2
+  metrics: count: path: 4
+  metrics: count: method: 6
+
+  entity: schedule: {
+    path: "/sms/v1/schedules": {
+      op: list: method: *GET
+      op: remove: method: *DELETE
+    }
+    path: "/sms/v1/schedules/{messageId}": {
+      rename: param: "messageId": *"id"
+      op: load: method: *GET
+      op: patch: method: *PATCH
+      op: patch: transform: req: "sendAtDate": *("`reqdata.send_at_date`")|top
+    }
+  }
+
+  entity: send_message: {
+    path: "/sms/v1": {
+      op: create: method: *POST
+    }
+    path: "/sms/v1/messages": {
+      op: create: method: *POST
+    }
+  }
+
+}
