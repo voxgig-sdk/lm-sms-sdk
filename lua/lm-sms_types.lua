@@ -38,8 +38,12 @@
 ---@field tag? string
 
 ---@class SendMessage
+---@field messages? table
+---@field requestId? string
 
 ---@class SendMessageCreateData
+---@field messages? table
+---@field requestId? string
 
 local M = {}
 

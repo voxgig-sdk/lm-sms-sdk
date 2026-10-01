@@ -118,10 +118,28 @@ ScheduleRemoveMatch = Struct.new(
 )
 
 # SendMessage entity data model.
-class SendMessage
-end
+#
+# @!attribute [rw] messages
+#   @return [Array, nil]
+#
+# @!attribute [rw] requestId
+#   @return [String, nil]
+SendMessage = Struct.new(
+  :messages,
+  :requestId,
+  keyword_init: true
+)
 
 # Request payload for SendMessage#create.
-class SendMessageCreateData
-end
+#
+# @!attribute [rw] messages
+#   @return [Array, nil]
+#
+# @!attribute [rw] requestId
+#   @return [String, nil]
+SendMessageCreateData = Struct.new(
+  :messages,
+  :requestId,
+  keyword_init: true
+)
 

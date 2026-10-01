@@ -15,7 +15,7 @@
         },
         {
             "name": "Receive Messages",
-            "description": "<p>To receive Delivery Reports (DLR) and Mobile Originated SMS (MO) successfully to your endpoint you need to open up for the following IPs:<ul style=\"list-style-type:disc\"><li>20.86.255.57</li><li>4.245.97.148</li><li>195.84.162.34</li><li>194.71.165.71</li><li>195.84.162.16</li><li>194.71.165.98</li><li>195.84.162.3</li><li>194.71.165.122</li><li>213.242.87.36</li><li>213.242.87.37</li><li>213.242.87.38</li><li>213.242.87.39</li><li>213.242.87.40</li><li>213.242.87.41</li><li>62.67.62.101</li><li>62.67.62.102</li><li>62.67.62.103</li><li>62.67.62.104</li><li>62.67.62.105</li><li>62.67.62.106</li><li>217.163.95.196</li><li>217.163.95.197</li><li>217.163.95.198</li><li>217.163.95.199</li><li>217.163.95.200</li><li>217.163.95.201</li></ul></p>"
+            "description": "<p>To receive Delivery Reports (DLR) and Mobile Originated SMS (MO) successfully to your endpoint you need to open up for the following IPs:<ul style=\"list-style-type:disc\"><li>4.245.97.148</li><li>20.86.255.57</li><li>62.67.62.101</li><li>62.67.62.102</li><li>62.67.62.103</li><li>62.67.62.104</li><li>62.67.62.105</li><li>62.67.62.106</li><li>108.142.46.101</li><li>194.71.165.71</li><li>194.71.165.98</li><li>194.71.165.122</li><li>195.84.162.3</li><li>195.84.162.16</li><li>195.84.162.34</li><li>213.199.130.146</li><li>213.242.87.36</li><li>213.242.87.37</li><li>213.242.87.38</li><li>213.242.87.39</li><li>213.242.87.40</li><li>213.242.87.41</li><li>217.163.95.196</li><li>217.163.95.197</li><li>217.163.95.198</li><li>217.163.95.199</li><li>217.163.95.200</li><li>217.163.95.201</li></ul></p>"
         }
     ],
     "x-tagGroups": [

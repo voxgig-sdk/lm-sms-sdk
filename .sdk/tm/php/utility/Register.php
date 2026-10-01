@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 LmSmsUtility::setRegistrar(function (LmSmsUtility $u): void {
     $u->clean = [LmSmsClean::class, 'call'];
+    $u->clean_add = [LmSmsClean::class, 'add'];
+    $u->clean_explain = [LmSmsDone::class, 'clean_explain'];
     $u->done = [LmSmsDone::class, 'call'];
     $u->make_error = [LmSmsMakeError::class, 'call'];
     $u->feature_add = [LmSmsFeatureAdd::class, 'call'];

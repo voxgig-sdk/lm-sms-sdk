@@ -1,6 +1,6 @@
 # LmSms SDK
 
-MyLINK SMS API client, generated from the OpenAPI spec.
+LINK Mobility MyLINK SMS API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.
 
 <div><h2>Purpose and functionality</h2><p>MyLINK SMS API is a REST API supporting the needs for sending and receiving SMS to the recipients you want to reach, either if it is for time critical SMS or high load purposes.
 
@@ -12,9 +12,73 @@ Learn more about Voxgig SDKs at [voxgig.com/sdk](https://voxgig.com/sdk/).
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
+> **Features:** `debug`, `idempotency`, `metrics`, `paging`, `ratelimit`, `retry`, `test`, `timeout` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
+
+## About MyLINK SMS API
+
+**Unofficial. Not affiliated with LINK Mobility.** This is an unofficial SDK for the LINK Mobility MyLINK SMS API, built by [Voxgig](https://voxgig.com/sdk). It is not affiliated with, endorsed by, or sponsored by LINK Mobility.
+
+**Why this exists:** LINK Mobility publishes an OpenAPI definition for the MyLINK SMS API, but no client libraries for it. Voxgig builds public SDK and MCP examples for APIs we think are interesting, and this is one of them. MIT-licensed, take whatever's useful.
+
+It is one of five repositories for LINK Mobility's MyLINK and Umbrella APIs: [Multichannel](https://github.com/voxgig-sdk/lm-multichannel-sdk), [SMS](https://github.com/voxgig-sdk/lm-sms-sdk), [Email](https://github.com/voxgig-sdk/lm-email-sdk), [WhatsApp](https://github.com/voxgig-sdk/lm-whatsapp-sdk) and [Permission](https://github.com/voxgig-sdk/lm-umbrella-sdk).
+
+### Try it (TypeScript)
+
+```bash
+git clone https://github.com/voxgig-sdk/lm-sms-sdk
+cd lm-sms-sdk/ts
+npm install
+npm run build
+npm test
+```
+
+The test suite runs fully offline. Every SDK here ships a test mode that swaps the HTTP transport for an in-memory mock, so you can try it without credentials or a network.
+
+### Send a message
+
+```ts
+import { LmSmsSDK } from '@voxgig-sdk/lm-sms-sdk'
+
+const client = new LmSmsSDK({ apikey: process.env.LM_SMS_APIKEY })
+
+// The API takes a batch, so messages always go in an array.
+const sent = await client.SendMessage().create({
+  messages: [
+    {
+      recipient: '+4712345678',
+      content: { text: 'Hello from MyLINK', options: { 'sms.sender': 'MyBrand' } },
+    },
+  ],
+})
+console.log(sent.data())
+
+// Messages scheduled for later sending
+const scheduled = await client.Schedule().list()
+```
+
+### Authentication
+
+The API uses OAuth2 client credentials, and the SDK does not fetch the token for you. Request an access token with the client-credentials grant from `https://sso.linkmobility.com/auth/realms/CPaaS/protocol/openid-connect/token`, using the client ID and secret from the Messaging APIs page in MyLINK. Pass the token as `apikey`, and the SDK sends it as `Authorization: Bearer <token>`. The CLI and the MCP server read it from `LM_SMS_APIKEY`.
+
+### Using the MCP server
+
+```bash
+cd go-mcp && go build -o lm-sms-mcp .
+export LM_SMS_APIKEY=<access token>
+claude mcp add --scope user lm-sms -- "$PWD/lm-sms-mcp" -transport stdio
+```
+
+The MCP server is read-only for now. It has two tools, `lm-sms_list` and `lm-sms_load`, which list and load scheduled messages. Sending goes through the SDKs. The CLI in `go-cli` covers list, load and update.
+
+### Honest state
+
+Generated from LINK Mobility's public OpenAPI definition of the MyLINK SMS API (v1, from docs.linkmobility.com) on 2026-10-01. Not production-tuned. Known rough edge: the SDK does not run the OAuth2 client-credentials exchange, so you fetch and refresh the access token yourself and hand it to the client. Use it as a starting point or a reference.
+
+When teams want SDKs like these production-grade, idiomatic per language, tested, documented, and released through a real pipeline, Voxgig does that work as a consulting engagement. The toolkit also generates Java and C# if your customers need them. Questions: richard@voxgig.com.
+
+If you are from LINK Mobility and would like this repository removed, or transferred to your own GitHub organisation, email richard@voxgig.com and it will be done within two business days, no questions asked.
 
 ## Entities, not endpoints
 
@@ -103,12 +167,12 @@ local results, err = client:Schedule():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/lm-sms-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/tags) |
-| Python | `voxgig-sdk-lm-sms-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/tags) |
-| PHP | `voxgig-sdk/lm-sms-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/tags) |
+| TypeScript | `@voxgig-sdk/lm-sms-sdk` | publish pending — [install from source](ts/README.md#install) |
+| Python | `voxgig-sdk-lm-sms-sdk` | publish pending — [install from source](py/README.md#install) |
+| PHP | `voxgig-sdk/lm-sms-sdk` | publish pending — [install from source](php/README.md#install) |
 | Golang | `github.com/voxgig-sdk/lm-sms-sdk/go` | `go get github.com/voxgig-sdk/lm-sms-sdk/go@latest` |
-| Ruby | `voxgig-sdk-lm-sms-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/tags) |
-| Lua | `voxgig-sdk-lm-sms-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-sms-sdk/tags) |
+| Ruby | `voxgig-sdk-lm-sms-sdk` | publish pending — [install from source](rb/README.md#install) |
+| Lua | `voxgig-sdk-lm-sms-sdk` | publish pending — [install from source](lua/README.md#install) |
 | Go CLI | `github.com/voxgig-sdk/lm-sms-sdk/go-cli` | `go install github.com/voxgig-sdk/lm-sms-sdk/go-cli/cmd/lm-sms@latest` |
 | Go MCP server | `github.com/voxgig-sdk/lm-sms-sdk/go-mcp` | `go get github.com/voxgig-sdk/lm-sms-sdk/go-mcp@latest` |
 
@@ -422,6 +486,7 @@ The OpenAPI spec(s) this SDK was generated from are kept in the
 [`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://api.linkmobility.com](https://api.linkmobility.com)
+- Documentation: [https://docs.linkmobility.com/api-reference/mylink-sms-api](https://docs.linkmobility.com/api-reference/mylink-sms-api)
 
 ## Security
 

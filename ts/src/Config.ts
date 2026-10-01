@@ -380,7 +380,7 @@ class Config {
                 "params": [
                   {
                     "name": "id",
-                    "orig": "message_id",
+                    "orig": "messageId",
                     "type": "`$STRING`",
                     "kind": "param",
                     "reqd": true
@@ -428,7 +428,7 @@ class Config {
                 "query": [
                   {
                     "name": "message_id",
-                    "orig": "message_id",
+                    "orig": "messageId",
                     "type": "`$STRING`",
                     "kind": "query"
                   },
@@ -492,7 +492,7 @@ class Config {
                 "params": [
                   {
                     "name": "id",
-                    "orig": "message_id",
+                    "orig": "messageId",
                     "type": "`$STRING`",
                     "kind": "param",
                     "reqd": true
@@ -513,7 +513,21 @@ class Config {
       }
     },
     "send_message": {
-      "fields": [],
+      "fields": [
+        {
+          "name": "messages",
+          "title": "Messages",
+          "type": "`$ARRAY`",
+          "short": "List of message information includes details such as messageId, recipient, referenceId"
+        },
+        {
+          "name": "requestId",
+          "title": "Request Id",
+          "type": "`$STRING`",
+          "short": "Unique Id of the request made towards LINK",
+          "format": "uuid"
+        }
+      ],
       "name": "send_message",
       "op": {
         "create": {
@@ -538,7 +552,7 @@ class Config {
               ],
               "rename": {},
               "transform": {
-                "req": "`reqdata`",
+                "req": "`reqdata.messages`",
                 "res": "`body`"
               },
               "args": {},
@@ -566,7 +580,7 @@ class Config {
               ],
               "rename": {},
               "transform": {
-                "req": "`reqdata`",
+                "req": "`reqdata.messages`",
                 "res": "`body`"
               },
               "args": {},

@@ -324,7 +324,7 @@ local function make_config()
                   ["params"] = {
                     {
                       ["name"] = "id",
-                      ["orig"] = "message_id",
+                      ["orig"] = "messageId",
                       ["type"] = "`$STRING`",
                       ["kind"] = "param",
                       ["reqd"] = true,
@@ -372,7 +372,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "message_id",
-                      ["orig"] = "message_id",
+                      ["orig"] = "messageId",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -436,7 +436,7 @@ local function make_config()
                   ["params"] = {
                     {
                       ["name"] = "id",
-                      ["orig"] = "message_id",
+                      ["orig"] = "messageId",
                       ["type"] = "`$STRING`",
                       ["kind"] = "param",
                       ["reqd"] = true,
@@ -457,7 +457,21 @@ local function make_config()
         },
       },
       ["send_message"] = {
-        ["fields"] = {},
+        ["fields"] = {
+          {
+            ["name"] = "messages",
+            ["title"] = "Messages",
+            ["type"] = "`$ARRAY`",
+            ["short"] = "List of message information includes details such as messageId, recipient, referenceId",
+          },
+          {
+            ["name"] = "requestId",
+            ["title"] = "Request Id",
+            ["type"] = "`$STRING`",
+            ["short"] = "Unique Id of the request made towards LINK",
+            ["format"] = "uuid",
+          },
+        },
         ["name"] = "send_message",
         ["op"] = {
           ["create"] = {
@@ -482,7 +496,7 @@ local function make_config()
                 },
                 ["rename"] = {},
                 ["transform"] = {
-                  ["req"] = "`reqdata`",
+                  ["req"] = "`reqdata.messages`",
                   ["res"] = "`body`",
                 },
                 ["args"] = {},
@@ -510,7 +524,7 @@ local function make_config()
                 },
                 ["rename"] = {},
                 ["transform"] = {
-                  ["req"] = "`reqdata`",
+                  ["req"] = "`reqdata.messages`",
                   ["res"] = "`body`",
                 },
                 ["args"] = {},

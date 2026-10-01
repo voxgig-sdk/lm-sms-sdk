@@ -173,6 +173,13 @@ Return the entity name.
 send_message = client.SendMessage()
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `messages` | `list` | No | List of message information includes details such as messageId, recipient, referenceId |
+| `requestId` | `str` | No | Unique Id of the request made towards LINK |
+
 ### Operations
 
 #### `create(reqdata, ctrl=None) -> dict`

@@ -53,6 +53,8 @@ type SendMessage struct {
 
 // SendMessageCreateData is the typed request payload for SendMessage.CreateTyped.
 type SendMessageCreateData struct {
+	Messages *[]any `json:"messages,omitempty"`
+	RequestId *string `json:"requestId,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

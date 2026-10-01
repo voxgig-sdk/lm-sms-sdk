@@ -30,6 +30,10 @@ export interface ScheduleRemoveMatch {
     tag?: string;
 }
 export interface SendMessage {
+    messages?: any[];
+    requestId?: string;
 }
 export interface SendMessageCreateData {
+    messages?: any[];
+    requestId?: string;
 }

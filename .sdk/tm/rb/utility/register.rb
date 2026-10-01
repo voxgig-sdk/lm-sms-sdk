@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 LmSmsUtility.registrar = ->(u) {
   u.clean = LmSmsUtilities::Clean
+  u.clean_add = LmSmsUtilities::CleanAdd
+  u.clean_explain = LmSmsUtilities::CleanExplain
   u.done = LmSmsUtilities::Done
   u.make_error = LmSmsUtilities::MakeError
   u.feature_add = LmSmsUtilities::FeatureAdd

@@ -42,8 +42,12 @@ export interface ScheduleRemoveMatch {
 }
 
 export interface SendMessage {
+  messages?: any[]
+  requestId?: string
 }
 
 export interface SendMessageCreateData {
+  messages?: any[]
+  requestId?: string
 }
 

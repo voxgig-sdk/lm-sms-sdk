@@ -295,7 +295,7 @@
                         "a": true,
                         "k": "param",
                         "n": "id",
-                        "or": "message_id",
+                        "or": "messageId",
                         "r": true,
                         "t": "`$STRING`"
                       }
@@ -352,7 +352,7 @@
                         "a": true,
                         "k": "query",
                         "n": "message_id",
-                        "or": "message_id",
+                        "or": "messageId",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -411,7 +411,7 @@
                         "a": true,
                         "k": "param",
                         "n": "id",
-                        "or": "message_id",
+                        "or": "messageId",
                         "r": true,
                         "t": "`$STRING`"
                       }
@@ -463,7 +463,25 @@
           "alias": {
             "field": {}
           },
-          "fields": {},
+          "fields": {
+            "messages": {
+              "a": true,
+              "h": "Messages",
+              "n": "messages",
+              "r": false,
+              "sh": "List of message information includes details such as messageId, recipient, referenceId",
+              "t": "`$ARRAY`"
+            },
+            "requestId": {
+              "a": true,
+              "fo": "uuid",
+              "h": "Request Id",
+              "n": "requestId",
+              "r": false,
+              "sh": "Unique Id of the request made towards LINK",
+              "t": "`$STRING`"
+            }
+          },
           "name": "send_message",
           "op": {
             "create": {
@@ -492,7 +510,7 @@
                     }
                   ],
                   "t": {
-                    "req": "`reqdata`",
+                    "req": "`reqdata.messages`",
                     "res": "`body`"
                   }
                 },
@@ -521,7 +539,7 @@
                     }
                   ],
                   "t": {
-                    "req": "`reqdata`",
+                    "req": "`reqdata.messages`",
                     "res": "`body`"
                   }
                 }
@@ -1466,7 +1484,9 @@
         }
       },
       "info": {
+        "about_md": "**Unofficial. Not affiliated with LINK Mobility.** This is an unofficial SDK for the LINK Mobility MyLINK SMS API, built by [Voxgig](https://voxgig.com/sdk). It is not affiliated with, endorsed by, or sponsored by LINK Mobility.\n\n**Why this exists:** LINK Mobility publishes an OpenAPI definition for the MyLINK SMS API, but no client libraries for it. Voxgig builds public SDK and MCP examples for APIs we think are interesting, and this is one of them. MIT-licensed, take whatever's useful.\n\nIt is one of five repositories for LINK Mobility's MyLINK and Umbrella APIs: [Multichannel](https://github.com/voxgig-sdk/lm-multichannel-sdk), [SMS](https://github.com/voxgig-sdk/lm-sms-sdk), [Email](https://github.com/voxgig-sdk/lm-email-sdk), [WhatsApp](https://github.com/voxgig-sdk/lm-whatsapp-sdk) and [Permission](https://github.com/voxgig-sdk/lm-umbrella-sdk).\n\n### Try it (TypeScript)\n\n```bash\ngit clone https://github.com/voxgig-sdk/lm-sms-sdk\ncd lm-sms-sdk/ts\nnpm install\nnpm run build\nnpm test\n```\n\nThe test suite runs fully offline. Every SDK here ships a test mode that swaps the HTTP transport for an in-memory mock, so you can try it without credentials or a network.\n\n### Send a message\n\n```ts\nimport { LmSmsSDK } from '@voxgig-sdk/lm-sms-sdk'\n\nconst client = new LmSmsSDK({ apikey: process.env.LM_SMS_APIKEY })\n\n// The API takes a batch, so messages always go in an array.\nconst sent = await client.SendMessage().create({\n  messages: [\n    {\n      recipient: '+4712345678',\n      content: { text: 'Hello from MyLINK', options: { 'sms.sender': 'MyBrand' } },\n    },\n  ],\n})\nconsole.log(sent.data())\n\n// Messages scheduled for later sending\nconst scheduled = await client.Schedule().list()\n```\n\n### Authentication\n\nThe API uses OAuth2 client credentials, and the SDK does not fetch the token for you. Request an access token with the client-credentials grant from `https://sso.linkmobility.com/auth/realms/CPaaS/protocol/openid-connect/token`, using the client ID and secret from the Messaging APIs page in MyLINK. Pass the token as `apikey`, and the SDK sends it as `Authorization: Bearer <token>`. The CLI and the MCP server read it from `LM_SMS_APIKEY`.\n\n### Using the MCP server\n\n```bash\ncd go-mcp && go build -o lm-sms-mcp .\nexport LM_SMS_APIKEY=<access token>\nclaude mcp add --scope user lm-sms -- \"$PWD/lm-sms-mcp\" -transport stdio\n```\n\nThe MCP server is read-only for now. It has two tools, `lm-sms_list` and `lm-sms_load`, which list and load scheduled messages. Sending goes through the SDKs. The CLI in `go-cli` covers list, load and update.\n\n### Honest state\n\nGenerated from LINK Mobility's public OpenAPI definition of the MyLINK SMS API (v1, from docs.linkmobility.com) on 2026-10-01. Not production-tuned. Known rough edge: the SDK does not run the OAuth2 client-credentials exchange, so you fetch and refresh the access token yourself and hand it to the client. Use it as a starting point or a reference.\n\nWhen teams want SDKs like these production-grade, idiomatic per language, tested, documented, and released through a real pipeline, Voxgig does that work as a consulting engagement. The toolkit also generates Java and C# if your customers need them. Questions: richard@voxgig.com.\n\nIf you are from LINK Mobility and would like this repository removed, or transferred to your own GitHub organisation, email richard@voxgig.com and it will be done within two business days, no questions asked.",
         "description": "<div><h2>Purpose and functionality</h2><p>MyLINK SMS API is a REST API supporting the needs for sending and receiving SMS to the recipients you want to reach, either if it is for time critical SMS or high load purposes. </p><p>MyLINK SMS API is LINK Mobility’s new flagship SMS product, and is a part of our CPaaS offering.</p><h2>Current supported functionality</h2><ul style=\"list-style:disc inside;\">  <li><a href=\"#tag/Send-Messages/paths/~1sms~1v1~1messages/post\">Send SMS (Mobile Terminated)</a><ul style=\"list-style:circle;\"><li>Send single message</li><li>Batch Sending MT Messages</li></ul> </li><li><a href=\"#tag/SmsScheduling\">Scheduling sendings</a></li>  <li><a href=\"#tag/Receive-Messages/operation/MobileOriginated\">Receive SMS (Mobile Originated)</a></li>  <li><a href=\"#tag/Receive-Messages/operation/Delivery%20Report\">Delivery Reports</a></li>  <li>Message Obfuscation</li>  <li>Portal access for statistics and product administration</li></ul><h2>Getting started</h2><ul style=\"list-style:disc inside;\" >  <li>Get in touch with us to get a demo or sign up for the product: <a href=\"https://www.linkmobility.com/contact-us\">Click here</a></li>  <li>Accept your invitation to the MyLINK portal to generate your API secrets  </li>  <li>Revisit the developer portal for how to send an SMS </li></ul><div>",
+        "docs_url": "https://docs.linkmobility.com/api-reference/mylink-sms-api",
         "security": {
           "in": "header",
           "name": "Authorization",
@@ -1480,6 +1500,7 @@
           }
         ],
         "summary": "<div><h2>Purpose and functionality</h2><p>MyLINK SMS API is a REST API supporting the needs for sending and receiving SMS to the recipients you want to reach, either if it is for time critical SMS or high load purposes.",
+        "tagline": "LINK Mobility MyLINK SMS API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.",
         "title": "MyLINK SMS API",
         "version": "v1",
         "website": "https://linkmobility.com"
@@ -1499,7 +1520,12 @@
         },
         "base": "http://localhost:8000",
         "clean": {
-          "keys": "key,token,id"
+          "active": true,
+          "hint": "0",
+          "keys": "key,secret,token,password,passwd,authorization,cookie,credential,signature",
+          "mask": "[redacted]",
+          "min": "4",
+          "values": ""
         },
         "entity": {
           "`$CHILD`": {
@@ -1815,7 +1841,7 @@
             "registry": {
               "active": false,
               "name": "luarocks",
-              "package": "",
+              "package": "voxgig-sdk-lm-sms-sdk",
               "state": "pending",
               "url": "https://luarocks.org",
               "vault": {
@@ -1882,7 +1908,7 @@
             "registry": {
               "active": false,
               "name": "packagist",
-              "package": "",
+              "package": "voxgig-sdk/lm-sms-sdk",
               "state": "pending",
               "url": "https://packagist.org",
               "vault": {
@@ -1955,7 +1981,7 @@
             "registry": {
               "active": false,
               "name": "pypi",
-              "package": "",
+              "package": "voxgig-sdk-lm-sms-sdk",
               "state": "pending",
               "url": "https://pypi.org",
               "vault": {
@@ -2028,7 +2054,7 @@
             "registry": {
               "active": false,
               "name": "rubygems",
-              "package": "",
+              "package": "voxgig-sdk-lm-sms-sdk",
               "state": "pending",
               "url": "https://rubygems.org",
               "vault": {
@@ -2106,7 +2132,7 @@
             "registry": {
               "active": false,
               "name": "npm",
-              "package": "",
+              "package": "@voxgig-sdk/lm-sms-sdk",
               "state": "pending",
               "url": "https://registry.npmjs.org",
               "vault": {

@@ -177,6 +177,13 @@ Return the entity name.
 $send_message = $client->SendMessage();
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `messages` | `array` | No | List of message information includes details such as messageId, recipient, referenceId |
+| `requestId` | `string` | No | Unique Id of the request made towards LINK |
+
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`

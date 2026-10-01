@@ -1,6 +1,6 @@
 # LmSms Golang SDK
 
-
+LINK Mobility MyLINK SMS API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.
 
 The Golang SDK for the LmSms API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
@@ -307,6 +307,8 @@ API path: `/sms/v1/schedules`
 
 | Field | Description |
 | --- | --- |
+| `"messages"` | List of message information includes details such as messageId, recipient, referenceId |
+| `"requestId"` | Unique Id of the request made towards LINK |
 
 Operations: Create.
 
@@ -371,6 +373,13 @@ Create an instance: `sendMessage := client.SendMessage(nil)`
 | Method | Description |
 | --- | --- |
 | `Create(data, ctrl)` | Create a new entity with the given data. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `messages` | `[]any` | List of message information includes details such as messageId, recipient, referenceId |
+| `requestId` | `string` | Unique Id of the request made towards LINK |
 
 #### Example: Create
 

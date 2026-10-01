@@ -154,7 +154,7 @@ main: kit: entity: schedule: {
               {
                 k: "param"
                 n: "id"
-                or: "message_id"
+                or: "messageId"
                 r: true
                 t: "`$STRING`"
               }
@@ -207,7 +207,7 @@ main: kit: entity: schedule: {
               {
                 k: "query"
                 n: "message_id"
-                or: "message_id"
+                or: "messageId"
                 r: false
                 t: "`$STRING`"
               }
@@ -260,7 +260,7 @@ main: kit: entity: schedule: {
               {
                 k: "param"
                 n: "id"
-                or: "message_id"
+                or: "messageId"
                 r: true
                 t: "`$STRING`"
               }

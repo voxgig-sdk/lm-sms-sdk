@@ -1,6 +1,6 @@
 # LmSms Ruby SDK
 
-
+LINK Mobility MyLINK SMS API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.
 
 The Ruby SDK for the LmSms API — an entity-oriented client using idiomatic Ruby conventions.
 
@@ -12,9 +12,18 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`):
+GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/lm-sms-sdk/releases)), or
+from a clone:
 
-- Releases: [https://github.com/voxgig-sdk/lm-sms-sdk/releases](https://github.com/voxgig-sdk/lm-sms-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/lm-sms-sdk
+```
+
+Then add it to your `Gemfile` by path, and run `bundle install`:
+
+```ruby
+gem "voxgig-sdk-lm-sms-sdk", path: "./lm-sms-sdk/rb"
+```
 
 
 ## Tutorial: your first API call
@@ -286,6 +295,8 @@ API path: `/sms/v1/schedules`
 
 | Field | Description |
 | --- | --- |
+| `messages` | List of message information includes details such as messageId, recipient, referenceId |
+| `requestId` | Unique Id of the request made towards LINK |
 
 Operations: Create.
 
@@ -344,6 +355,13 @@ Create an instance: `send_message = client.SendMessage`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `messages` | `Array` | List of message information includes details such as messageId, recipient, referenceId |
+| `requestId` | `String` | Unique Id of the request made towards LINK |
 
 #### Example: Create
 

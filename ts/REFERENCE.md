@@ -207,6 +207,13 @@ Return a copy of the entity options.
 const send_message = client.SendMessage()
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `messages` | `any[]` | No | List of message information includes details such as messageId, recipient, referenceId |
+| `requestId` | `string` | No | Unique Id of the request made towards LINK |
+
 ### Operations
 
 #### `create(data: object, ctrl?: object)`

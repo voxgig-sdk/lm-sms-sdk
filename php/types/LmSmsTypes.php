@@ -61,10 +61,14 @@ class ScheduleRemoveMatch
 /** SendMessage entity data model. */
 class SendMessage
 {
+    public ?array $messages = null;
+    public ?string $requestId = null;
 }
 
 /** Request payload for SendMessage#create. */
 class SendMessageCreateData
 {
+    public ?array $messages = null;
+    public ?string $requestId = null;
 }
 

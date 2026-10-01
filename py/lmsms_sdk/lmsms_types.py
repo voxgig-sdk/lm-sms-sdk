@@ -55,9 +55,11 @@ class ScheduleRemoveMatch(TypedDict, total=False):
     tag: str
 
 
-class SendMessage(TypedDict):
-    pass
+class SendMessage(TypedDict, total=False):
+    messages: list
+    requestId: str
 
 
-class SendMessageCreateData(TypedDict):
-    pass
+class SendMessageCreateData(TypedDict, total=False):
+    messages: list
+    requestId: str

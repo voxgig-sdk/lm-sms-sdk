@@ -178,6 +178,13 @@ Return the entity name.
 send_message = client.SendMessage
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `messages` | `Array` | No | List of message information includes details such as messageId, recipient, referenceId |
+| `requestId` | `String` | No | Unique Id of the request made towards LINK |
+
 ### Operations
 
 #### `create(reqdata, ctrl = nil) -> result`

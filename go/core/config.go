@@ -328,7 +328,7 @@ func MakeConfig() map[string]any {
 									"params": []any{
 										map[string]any{
 											"name": "id",
-											"orig": "message_id",
+											"orig": "messageId",
 											"type": "`$STRING`",
 											"kind": "param",
 											"reqd": true,
@@ -376,7 +376,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "message_id",
-											"orig": "message_id",
+											"orig": "messageId",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -440,7 +440,7 @@ func MakeConfig() map[string]any {
 									"params": []any{
 										map[string]any{
 											"name": "id",
-											"orig": "message_id",
+											"orig": "messageId",
 											"type": "`$STRING`",
 											"kind": "param",
 											"reqd": true,
@@ -461,7 +461,21 @@ func MakeConfig() map[string]any {
 				},
 			},
 			"send_message": map[string]any{
-				"fields": []any{},
+				"fields": []any{
+					map[string]any{
+						"name": "messages",
+						"title": "Messages",
+						"type": "`$ARRAY`",
+						"short": "List of message information includes details such as messageId, recipient, referenceId",
+					},
+					map[string]any{
+						"name": "requestId",
+						"title": "Request Id",
+						"type": "`$STRING`",
+						"short": "Unique Id of the request made towards LINK",
+						"format": "uuid",
+					},
+				},
 				"name": "send_message",
 				"op": map[string]any{
 					"create": map[string]any{
@@ -486,7 +500,7 @@ func MakeConfig() map[string]any {
 								},
 								"rename": map[string]any{},
 								"transform": map[string]any{
-									"req": "`reqdata`",
+									"req": "`reqdata.messages`",
 									"res": "`body`",
 								},
 								"args": map[string]any{},
@@ -514,7 +528,7 @@ func MakeConfig() map[string]any {
 								},
 								"rename": map[string]any{},
 								"transform": map[string]any{
-									"req": "`reqdata`",
+									"req": "`reqdata.messages`",
 									"res": "`body`",
 								},
 								"args": map[string]any{},

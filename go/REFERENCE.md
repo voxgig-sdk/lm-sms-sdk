@@ -194,6 +194,13 @@ sendMessage := client.SendMessage(nil)
 fmt.Println(sendMessage.GetName()) // "send_message"
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `messages` | `[]any` | No | List of message information includes details such as messageId, recipient, referenceId |
+| `requestId` | `string` | No | Unique Id of the request made towards LINK |
+
 ### Operations
 
 #### `Create(reqdata, ctrl map[string]any) (any, error)`

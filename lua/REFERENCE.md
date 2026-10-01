@@ -175,6 +175,13 @@ Return the entity name.
 local send_message = client:SendMessage(nil)
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `messages` | `table` | No | List of message information includes details such as messageId, recipient, referenceId |
+| `requestId` | `string` | No | Unique Id of the request made towards LINK |
+
 ### Operations
 
 #### `create(reqdata, ctrl) -> any, err`

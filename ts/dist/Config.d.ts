@@ -297,7 +297,19 @@ declare class Config {
             };
         };
         send_message: {
-            fields: never[];
+            fields: ({
+                name: string;
+                title: string;
+                type: string;
+                short: string;
+                format?: undefined;
+            } | {
+                name: string;
+                title: string;
+                type: string;
+                short: string;
+                format: string;
+            })[];
             name: string;
             op: {
                 create: {

@@ -350,7 +350,7 @@ class LmSmsConfig
                     'params' => [
                       [
                         'name' => 'id',
-                        'orig' => 'message_id',
+                        'orig' => 'messageId',
                         'type' => '`$STRING`',
                         'kind' => 'param',
                         'reqd' => true,
@@ -398,7 +398,7 @@ class LmSmsConfig
                     'query' => [
                       [
                         'name' => 'message_id',
-                        'orig' => 'message_id',
+                        'orig' => 'messageId',
                         'type' => '`$STRING`',
                         'kind' => 'query',
                       ],
@@ -462,7 +462,7 @@ class LmSmsConfig
                     'params' => [
                       [
                         'name' => 'id',
-                        'orig' => 'message_id',
+                        'orig' => 'messageId',
                         'type' => '`$STRING`',
                         'kind' => 'param',
                         'reqd' => true,
@@ -483,7 +483,21 @@ class LmSmsConfig
           ],
         ],
         'send_message' => [
-          'fields' => [],
+          'fields' => [
+            [
+              'name' => 'messages',
+              'title' => 'Messages',
+              'type' => '`$ARRAY`',
+              'short' => 'List of message information includes details such as messageId, recipient, referenceId',
+            ],
+            [
+              'name' => 'requestId',
+              'title' => 'Request Id',
+              'type' => '`$STRING`',
+              'short' => 'Unique Id of the request made towards LINK',
+              'format' => 'uuid',
+            ],
+          ],
           'name' => 'send_message',
           'op' => [
             'create' => [
@@ -508,7 +522,7 @@ class LmSmsConfig
                   ],
                   'rename' => [],
                   'transform' => [
-                    'req' => '`reqdata`',
+                    'req' => '`reqdata.messages`',
                     'res' => '`body`',
                   ],
                   'args' => [],
@@ -536,7 +550,7 @@ class LmSmsConfig
                   ],
                   'rename' => [],
                   'transform' => [
-                    'req' => '`reqdata`',
+                    'req' => '`reqdata.messages`',
                     'res' => '`body`',
                   ],
                   'args' => [],
