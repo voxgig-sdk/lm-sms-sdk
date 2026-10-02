@@ -1,31 +1,17 @@
 {
   "files": [
-    "SUMMARY.md",
-    "docs/api/index.html",
-    "docs/api/schedule.html",
-    "docs/api/send_message.html",
-    "docs/features/debug.html",
-    "docs/features/idempotency.html",
-    "docs/features/metrics.html",
-    "docs/features/paging.html",
-    "docs/features/ratelimit.html",
-    "docs/features/retry.html",
-    "docs/features/test.html",
-    "docs/features/timeout.html",
-    "docs/guides/authentication.html",
-    "docs/guides/concepts.html",
-    "docs/guides/errors.html",
-    "docs/guides/first-call.html",
-    "docs/index.html",
-    "docs/sdks/go.html",
-    "docs/sdks/lua.html",
-    "docs/sdks/php.html",
-    "docs/sdks/py.html",
-    "docs/sdks/rb.html",
-    "docs/sdks/ts.html",
-    "docs/tools/go-cli.html",
-    "docs/tools/go-mcp.html"
+    "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "> &lt;div&gt;&lt;h2&gt;Purpose and functionality&lt;/h2&gt;\n>\n> MyLINK SMS API is a REST API supporting the needs for sending and receiving SMS to the recipients you want to reach, either if it is for time critical SMS or high load purposes.\n>\n> MyLINK SMS API is LINK Mobility’s new flagship SMS product, and is a part of our CPaaS offering.\n>\n> &lt;h2&gt;Current supported functionality&lt;/h2&gt;&lt;ul style=&quot;list-style:disc inside;&quot;&gt; &lt;li&gt;&lt;a href=&quot;#tag/Send-Messages/paths/~1sms~1v1~1messages/post&quot;&gt;Send SMS (Mobile Terminated)&lt;/a&gt;&lt;ul style=&quot;list-style:circle;&quot;&gt;&lt;li&gt;Send single message&lt;/li&gt;&lt;li&gt;Batch Sending MT Messages&lt;/li&gt;&lt;/ul&gt; &lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#tag/SmsScheduling&quot;&gt;Scheduling sendings&lt;/a&gt;&lt;/li&gt; &lt;li&gt;&lt;a href=&quot;#tag/Receive-Messages/operation/MobileOriginated&quot;&gt;Receive SMS (Mobile Originated)&lt;/a&gt;&lt;/li&gt; &lt;li&gt;&lt;a href=&quot;#tag/Receive-Messages/operation/Delivery%20Report&quot;&gt;Delivery Reports&lt;/a&gt;&lt;/li&gt; &lt;li&gt;Message Obfuscation&lt;/li&gt; &lt;li&gt;Portal access for statistics and product administration&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Getting started&lt;/h2&gt;&lt;ul style=&quot;list-style:disc inside;&quot; &gt; &lt;li&gt;Get in touch with us to get a demo or sign up for the product: &lt;a href=&quot;https://www.linkmobility.com/contact-us&quot;&gt;Click here&lt;/a&gt;&lt;/li&gt; &lt;li&gt;Accept your invitation to the MyLINK portal to generate your API secrets &lt;/li&gt; &lt;li&gt;Revisit the developer portal for how to send an SMS &lt;/li&gt;&lt;/ul&gt;&lt;div&gt;",
+      "Accepted",
+      "Bearer token",
+      "List of message information includes details such as messageId, recipient, referenceId",
+      "Success",
+      "Unique Id of the request made towards LINK"
+    ]
+  }
 }
